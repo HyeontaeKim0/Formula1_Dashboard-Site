@@ -1,0 +1,135 @@
+export interface PodiumDriver {
+  position: number;
+  driverName: string;
+  driverCode: string;
+  team: string;
+  teamColor?: string;
+  imageUrl?: string;
+  teamLogoUrl?: string;
+}
+
+export interface DriverStandingPodium {
+  position: number;
+  driver_number: number;
+}
+
+export interface DriverStanding {
+  position: number;
+  driverName: string;
+  driverCode: string;
+  team: string;
+  points: number;
+  wins: number;
+  podiums: number;
+  teamColor?: string;
+}
+
+export interface Driver {
+  driverName: string;
+  driverCode: string;
+  team: string;
+  teamColor: string;
+  teamLogoUrl: string;
+  driverImageUrl: string;
+  points: number;
+  wins: number;
+  podiums: number;
+  position: number;
+  nationality: string;
+  driverNumber?: number;
+  countryCode?: string;
+}
+
+export interface DriversSectionProps {
+  drivers?: Driver[];
+}
+
+export type RaceEventType = "practice" | "qualifying" | "sprint" | "race";
+
+export interface Sessions {
+  circuit_key: number;
+  circuit_short_name: string;
+  country_code: string;
+  country_key: number;
+  country_name: string;
+  date_end: string;
+  date_start: string;
+  gmt_offset: string;
+  location: string;
+  meeting_key: number;
+  session_key: number;
+  session_name: string;
+  session_type: string;
+  year: number;
+}
+
+export interface RaceEvent {
+  name: string;
+  date: string;
+  time: string;
+  daysUntil: number;
+  type: RaceEventType;
+}
+
+export interface NewsItem {
+  title: string;
+  author: string;
+  timeAgo: string;
+  category?: string;
+  trending?: boolean;
+}
+
+export interface DriverResult {
+  position: number;
+  driverName: string;
+  driverCode: string;
+  team: string;
+  time: string;
+  laps: number;
+  points: number;
+  highlight?: string;
+  teamColor?: string;
+}
+
+export interface SessionResult {
+  dnf: boolean;
+  dns: boolean;
+  dsq: boolean;
+  driver_number: number;
+  duration: number;
+  gap_to_leader: number;
+  number_of_laps: number;
+  meeting_key: number;
+  position: number;
+  session_key: number;
+}
+
+export interface Meeting {
+  circuit_key: number;
+  circuit_short_name: string;
+  country_code: string;
+  country_key: number;
+  country_name: string;
+  date_start: string;
+  gmt_offset: string;
+  location: string;
+  meeting_key: number;
+  meeting_name: string;
+  meeting_official_name: string;
+  year: number;
+}
+
+export interface OpenF1Driver {
+  broadcast_name: string;
+  country_code: string;
+  driver_number: number;
+  first_name: string;
+  full_name: string;
+  headshot_url: string;
+  last_name: string;
+  meeting_key: number;
+  name_acronym: string;
+  session_key: number;
+  team_colour: string;
+  team_name: string;
+}

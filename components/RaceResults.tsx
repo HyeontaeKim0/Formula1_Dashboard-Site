@@ -3,17 +3,7 @@
 import { Trophy, Award, Clock, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
-interface DriverResult {
-  position: number;
-  driverName: string;
-  driverCode: string;
-  team: string;
-  time: string;
-  laps: number;
-  points: number;
-  highlight?: string;
-  teamColor?: string;
-}
+import type { DriverResult } from "@/lib/types/types";
 
 const raceResults: DriverResult[] = [
   {

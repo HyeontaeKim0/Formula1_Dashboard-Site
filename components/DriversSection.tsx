@@ -4,21 +4,9 @@ import { Trophy, Medal, Users } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-export interface Driver {
-  driverName: string;
-  driverCode: string;
-  team: string;
-  teamColor: string;
-  teamLogoUrl: string;
-  driverImageUrl: string;
-  points: number;
-  wins: number;
-  podiums: number;
-  position: number;
-  nationality: string;
-  driverNumber?: number;
-  countryCode?: string;
-}
+import type { Driver, DriversSectionProps } from "@/lib/types/types";
+
+export type { Driver } from "@/lib/types/types";
 
 // 기본 드라이버 데이터 (fallback)
 const defaultDrivers: Driver[] = [
@@ -38,10 +26,6 @@ const defaultDrivers: Driver[] = [
     nationality: "영국",
   },
 ];
-
-interface DriversSectionProps {
-  drivers?: Driver[];
-}
 
 export default function DriversSection({
   drivers = defaultDrivers,

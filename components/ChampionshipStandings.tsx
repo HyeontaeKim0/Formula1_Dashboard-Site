@@ -3,17 +3,12 @@
 import { Trophy, Medal } from "lucide-react";
 import { useState } from "react";
 
-interface DriverStanding {
-  position: number;
-  driverName: string;
-  driverCode: string;
-  team: string;
-  points: number;
-  wins: number;
-  podiums: number;
-  teamColor?: string;
-}
+import { getSessionResults } from "@/lib/sessionResultApi";
+import type { DriverStanding } from "@/lib/types/types";
 
+console.log(getSessionResults());
+
+// 임시 하드 코딩
 const driverStandings: DriverStanding[] = [
   {
     position: 1,

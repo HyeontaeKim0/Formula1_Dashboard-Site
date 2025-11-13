@@ -42,36 +42,9 @@ import Isack from "../assets/img/driverProfile/Racingbulls/isack.webp";
 import Liam from "../assets/img/driverProfile/Racingbulls/lowson.webp";
 import RacingBullsLogo from "../assets/img/teamLogo/RacingBulls.svg";
 
-export interface OpenF1Driver {
-  broadcast_name: string;
-  country_code: string;
-  driver_number: number;
-  first_name: string;
-  full_name: string;
-  headshot_url: string;
-  last_name: string;
-  meeting_key: number;
-  name_acronym: string;
-  session_key: number;
-  team_colour: string;
-  team_name: string;
-}
+import type { Driver, OpenF1Driver } from "@/lib/types/types";
 
-export interface Driver {
-  driverName: string;
-  driverCode: string;
-  team: string;
-  teamColor: string;
-  teamLogoUrl: string;
-  driverImageUrl: string;
-  points: number;
-  wins: number;
-  podiums: number;
-  position: number;
-  nationality: string;
-  driverNumber: number;
-  countryCode: string;
-}
+export type { Driver, OpenF1Driver } from "@/lib/types/types";
 
 // 팀 로고 URL 매핑
 const teamLogoMap: Record<string, string> = {

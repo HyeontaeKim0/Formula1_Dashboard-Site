@@ -3,13 +3,7 @@
 import { Newspaper, Clock, ArrowRight, TrendingUp } from "lucide-react";
 import { useState } from "react";
 
-interface NewsItem {
-  title: string;
-  author: string;
-  timeAgo: string;
-  category?: string;
-  trending?: boolean;
-}
+import type { NewsItem } from "@/lib/types/types";
 
 const newsItems: NewsItem[] = [
   {

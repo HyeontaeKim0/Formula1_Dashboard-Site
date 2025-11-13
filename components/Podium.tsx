@@ -2,54 +2,143 @@
 
 import { Trophy, Medal } from "lucide-react";
 import Image from "next/image";
+import { getSessionResults } from "@/lib/sessionResultApi";
+import type {
+  DriverStandingPodium,
+  PodiumDriver,
+  Sessions,
+} from "@/lib/types/types";
+import { useEffect, useState } from "react";
+import { getSessions } from "@/lib/sessionsApi";
+import { getLastestMeeting } from "@/lib/lastestMeeting";
+import type { LastestMeeting } from "@/lib/lastestMeeting";
 
-interface PodiumDriver {
-  position: number;
-  driverName: string;
-  driverCode: string;
-  team: string;
-  teamColor?: string;
-  imageUrl?: string;
-  teamLogoUrl?: string;
-}
+// 포디움 드라이버 팀 로고
+import McLarenLogo from "@/assets/img/teamLogo/McLaren.webp";
+import MercedesLogo from "@/assets/img/teamLogo/Mercedes.svg";
+import RedBullLogo from "@/assets/img/teamLogo/RedBull.svg";
 
-const podiumData: PodiumDriver[] = [
-  {
-    position: 2,
-    driverName: "샤를 르클레르",
-    driverCode: "LEC",
-    team: "페라리",
-    teamColor: "#DC143C",
-    imageUrl:
-      "https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_auto/content/dam/fom-website/2018-redesign-assets/drivers/2025/chalec01.png",
-    teamLogoUrl:
-      "https://i.namu.wiki/i/ECrvNlNmJzF6cqUToZ0rAzY7or8LZUSccqLj2H6KyEW4aJj1ZgQZLY4bhgA5A87WcQHIqY6_RqX23r6tZQCa8g.svg",
-  },
-  {
-    position: 1,
-    driverName: "랜도 노리스",
-    driverCode: "NOR",
-    team: "맥라렌",
-    teamColor: "#FF8000",
-    imageUrl:
-      "https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_auto/content/dam/fom-website/2018-redesign-assets/drivers/2025/lannor01.png",
-    teamLogoUrl:
-      "https://i.namu.wiki/i/NMVkodqAXkSDUBnIu-PG7rHKsJSdUj-M7zfEW3i1aoB_QWP2QC5CaJT90iK0wJpzefENKLG-Fhtd59o1Qr1qHQ.webp",
-  },
-  {
-    position: 3,
-    driverName: "막스 베르스타펜",
-    driverCode: "VER",
-    team: "레드불",
-    teamColor: "#1E41FF",
-    imageUrl:
-      "https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_auto/content/dam/fom-website/2018-redesign-assets/drivers/2025/maxver01.png",
-    teamLogoUrl:
-      "https://i.namu.wiki/i/vYEiVV8vmhw4238pjyzmChCDSXs0yczx87qDd2EentaqZurc2fe0WzPDa4jtDdPXMcJbJBfJk5J9STzdsQttjezF7kd2rnqeSzei7TBYqdS71sQ0-cuuFuw_er0cyZy6SZd6xD1UiUFOEGSspcla7A.svg",
-  },
-];
+// 포디움 드라이버 이미지
+import MaxVerstappen from "@/assets/img/driverProfile/RedBull/max.webp";
+import KimiAntonelli from "@/assets/img/driverProfile/Mercedes/kimi.webp";
+import LandoNorris from "@/assets/img/driverProfile/McLaren/norris.webp";
 
 export default function Podium() {
+  const [driverStandingPodium, setDriverStandingPodium] = useState<
+    DriverStandingPodium[]
+  >([]);
+
+  const [lastestMeeting, setLastestMeeting] = useState<LastestMeeting | null>(
+    null
+  );
+
+  useEffect(() => {
+    const fetchLastestMeeting = async () => {
+      const lastestMeeting = await getLastestMeeting();
+
+      setLastestMeeting(lastestMeeting);
+    };
+    fetchLastestMeeting();
+  }, []);
+
+  useEffect(() => {
+    const fetchSessionResults = async () => {
+      try {
+        const sessionResults = await getSessionResults();
+        console.log("sessionResults", sessionResults);
+        setDriverStandingPodium(
+          sessionResults.map((result) => ({
+            position: result.position,
+            driver_number: result.driver_number,
+          }))
+        );
+      } catch (error) {
+        console.error("세션 결과를 불러오지 못했습니다.", error);
+      }
+    };
+    fetchSessionResults();
+  }, []);
+
+  const getDriverName = (driver_number: number) => {
+    switch (driver_number) {
+      case 1:
+        return "막스 베르스타펜 ";
+      case 12:
+        return "키미 안토넬리";
+      case 4:
+        return "랜도 노리스";
+
+      default:
+        return driver_number.toString();
+    }
+  };
+
+  const getTeamName = (driver_number: number) => {
+    switch (driver_number) {
+      case 1:
+        return "레드불";
+      case 12:
+        return "메르세데스";
+      case 4:
+        return "맥라렌";
+      default:
+        return driver_number.toString();
+    }
+  };
+
+  const getTeamColor = (driver_number: number) => {
+    switch (driver_number) {
+      case 1:
+        return "#1E41FF";
+      case 12:
+        return "#00D2BE";
+      case 4:
+        return "#FF8000";
+      default:
+        return "#000000";
+    }
+  };
+  const getTeamLogoUrl = (driver_number: number) => {
+    switch (driver_number) {
+      case 1:
+        return RedBullLogo.src;
+      case 12:
+        return MercedesLogo.src;
+      case 4:
+        return McLarenLogo.src;
+      default:
+        return "";
+    }
+  };
+
+  const getDriverImageUrl = (driver_number: number) => {
+    switch (driver_number) {
+      case 1:
+        return MaxVerstappen.src;
+      case 12:
+        return KimiAntonelli.src;
+      case 4:
+        return LandoNorris.src;
+      default:
+        return "";
+    }
+  };
+
+  const podiumOrder = [1, 0, 2];
+  const orderedDrivers = podiumOrder
+    .map((index) => driverStandingPodium[index])
+    .filter((driver): driver is DriverStandingPodium => driver !== undefined);
+
+  const podiumData: PodiumDriver[] = orderedDrivers.map((driver) => ({
+    position: driver.position,
+    driverName: getDriverName(driver.driver_number),
+    driverCode: driver.driver_number.toString(),
+    team: getTeamName(driver.driver_number),
+    teamColor: getTeamColor(driver.driver_number),
+    imageUrl: getDriverImageUrl(driver.driver_number),
+    teamLogoUrl: getTeamLogoUrl(driver.driver_number),
+  }));
+
   const getPositionHeight = (position: number) => {
     switch (position) {
       case 1:
@@ -139,7 +228,10 @@ export default function Podium() {
             </div>
             <div>
               <h2 className="text-2xl font-bold">최근 레이스 포디움</h2>
-              <p className="text-sm text-gray-400">멕시코 그랑프리</p>
+              <p className="text-sm text-gray-400">
+                {lastestMeeting?.circuit.country} |{" "}
+                {lastestMeeting?.circuit.city} 그랑프리
+              </p>
             </div>
           </div>
         </div>
@@ -205,8 +297,8 @@ export default function Podium() {
                     )}
                     <div className="text-sm text-gray-400">{driver.team}</div>
                   </div>
-                  <div className="text-sm font-mono text-gray-500">
-                    {driver.driverCode}
+                  <div className="text-sm  font-mono text-white">
+                    #{driver.driverCode}
                   </div>
                 </div>
               </div>

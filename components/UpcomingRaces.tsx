@@ -3,13 +3,7 @@
 import { Calendar, Clock, Flag, Play } from "lucide-react";
 import { useState, useEffect } from "react";
 
-interface RaceEvent {
-  name: string;
-  date: string;
-  time: string;
-  daysUntil: number;
-  type: "practice" | "qualifying" | "sprint" | "race";
-}
+import type { RaceEvent } from "@/lib/types/types";
 
 const upcomingRaces: RaceEvent[] = [
   {
