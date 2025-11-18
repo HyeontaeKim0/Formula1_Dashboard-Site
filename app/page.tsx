@@ -5,13 +5,15 @@ import RaceResults from "@/components/RaceResults";
 import ChampionshipStandings from "@/components/ChampionshipStandings";
 import NewsSection from "@/components/NewsSection";
 import Podium from "@/components/Podium";
+import PodiumNew from "@/components/PodiumNew";
 
 export default function Home() {
   return (
     <div className="container mx-auto px-4 py-8 animate-fade-in">
       {/* Podium Section */}
       <div className="mb-8 animate-slide-up">
-        <Podium />
+        {/* <Podium /> */}
+        <PodiumNew />
       </div>
 
       {/* Main Grid */}
