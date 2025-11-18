@@ -13,6 +13,11 @@ import { getSessions } from "@/lib/sessionsApi";
 import { getLastestMeeting } from "@/lib/lastestMeeting";
 import type { LastestMeeting } from "@/lib/lastestMeeting";
 
+// 모든 차량 이미지
+import McLarenCar from "@/assets/img/car/McLaren/McLaren_Car.webp";
+import MercedesCar from "@/assets/img/car/Mercedes/Mercedes_Car.webp";
+import RedBullCar from "@/assets/img/car/RedBull/RedBull_Car.webp";
+
 // 모든 팀 로고
 import McLarenLogo from "@/assets/img/teamLogo/McLaren.webp";
 import MercedesLogo from "@/assets/img/teamLogo/Mercedes.svg";
@@ -28,7 +33,7 @@ import RacingBullsLogo from "@/assets/img/teamLogo/RacingBulls.svg";
 // 모든 드라이버 이미지
 import MaxVerstappen from "@/assets/img/podium/Max_Podium.png";
 import YukiTsunoda from "@/assets/img/driverProfile/RedBull/yuki.webp";
-import KimiAntonelli from "@/assets/img/podium/Kimi_Podium.png";
+import KimiAntonelli from "@/assets/img/podium/Kimi_Podium4.png";
 import GeorgeRussell from "@/assets/img/driverProfile/Mercedes/george.webp";
 import LandoNorris from "@/assets/img/podium/Norris_Podium.png";
 import OscarPiastri from "@/assets/img/driverProfile/McLaren/piastri.webp";
@@ -57,6 +62,7 @@ export default function Podium() {
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   // 최근 레이스 데이터
   useEffect(() => {
@@ -85,6 +91,7 @@ export default function Podium() {
   // 최근 포디움 드라이버 데이터
   useEffect(() => {
     const fetchSessionResults = async () => {
+      setIsLoading(true);
       try {
         const sessionResults = await getSessionResults();
         console.log("sessionResults", sessionResults);
@@ -98,10 +105,23 @@ export default function Podium() {
         setCurrentIndex(0);
       } catch (error) {
         console.error("세션 결과를 불러오지 못했습니다.", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchSessionResults();
   }, []);
+
+  const getCar = (driver_number: number) => {
+    switch (driver_number) {
+      case 4:
+        return McLarenCar.src;
+      case 12:
+        return MercedesCar.src;
+      case 1:
+        return RedBullCar.src;
+    }
+  };
 
   const getDriverName = (driver_number: number) => {
     switch (driver_number) {
@@ -329,7 +349,7 @@ export default function Podium() {
   };
 
   // 포디움 순서대로 정렬 (1위, 2위, 3위)
-  const podiumOrder = [1, 0, 2];
+  const podiumOrder = [0, 1, 2];
   const orderedDrivers = podiumOrder
     .map((index) => driverStandingPodium[index])
     .filter((driver): driver is DriverStandingPodium => driver !== undefined);
@@ -342,6 +362,7 @@ export default function Podium() {
     teamColor: getTeamColor(driver.driver_number),
     imageUrl: getDriverImageUrl(driver.driver_number),
     teamLogoUrl: getTeamLogoUrl(driver.driver_number),
+    carImageUrl: getCar(driver.driver_number),
   }));
 
   // 캐러셀 네비게이션 함수
@@ -360,6 +381,70 @@ export default function Podium() {
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
+
+  // 로딩 화면
+  if (isLoading) {
+    return (
+      <div className="relative w-full">
+        {/* 헤더 섹션 */}
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+              <Trophy className="text-primary" size={24} />
+            </div>
+            <div>
+              <h3 className="text-xl font-extrabold tracking-tight text-white">
+                최근 레이스
+              </h3>
+              <p className="mt-1 text-sm font-medium text-gray-400">
+                데이터 로딩 중...
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 로딩 컨테이너 */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90 p-0">
+          <div className="relative z-10 flex min-h-[500px] flex-col items-center justify-center px-20">
+            {/* 로딩 스피너 */}
+            <div className="relative">
+              {/* 외부 회전 링 */}
+              <div className="h-24 w-24 animate-spin rounded-full border-4 border-primary/20 border-t-primary"></div>
+              {/* 내부 회전 링 */}
+              <div
+                className="absolute inset-0 h-24 w-24 animate-spin rounded-full border-4 border-transparent border-r-secondary"
+                style={{
+                  animationDirection: "reverse",
+                  animationDuration: "1.5s",
+                }}
+              ></div>
+              {/* 중앙 아이콘 */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Trophy className="text-primary" size={32} />
+              </div>
+            </div>
+
+            {/* 로딩 텍스트 */}
+            <div className="mt-8 text-center">
+              <div className="text-2xl font-bold text-white">
+                포디움 데이터 로딩 중
+              </div>
+              <div className="mt-2 text-sm text-gray-400">
+                잠시만 기다려주세요...
+              </div>
+            </div>
+
+            {/* 진행 바 */}
+            <div className="mt-8 w-full max-w-xs">
+              <div className="h-1 overflow-hidden rounded-full bg-slate-700">
+                <div className="h-full bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-[shimmer_2s_infinite]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full">
@@ -410,7 +495,7 @@ export default function Podium() {
                     }}
                   >
                     {/* 메인 컨텐츠 */}
-                    <div className="relative z-10 flex min-h-[500px] flex-col md:flex-row md:items-center md:justify-between px-20">
+                    <div className="relative z-10 flex min-h-[500px] flex-col md:flex-row md:items-center md:justify-between px-[90px]">
                       {/* 왼쪽: 텍스트 영역 */}
                       <div className="flex flex-1 flex-col justify-center p-8 md:p-15">
                         <div className="space-y-4">
@@ -431,7 +516,7 @@ export default function Podium() {
                             <div className="flex items-center gap-3">
                               {driver.teamLogoUrl && (
                                 <div
-                                  className={`relative h-10 w-10 flex-shrink-0 md:h-10 md:w-10 ${
+                                  className={`relative w-[50px] h-[50px] flex-shrink-0  ${
                                     driver.team === "맥라렌"
                                       ? "drop-shadow-[0_0_10px_rgba(0,0,0,0.4)]"
                                       : ""
@@ -455,6 +540,18 @@ export default function Podium() {
                                 {driver.team}
                               </div>
                             </div>
+                            {driver.carImageUrl && (
+                              <div className="relative  flex-shrink-0 w-[340px] h-[100px]">
+                                <Image
+                                  src={driver.carImageUrl}
+                                  alt={driver.team}
+                                  fill
+                                  className="object-contain"
+                                  sizes="140px"
+                                  unoptimized
+                                />
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -464,7 +561,7 @@ export default function Podium() {
                         {driver.imageUrl && (
                           <div className="relative w-full max-w-md">
                             {/* 드라이버 이미지 */}
-                            <div className="relative">
+                            <div className="relative p-10">
                               <div
                                 className="relative aspect-[3/4] w-full overflow-hidden"
                                 style={{

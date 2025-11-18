@@ -6,6 +6,7 @@ export interface PodiumDriver {
   teamColor?: string;
   imageUrl?: string;
   teamLogoUrl?: string;
+  carImageUrl?: string;
 }
 
 export interface DriverStandingPodium {
