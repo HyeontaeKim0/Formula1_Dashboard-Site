@@ -495,7 +495,7 @@ export default function Podium() {
                     }}
                   >
                     {/* 메인 컨텐츠 */}
-                    <div className="relative z-10 flex min-h-[500px] flex-col md:flex-row md:items-center md:justify-between px-[90px]">
+                    <div className="relative z-10 flex min-h-[500px] flex-col md:flex-row md:items-center md:justify-between px-[200px]">
                       {/* 왼쪽: 텍스트 영역 */}
                       <div className="flex flex-1 flex-col justify-center p-8 md:p-15">
                         <div className="space-y-4">
@@ -541,7 +541,7 @@ export default function Podium() {
                               </div>
                             </div>
                             {driver.carImageUrl && (
-                              <div className="relative  flex-shrink-0 w-[340px] h-[100px]">
+                              <div className="relative  flex-shrink-0 w-[400px] h-[150px]">
                                 <Image
                                   src={driver.carImageUrl}
                                   alt={driver.team}
