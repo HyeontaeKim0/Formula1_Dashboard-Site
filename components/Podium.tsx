@@ -9,7 +9,7 @@ import type {
   Sessions,
 } from "@/lib/types/types";
 import { useEffect, useState } from "react";
-import { getSessions } from "@/lib/sessionsApi";
+
 import { getLastestMeeting } from "@/lib/lastestMeeting";
 import type { LastestMeeting } from "@/lib/lastestMeeting";
 
@@ -231,7 +231,9 @@ export default function Podium() {
               <Trophy className="text-white" size={20} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">최근 레이스 포디움</h2>
+              <h2 className="text-2xl font-bold text-gray-900">
+                최근 레이스 포디움
+              </h2>
               <p className="text-sm text-gray-600">
                 {lastestMeeting?.circuit.country} |{" "}
                 {lastestMeeting?.circuit.city} 그랑프리

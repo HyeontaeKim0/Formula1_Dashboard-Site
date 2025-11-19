@@ -2,67 +2,39 @@
 
 import { Trophy, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { getSessionResults } from "@/lib/sessionResultApi";
 import type {
   DriverStandingPodium,
   PodiumDriver,
   Sessions,
 } from "@/lib/types/types";
 import { useEffect, useState } from "react";
-import { getSessions } from "@/lib/sessionsApi";
+
+import { getSessionResults } from "@/lib/sessionResultApi";
 import { getLastestMeeting } from "@/lib/lastestMeeting";
+
 import type { LastestMeeting } from "@/lib/lastestMeeting";
 
-// 모든 차량 이미지
-import McLarenCar from "@/assets/img/car/McLaren/McLaren_Car.webp";
-import MercedesCar from "@/assets/img/car/Mercedes/Mercedes_Car.webp";
-import RedBullCar from "@/assets/img/car/RedBull/RedBull_Car.webp";
-
-// 모든 팀 로고
-import McLarenLogo from "@/assets/img/teamLogo/McLaren.webp";
-import MercedesLogo from "@/assets/img/teamLogo/Mercedes.svg";
-import RedBullLogo from "@/assets/img/teamLogo/RedBull.svg";
-import FerrariLogo from "@/assets/img/teamLogo/Ferrari.svg";
-import WilliamsLogo from "@/assets/img/teamLogo/Williams.svg";
-import AstonMartinLogo from "@/assets/img/teamLogo/Martin.svg";
-import HaasLogo from "@/assets/img/teamLogo/Haas.svg";
-import AlpineLogo from "@/assets/img/teamLogo/Alpine.svg";
-import KickSauberLogo from "@/assets/img/teamLogo/Kick.svg";
-import RacingBullsLogo from "@/assets/img/teamLogo/RacingBulls.svg";
-
-// 모든 드라이버 이미지
-import MaxVerstappen from "@/assets/img/podium/Max_Podium.png";
-import YukiTsunoda from "@/assets/img/driverProfile/RedBull/yuki.webp";
-import KimiAntonelli from "@/assets/img/podium/Kimi_Podium4.png";
-import GeorgeRussell from "@/assets/img/driverProfile/Mercedes/george.webp";
-import LandoNorris from "@/assets/img/podium/Norris_Podium.png";
-import OscarPiastri from "@/assets/img/driverProfile/McLaren/piastri.webp";
-import CarlosSainz from "@/assets/img/driverProfile/Williams/sainz.webp";
-import AlexAlbon from "@/assets/img/driverProfile/Williams/albon.webp";
-import LewisHamilton from "@/assets/img/driverProfile/Ferrari/hamilton.webp";
-import CharlesLeclerc from "@/assets/img/driverProfile/Ferrari/leclerc.webp";
-import FernandoAlonso from "@/assets/img/driverProfile/AstonMartin/fernando.webp";
-import LanceStroll from "@/assets/img/driverProfile/AstonMartin/stroll.webp";
-import EstebanOcon from "@/assets/img/driverProfile/Haas/ocon.webp";
-import OliverBearman from "@/assets/img/driverProfile/Haas/oliver.webp";
-import GabrielBortoleto from "@/assets/img/driverProfile/KickSauber/gabriel.webp";
-import NicoHulkenberg from "@/assets/img/driverProfile/KickSauber/niko.webp";
-import PierreGasly from "@/assets/img/driverProfile/Alpine/gasly.webp";
-import FrancoColapinto from "@/assets/img/driverProfile/Alpine/franco.webp";
-import IsackHadjar from "@/assets/img/driverProfile/RacingBulls/isack.webp";
-import LiamLawson from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
+import {
+  getCar,
+  getDriverName,
+  getTeamName,
+  getTeamColor,
+  getTeamLogoUrl,
+  getDriverImageUrl,
+  KimiAntonelli,
+} from "@/lib/utils/driverUtils";
 
 export default function Podium() {
   const [driverStandingPodium, setDriverStandingPodium] = useState<
     DriverStandingPodium[]
   >([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // 최근레이스, fastestLap,,,기타등등
   const [lastestMeeting, setLastestMeeting] = useState<LastestMeeting | null>(
     null
   );
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
 
   // 최근 레이스 데이터
   useEffect(() => {
@@ -111,242 +83,6 @@ export default function Podium() {
     };
     fetchSessionResults();
   }, []);
-
-  const getCar = (driver_number: number) => {
-    switch (driver_number) {
-      case 4:
-        return McLarenCar.src;
-      case 12:
-        return MercedesCar.src;
-      case 1:
-        return RedBullCar.src;
-    }
-  };
-
-  const getDriverName = (driver_number: number) => {
-    switch (driver_number) {
-      case 1:
-        return "Max Verstappen";
-      case 22:
-        return "유키 츠노다";
-      case 63:
-        return "조지 러셀";
-      case 12:
-        return "Kimi Antonelli";
-      case 55:
-        return "카를로스 사인츠";
-      case 23:
-        return "알렉스 알본";
-      case 44:
-        return "루이스 해밀턴";
-      case 16:
-        return "샤를 르클레르";
-      case 14:
-        return "페르난도 알론소";
-      case 18:
-        return "랜스 스트롤";
-      case 31:
-        return "에스테반 오콘";
-      case 87:
-        return "올리버 베어먼";
-      case 5:
-        return "가브리에우 보르툴레투";
-      case 27:
-        return "니코 휠켄베르그";
-      case 10:
-        return "피에르 가슬리";
-      case 43:
-        return "프란코 콜라핀토";
-      case 6:
-        return "아이작 하자르";
-      case 30:
-        return "리암 로슨";
-      case 81:
-        return "오스카 피아스트리";
-      case 4:
-        return "Lando Norris";
-
-      default:
-        return driver_number.toString();
-    }
-  };
-
-  const getTeamName = (driver_number: number) => {
-    switch (driver_number) {
-      case 1:
-        return "RedBull";
-      case 22:
-        return "RedBull";
-      case 12:
-        return "Mercedes";
-      case 63:
-        return "Mercedes";
-      case 4:
-        return "McLaren";
-      case 81:
-        return "McLaren";
-      case 55:
-        return "윌리엄스";
-      case 23:
-        return "윌리엄스";
-      case 44:
-        return "페라리";
-      case 16:
-        return "페라리";
-      case 14:
-        return "애스턴 마틴";
-      case 18:
-        return "애스턴 마틴";
-      case 87:
-        return "하스";
-      case 31:
-        return "하스";
-      case 5:
-        return "킥 자우버";
-      case 27:
-        return "킥 자우버";
-      case 10:
-        return "알핀";
-      case 43:
-        return "알핀";
-      case 6:
-        return "레이싱 불스";
-      case 30:
-        return "레이싱 불스";
-      default:
-        return driver_number.toString();
-    }
-  };
-
-  const getTeamColor = (driver_number: number) => {
-    switch (driver_number) {
-      // Red Bull
-      case 1:
-      case 22:
-        return "#1E41FF";
-      // Mercedes
-      case 12:
-      case 63:
-        return "#00D2BE";
-      // McLaren
-      case 4:
-      case 81:
-        return "#FF8000";
-      // Ferrari
-      case 44:
-      case 16:
-        return "#DC143C";
-      // Williams
-      case 55:
-      case 23:
-        return "#005AFF";
-      // Aston Martin
-      case 14:
-      case 18:
-        return "#006F62";
-      // Haas
-      case 31:
-      case 87:
-        return "#ED1C24";
-      // Kick Sauber
-      case 5:
-      case 27:
-        return "#52C41A";
-      // Alpine
-      case 10:
-      case 43:
-        return "#FF009C";
-      // Racing Bulls
-      case 6:
-      case 30:
-        return "#1E41FF";
-      default:
-        return "#1E293B";
-    }
-  };
-  const getTeamLogoUrl = (driver_number: number) => {
-    switch (driver_number) {
-      case 1:
-      case 22:
-        return RedBullLogo.src;
-      case 12:
-      case 63:
-        return MercedesLogo.src;
-      case 4:
-      case 81:
-        return McLarenLogo.src;
-      case 44:
-      case 16:
-        return FerrariLogo.src;
-      case 55:
-      case 23:
-        return WilliamsLogo.src;
-      case 14:
-      case 18:
-        return AstonMartinLogo.src;
-      case 31:
-      case 87:
-        return HaasLogo.src;
-      case 5:
-      case 27:
-        return KickSauberLogo.src;
-      case 10:
-      case 43:
-        return AlpineLogo.src;
-      case 6:
-      case 30:
-        return RacingBullsLogo.src;
-      default:
-        return "";
-    }
-  };
-
-  const getDriverImageUrl = (driver_number: number) => {
-    switch (driver_number) {
-      case 1:
-        return MaxVerstappen.src;
-      case 22:
-        return YukiTsunoda.src;
-      case 12:
-        return KimiAntonelli.src;
-      case 63:
-        return GeorgeRussell.src;
-      case 4:
-        return LandoNorris.src;
-      case 81:
-        return OscarPiastri.src;
-      case 55:
-        return CarlosSainz.src;
-      case 23:
-        return AlexAlbon.src;
-      case 44:
-        return LewisHamilton.src;
-      case 16:
-        return CharlesLeclerc.src;
-      case 14:
-        return FernandoAlonso.src;
-      case 18:
-        return LanceStroll.src;
-      case 31:
-        return EstebanOcon.src;
-      case 87:
-        return OliverBearman.src;
-      case 5:
-        return GabrielBortoleto.src;
-      case 27:
-        return NicoHulkenberg.src;
-      case 10:
-        return PierreGasly.src;
-      case 43:
-        return FrancoColapinto.src;
-      case 6:
-        return IsackHadjar.src;
-      case 30:
-        return LiamLawson.src;
-      default:
-        return "";
-    }
-  };
 
   // 포디움 순서대로 정렬 (1위, 2위, 3위)
   const podiumOrder = [0, 1, 2];
@@ -455,10 +191,10 @@ export default function Podium() {
             <Trophy className="text-primary" size={24} />
           </div>
           <div>
-            <h3 className="text-xl font-extrabold tracking-tight text-white">
+            <h3 className="text-xl font-bold tracking-tight text-gray-600">
               최근 레이스
             </h3>
-            <p className="mt-1 text-sm font-medium text-gray-400">
+            <p className="mt-1 text-sm font-medium text-gray-500">
               {lastestMeeting?.circuit.country} · {lastestMeeting?.circuit.city}
             </p>
           </div>
@@ -517,7 +253,7 @@ export default function Podium() {
                               {driver.teamLogoUrl && (
                                 <div
                                   className={`relative w-[50px] h-[50px] flex-shrink-0  ${
-                                    driver.team === "McLaren"
+                                    driver.team === "맥라렌"
                                       ? "drop-shadow-[0_0_10px_rgba(0,0,0,0.4)]"
                                       : ""
                                   }`}

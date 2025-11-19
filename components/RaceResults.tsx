@@ -1,75 +1,66 @@
 "use client";
 
 import { Trophy, Award, Clock, ChevronRight } from "lucide-react";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { getLastRaceResult } from "@/lib/lastRaceResult";
 import type { DriverResult } from "@/lib/types/types";
-
-const raceResults: DriverResult[] = [
-  {
-    position: 1,
-    driverName: "랜도 노리스",
-    driverCode: "NOR",
-    team: "맥라렌",
-    time: "1:37:58.574",
-    laps: 71,
-    points: 25,
-    highlight: "오늘의 드라이버",
-    teamColor: "#FF8000",
-  },
-  {
-    position: 2,
-    driverName: "샤를 르클레르",
-    driverCode: "LEC",
-    team: "페라리",
-    time: "+30.324",
-    laps: 71,
-    points: 18,
-    teamColor: "#DC143C",
-  },
-  {
-    position: 3,
-    driverName: "막스 베르스타펜",
-    driverCode: "VER",
-    team: "레드불",
-    time: "+31.049",
-    laps: 71,
-    points: 15,
-    teamColor: "#1E41FF",
-  },
-  {
-    position: 4,
-    driverName: "올리버 베어먼",
-    driverCode: "BEA",
-    team: "하스",
-    time: "+40.955",
-    laps: 71,
-    points: 12,
-    teamColor: "#FFFFFF",
-  },
-  {
-    position: 5,
-    driverName: "오스카 피아스트리",
-    driverCode: "PIA",
-    team: "맥라렌",
-    time: "+42.065",
-    laps: 71,
-    points: 10,
-    teamColor: "#FF8000",
-  },
-];
+import {
+  getDriverName,
+  getTeamColor,
+  getTeamName,
+} from "@/lib/utils/driverUtils";
 
 export default function RaceResults() {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+  const [lastRaceResult, setLastRaceResult] = useState<any | null>(null);
+
+  useEffect(() => {
+    const fetchLastRaceResult = async () => {
+      const lastRaceResult = await getLastRaceResult();
+      setLastRaceResult(lastRaceResult);
+    };
+    fetchLastRaceResult();
+  }, []);
+
+  console.log("lastRaceResult", lastRaceResult);
+
+  // position을 숫자로 변환하는 함수 (문자열은 큰 숫자로 변환하여 맨 뒤로)
+  const parsePosition = (position: any): number => {
+    if (typeof position === "number") return position;
+    if (typeof position === "string") {
+      const num = parseInt(position, 10);
+      if (!isNaN(num)) return num;
+      // "NC", "DSQ" 등의 문자열은 9999로 변환하여 맨 뒤로
+      return 9999;
+    }
+    return 9999;
+  };
+
+  // 각 드라이버별 결과를 배열로 변환
+  const raceResults: DriverResult[] =
+    lastRaceResult?.races?.results
+      ?.map((result: any) => ({
+        position: parsePosition(result.position),
+        driverName: getDriverName(result.driver?.number) || "",
+        driverCode: result.driver?.code || result.driver?.driverId || "",
+        team: getTeamName(result.driver?.number) || "",
+        time: result.time || result.duration || "",
+        laps: result.laps || result.numberOfLaps || lastRaceResult?.laps || 0,
+        points: result.points || 0,
+        teamColor: getTeamColor(result.driver?.number) || "",
+        // 원본 position 값도 저장 (표시용)
+        originalPosition: result.position,
+      }))
+      .sort((a: any, b: any) => a.position - b.position) || [];
 
   const getPositionColor = (position: number) => {
     switch (position) {
       case 1:
-        return "text-primary";
+        return "text-yellow-600";
       case 2:
         return "text-gray-600";
       case 3:
-        return "text-primary";
+        return "text-orange-600";
       default:
         return "text-gray-600";
     }
@@ -85,9 +76,11 @@ export default function RaceResults() {
           </div>
           <div>
             <h3 className="text-xl font-extrabold tracking-tight text-gray-900">
-              멕시코 그랑프리 결과
+              최근 레이스 결과
             </h3>
-            <p className="mt-1 text-sm font-medium text-gray-600">최근 레이스</p>
+            <p className="mt-1 text-sm font-medium text-gray-600">
+              {lastRaceResult?.races?.circuit.city} 그랑프리
+            </p>
           </div>
         </div>
         <span className="text-xs font-extrabold px-3 py-1.5 bg-primary/20 text-primary rounded-full border border-primary/30">
@@ -121,7 +114,7 @@ export default function RaceResults() {
             <tbody>
               {raceResults.map((result, index) => (
                 <tr
-                  key={result.position}
+                  key={`${result.position}-${index}`}
                   className="border-b border-gray-200 hover:bg-gray-50 transition-all duration-300 group cursor-pointer relative"
                   onMouseEnter={() => setHoveredRow(result.position)}
                   onMouseLeave={() => setHoveredRow(null)}
@@ -129,37 +122,43 @@ export default function RaceResults() {
                     animationDelay: `${index * 0.05}s`,
                   }}
                 >
-                <td className="py-4 px-4">
-                  <div className="flex items-center space-x-2">
-                    {result.position === 1 && (
-                      <Trophy
-                        className={`${getPositionColor(
+                  <td className="py-4 px-4">
+                    <div className="flex items-center space-x-2">
+                      <span
+                        className={`font-bold text-lg ${getPositionColor(
                           result.position
-                        )} animate-pulse-slow`}
-                        size={18}
-                      />
-                    )}
-                    {result.position === 2 && (
-                      <Award
-                        className={getPositionColor(result.position)}
-                        size={18}
-                      />
-                    )}
-                    {result.position === 3 && (
-                      <Award
-                        className={getPositionColor(result.position)}
-                        size={18}
-                      />
-                    )}
-                    <span
-                      className={`font-bold text-lg ${getPositionColor(
-                        result.position
-                      )}`}
-                    >
-                      {result.position}
-                    </span>
-                  </div>
-                </td>
+                        )}`}
+                      >
+                        {(result as any).originalPosition ?? result.position}
+                      </span>
+                      {result.position === 1 &&
+                        typeof (result as any).originalPosition ===
+                          "number" && (
+                          <Trophy
+                            className={`${getPositionColor(
+                              result.position
+                            )} animate-pulse-slow`}
+                            size={18}
+                          />
+                        )}
+                      {result.position === 2 &&
+                        typeof (result as any).originalPosition ===
+                          "number" && (
+                          <Award
+                            className={getPositionColor(result.position)}
+                            size={18}
+                          />
+                        )}
+                      {result.position === 3 &&
+                        typeof (result as any).originalPosition ===
+                          "number" && (
+                          <Award
+                            className={getPositionColor(result.position)}
+                            size={18}
+                          />
+                        )}
+                    </div>
+                  </td>
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-3">
                       {result.teamColor && (
@@ -175,22 +174,21 @@ export default function RaceResults() {
                         ></div>
                       )}
                       <div>
-                        <div className="font-semibold text-base text-gray-900 group-hover:text-primary transition-colors duration-300">
+                        <div className="font-semibold text-sm  text-gray-900 group-hover:text-primary transition-colors duration-300">
                           {result.driverName}
                         </div>
-                        <div className="text-sm text-gray-600 font-medium">{result.team}</div>
-                        {result.highlight && (
-                          <span className="inline-block mt-1.5 text-xs px-2.5 py-1 bg-primary/20 text-primary rounded-full border border-primary/30 font-semibold">
-                            {result.highlight}
-                          </span>
-                        )}
+                        <div className="text-sm text-gray-600 font-medium">
+                          {result.team}
+                        </div>
                       </div>
                     </div>
                   </td>
                   <td className="py-4 px-4">
                     <div className="flex items-center space-x-1.5">
                       <Clock size={14} className="text-gray-400" />
-                      <span className="text-sm font-mono font-medium">{result.time}</span>
+                      <span className="text-sm font-mono font-medium">
+                        {result.time || "-"}
+                      </span>
                     </div>
                   </td>
                   <td className="py-4 px-4 text-center text-sm text-gray-700 font-semibold">
@@ -201,10 +199,10 @@ export default function RaceResults() {
                       <span className="font-bold text-lg text-primary">
                         {result.points}
                       </span>
-                      <ChevronRight
+                      {/* <ChevronRight
                         size={16}
                         className="text-gray-400 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
-                      />
+                      /> */}
                     </div>
                   </td>
                 </tr>
