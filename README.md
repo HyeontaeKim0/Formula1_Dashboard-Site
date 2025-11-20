@@ -1,6 +1,7 @@
 # F1 Dashboard
 
-포뮬러1 레이스 일정, 결과, 순위, 드라이버 정보를 한눈에 볼 수 있는 대시보드 웹 애플리케이션입니다.
+ - 포뮬러1 레이스 일정, 결과, 순위, 드라이버 정보를 한눈에 볼 수 있는 대시보드 웹 애플리케이션입니다.
+ - A dashboard web application that provides a quick, at-a-glance view of Formula 1 race schedule, results, rankings, and driver information.
 
 ## 기술 스택
 
@@ -11,12 +12,14 @@
 
 ## 주요 기능
 
-- 📅 다가오는 레이스 일정
-- 🏁 최근 레이스 결과
-- 🏆 챔피언십 순위 (드라이버/컨스트럭터)
-- 📰 최신 뉴스
-- 🌓 다크 모드 지원
-- 📱 반응형 디자인
+- 📅 다가오는 레이스 일정 (upcoming race schedule)
+- 🏁 최근 레이스 결과 (the results of the latest race)
+- 🏆 챔피언십 순위 (드라이버/컨스트럭터) [Championship Ranking (Driver/Construtor)]
+- 📱 반응형 디자인 (responsive design)
+### Comming Soon
+- 📰 최신 뉴스 (the latest news)
+- 🌓 다크 모드 지원 (dark mod)
+
 
 ## 시작하기
 
