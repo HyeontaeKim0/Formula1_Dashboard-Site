@@ -3,45 +3,12 @@
 import { Calendar, Clock, Flag, Play } from "lucide-react";
 import { useState, useEffect } from "react";
 
-import type { RaceEvent } from "@/lib/types/types";
+import { getNextRaces } from "@/lib/nextRacesApi";
+import type { NextRacesResponse } from "@/lib/nextRacesApi";
 
-const upcomingRaces: RaceEvent[] = [
-  {
-    name: "프랙티스 1",
-    date: "7일 (금)",
-    time: "오후 2:30",
-    daysUntil: 3,
-    type: "practice",
-  },
-  {
-    name: "스프린트 퀄리파잉",
-    date: "7일 (금)",
-    time: "오후 6:30",
-    daysUntil: 3,
-    type: "qualifying",
-  },
-  {
-    name: "스프린트",
-    date: "8일 (토)",
-    time: "오후 2:00",
-    daysUntil: 4,
-    type: "sprint",
-  },
-  {
-    name: "퀄리파잉",
-    date: "8일 (토)",
-    time: "오후 6:00",
-    daysUntil: 4,
-    type: "qualifying",
-  },
-  {
-    name: "레이스",
-    date: "9일 (일)",
-    time: "오후 5:00",
-    daysUntil: 5,
-    type: "race",
-  },
-];
+import { GiF1Car } from "react-icons/gi";
+
+import type { RaceEvent } from "@/lib/types/types";
 
 const getTypeColor = (type: RaceEvent["type"]) => {
   switch (type) {
@@ -70,12 +37,51 @@ const getTypeIcon = (type: RaceEvent["type"]) => {
 
 export default function UpcomingRaces() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [upcomingRacesApi, setUpcomingRacesApi] =
+    useState<NextRacesResponse | null>(null);
+
+  // const upcomingRaces: RaceEvent[] | undefined = upcomingRacesApi?.race.map(
+  //   (race: any) => ({
+  //     name: race.race,
+  //     date: race.date,
+  //     time: race.time,
+  //     daysUntil: 3,
+  //     type: race.schedule?.race,
+  //   })
+  // );
+
+  console.log("upcomingRacesApi", upcomingRacesApi?.race[0].schedule?.fp1);
+
+  // 목데이터
+
+  const upcomingRaces: RaceEvent[] = [
+    {
+      name: "Brazil Grand Prix",
+      date: "2025-11-20",
+      time: "10:00:00",
+      daysUntil: 3,
+      type: "race",
+    },
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const fetchNextRaces = async () => {
+      try {
+        const nextRaces = await getNextRaces();
+
+        setUpcomingRacesApi(nextRaces);
+      } catch (error) {
+        console.error("Failed to fetch next races:", error);
+      }
+    };
+    fetchNextRaces();
   }, []);
 
   return (
@@ -90,7 +96,9 @@ export default function UpcomingRaces() {
             <h3 className="text-xl font-extrabold tracking-tight text-gray-900">
               다가오는 레이스
             </h3>
-            <p className="mt-1 text-sm font-medium text-gray-600">브라질 그랑프리</p>
+            <p className="mt-1 text-sm font-medium text-gray-600">
+              브라질 그랑프리
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-600 bg-gray-100 px-3 py-2 rounded-xl border border-gray-200">
@@ -148,13 +156,15 @@ export default function UpcomingRaces() {
                       </div>
                       <div className="flex items-center space-x-1.5">
                         <Clock size={14} />
-                        <span className="font-mono font-medium">{race.time}</span>
+                        <span className="font-mono font-medium">
+                          {race.time}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="ml-4 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300">
-                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                  <GiF1Car size={40} className="text-primary scale-x-[-1]" />
                 </div>
               </div>
             </div>

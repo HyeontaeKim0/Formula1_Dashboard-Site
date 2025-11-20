@@ -69,7 +69,7 @@ export interface RaceEvent {
   date: string;
   time: string;
   daysUntil: number;
-  type: RaceEventType;
+  type: string;
 }
 
 export interface NewsItem {
