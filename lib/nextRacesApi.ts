@@ -5,7 +5,7 @@ interface ScheduleItem {
   time: string;
 }
 
-interface Schedule {
+export interface Schedule {
   qualy: string;
   fp1: ScheduleItem;
   fp2: string;
@@ -17,10 +17,7 @@ interface Schedule {
 export interface NextRaceItem {
   raceId: string;
   raceName: string;
-  date: string;
-  time: string;
   circuit: string;
-  race: string;
   country: string;
   schedule?: Schedule;
 }
