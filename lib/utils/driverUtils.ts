@@ -19,7 +19,7 @@ import RacingBullsLogo from "@/assets/img/teamLogo/RacingBulls.svg";
 import MaxVerstappen from "@/assets/img/podium/Max_Podium.png";
 import YukiTsunoda from "@/assets/img/driverProfile/RedBull/yuki.webp";
 import KimiAntonelli from "@/assets/img/podium/Kimi_Podium4.png";
-import GeorgeRussell from "@/assets/img/driverProfile/Mercedes/george.webp";
+import GeorgeRussell from "@/assets/img/podium/Russell_Podium.png";
 import LandoNorris from "@/assets/img/podium/Norris_Podium.png";
 import OscarPiastri from "@/assets/img/driverProfile/McLaren/piastri.webp";
 import CarlosSainz from "@/assets/img/driverProfile/Williams/sainz.webp";
@@ -41,6 +41,8 @@ export const getCar = (driver_number: number) => {
   switch (driver_number) {
     case 4:
       return McLarenCar.src;
+    case 63:
+      return MercedesCar.src;
     case 12:
       return MercedesCar.src;
     case 1:

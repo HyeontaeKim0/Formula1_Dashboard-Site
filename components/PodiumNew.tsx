@@ -231,9 +231,9 @@ export default function Podium() {
                     }}
                   >
                     {/* 메인 컨텐츠 */}
-                    <div className="relative z-10 flex min-h-[500px] flex-col md:flex-row md:items-center md:justify-between px-[200px]">
+                    <div className="relative z-10 flex min-h-[500px] flex-col md:flex-row md:items-center md:justify-between px-4 sm:px-8 md:px-16 lg:px-24 xl:px-[200px]">
                       {/* 왼쪽: 텍스트 영역 */}
-                      <div className="flex flex-1 flex-col justify-center p-8 md:p-15">
+                      <div className="flex flex-1 flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-15">
                         <div className="space-y-4">
                           {/* 드라이버 이름 - 작은 부분 */}
                           {firstName && (
@@ -277,13 +277,13 @@ export default function Podium() {
                               </div>
                             </div>
                             {driver.carImageUrl && (
-                              <div className="relative  flex-shrink-0 w-[400px] h-[150px]">
+                              <div className="relative flex-shrink-0 w-full max-w-[400px] h-[100px] sm:h-[120px] md:h-[150px]">
                                 <Image
                                   src={driver.carImageUrl}
                                   alt={driver.team}
                                   fill
                                   className="object-contain"
-                                  sizes="140px"
+                                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, 400px"
                                   unoptimized
                                 />
                               </div>
@@ -293,11 +293,11 @@ export default function Podium() {
                       </div>
 
                       {/* 오른쪽: 드라이버 이미지 */}
-                      <div className="relative flex items-end justify-end md:w-2/5">
+                      <div className="relative flex items-end justify-end w-full md:w-2/5 mt-4 md:mt-0">
                         {driver.imageUrl && (
-                          <div className="relative w-full max-w-md">
+                          <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-md lg:max-w-lg">
                             {/* 드라이버 이미지 */}
-                            <div className="relative p-10">
+                            <div className="relative p-2 sm:p-4 md:p-6 lg:p-8">
                               <div
                                 className="relative aspect-[3/4] w-full overflow-hidden"
                                 style={{
@@ -314,7 +314,7 @@ export default function Podium() {
                                       ? "scale-110"
                                       : ""
                                   }`}
-                                  sizes="(max-width: 768px) 100vw, 40vw"
+                                  sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, (max-width: 1024px) 448px, 512px"
                                   unoptimized
                                 />
                                 {/* 그라데이션 오버레이 */}
@@ -322,8 +322,8 @@ export default function Podium() {
                               </div>
 
                               {/* 순위 번호 */}
-                              <div className="absolute -left-4 top-4 z-20">
-                                <div className="text-6xl font-black leading-none tracking-tight text-white md:text-7xl lg:text-8xl drop-shadow-2xl">
+                              <div className="absolute -left-2 sm:-left-3 md:-left-4 top-2 sm:top-3 md:top-4 z-20">
+                                <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-none tracking-tight text-white drop-shadow-2xl">
                                   {driver.position}
                                 </div>
                               </div>

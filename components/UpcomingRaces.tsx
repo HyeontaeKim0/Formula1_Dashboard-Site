@@ -44,28 +44,28 @@ export default function UpcomingRaces() {
   const [upcomingRacesApi, setUpcomingRacesApi] =
     useState<NextRacesResponse | null>(null);
 
-  // const upcomingRaces: RaceEvent[] | undefined = upcomingRacesApi?.race.map(
-  //   (race: any) => ({
-  //     name: race.race,
-  //     date: race.date,
-  //     time: race.time,
-  //     daysUntil: 3,
-  //     type: race.schedule?.race,
-  //   })
-  // );
+  const upcomingRaces: RaceEvent[] | undefined = upcomingRacesApi?.race.map(
+    (race: any) => ({
+      name: race.name,
+      date: race.schedule?.fp1?.date,
+      time: race.schedule?.fp1?.time,
+      daysUntil: 3,
+      type: "fp1",
+    })
+  );
 
   console.log("upcomingRacesApi", upcomingRacesApi?.race[0].schedule);
 
   // 목데이터
 
-  const upcomingRaces: NextRaceItem[] =
-    upcomingRacesApi?.race.map((race: NextRaceItem) => ({
-      raceId: race.raceId,
-      raceName: race.raceName,
-      circuit: race.circuit,
-      schedule: race.schedule,
-      country: race.country,
-    })) || [];
+  // const upcomingRaces: NextRaceItem[] =
+  //   upcomingRacesApi?.race.map((race: NextRaceItem) => ({
+  //     raceId: race.raceId,
+  //     raceName: race.raceName,
+  //     circuit: race.circuit,
+  //     schedule: race.schedule,
+  //     country: race.country,
+  //   })) || [];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -87,8 +87,6 @@ export default function UpcomingRaces() {
     fetchNextRaces();
   }, []);
 
-  console.log(upcomingRaces);
-
   return (
     <div className="relative w-full">
       {/* 헤더 섹션 */}
@@ -102,7 +100,7 @@ export default function UpcomingRaces() {
               다가오는 레이스
             </h3>
             <p className="mt-1 text-sm font-medium text-gray-600">
-              브라질 그랑프리
+              {upcomingRaces?.[0].name}
             </p>
           </div>
         </div>
@@ -120,7 +118,7 @@ export default function UpcomingRaces() {
       {/* 메인 컨텐츠 */}
       <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
         <div className="space-y-3">
-          {upcomingRaces.map((race, index) => (
+          {upcomingRaces?.map((race, index) => (
             <div
               key={index}
               className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-r from-gray-50 to-white hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md"
@@ -135,9 +133,7 @@ export default function UpcomingRaces() {
                   <div
                     className={`flex flex-col items-center justify-center w-16 h-16 rounded-xl  shadow-lg border border-white/10 relative overflow-hidden`}
                     style={{
-                      backgroundColor: race.schedule?.fp1?.date
-                        ? "green"
-                        : "red",
+                      backgroundColor: race.date ? "green" : "red",
                     }}
                   >
                     <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -152,13 +148,12 @@ export default function UpcomingRaces() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center space-x-2 mb-1">
-                      {getTypeIcon(
-                        race.schedule?.fp1?.date as RaceEvent["type"]
-                      )}
+                      {getTypeIcon(race.type as RaceEvent["type"])}
                       <h3 className="font-semibold text-lg group-hover:text-primary transition-colors duration-300">
-                        {/* {race.schedule?.map((schedule: Schedule) => schedule.fp1.date)} */}
+                        {race.date}
                       </h3>
                     </div>
+                    <p className="text-sm text-gray-600">{race.time}</p>
                   </div>
                 </div>
                 <div className="ml-4 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300">
