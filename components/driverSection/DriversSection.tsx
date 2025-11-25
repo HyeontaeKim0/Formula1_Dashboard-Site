@@ -55,8 +55,6 @@ export default function DriversSection({
     return null;
   };
 
-  console.log("drivers", drivers);
-
   //
 
   return (
@@ -82,7 +80,9 @@ export default function DriversSection({
       <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
         {drivers.length === 0 ? (
           <div className="text-center py-16 text-gray-600">
-            <p className="text-base font-medium">드라이버 데이터를 불러올 수 없습니다.</p>
+            <p className="text-base font-medium">
+              드라이버 데이터를 불러올 수 없습니다.
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -117,8 +117,8 @@ export default function DriversSection({
                   />
                 </div>
 
-              {/* 순위 배지 */}
-              {/* {getPositionBadge(driver.position)} */}
+                {/* 순위 배지 */}
+                {/* {getPositionBadge(driver.position)} */}
 
                 {/* 드라이버 이미지 및 정보 */}
                 <div className="relative p-5">
@@ -132,44 +132,44 @@ export default function DriversSection({
                         }}
                       ></div>
                       <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-gray-200 group-hover:border-primary/50 transition-colors duration-300 bg-gray-50">
-                      <Image
-                        src={driver.driverImageUrl}
-                        alt={driver.driverName}
-                        fill
-                        className="object-cover object-center"
-                        sizes="96px"
-                        unoptimized
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {/* 드라이버 이름 */}
-                <div className="text-center mb-3">
-                  <h3 className="font-bold text-lg text-gray-900 mb-1 group-hover:text-primary transition-colors duration-300">
-                    {driver.driverName}
-                  </h3>
-                  <div className="text-sm font-mono text-gray-600 mb-2">
-                    {driver.driverCode}
-                    {driver.driverNumber && ` #${driver.driverNumber}`}
-                  </div>
-
-                  {/* 팀 정보 */}
-                  <div className="flex items-center justify-center gap-2 mb-3">
-                    {driver.teamLogoUrl && (
-                      <div className="relative w-6 h-6 flex-shrink-0">
                         <Image
-                          src={driver.teamLogoUrl}
-                          alt={driver.team}
+                          src={driver.driverImageUrl}
+                          alt={driver.driverName}
                           fill
-                          className="object-contain opacity-90"
-                          sizes="24px"
+                          className="object-cover object-center"
+                          sizes="96px"
                           unoptimized
                         />
                       </div>
-                    )}
-                    <div className="text-xs text-gray-600">{driver.team}</div>
-                  </div>
+                    </div>
+                  )}
+
+                  {/* 드라이버 이름 */}
+                  <div className="text-center mb-3">
+                    <h3 className="font-bold text-lg text-gray-900 mb-1 group-hover:text-primary transition-colors duration-300">
+                      {driver.driverName}
+                    </h3>
+                    <div className="text-sm font-mono text-gray-600 mb-2">
+                      {driver.driverCode}
+                      {driver.driverNumber && ` #${driver.driverNumber}`}
+                    </div>
+
+                    {/* 팀 정보 */}
+                    <div className="flex items-center justify-center gap-2 mb-3">
+                      {driver.teamLogoUrl && (
+                        <div className="relative w-6 h-6 flex-shrink-0">
+                          <Image
+                            src={driver.teamLogoUrl}
+                            alt={driver.team}
+                            fill
+                            className="object-contain opacity-90"
+                            sizes="24px"
+                            unoptimized
+                          />
+                        </div>
+                      )}
+                      <div className="text-xs text-gray-600">{driver.team}</div>
+                    </div>
 
                     {/* 팀 컬러 바 */}
                     <div
@@ -189,26 +189,26 @@ export default function DriversSection({
                     driver.wins > 0 ||
                     driver.podiums > 0) && (
                     <div className="grid grid-cols-3 gap-2 text-center pt-4 border-t border-gray-200">
-                    <div>
-                      <div className="text-xs text-gray-500 mb-1">포인트</div>
-                      <div className="text-base font-bold text-primary">
-                        {driver.points}
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1">포인트</div>
+                        <div className="text-base font-bold text-primary">
+                          {driver.points}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1">승리</div>
+                        <div className="text-base font-bold text-gray-900">
+                          {driver.wins}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1">포디움</div>
+                        <div className="text-base font-bold text-gray-900">
+                          {driver.podiums}
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <div className="text-xs text-gray-500 mb-1">승리</div>
-                      <div className="text-base font-bold text-gray-900">
-                        {driver.wins}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500 mb-1">포디움</div>
-                      <div className="text-base font-bold text-gray-900">
-                        {driver.podiums}
-                      </div>
-                    </div>
-                  </div>
-                )}
+                  )}
 
                   {/* 순위 표시 */}
                   {driver.position > 0 && (

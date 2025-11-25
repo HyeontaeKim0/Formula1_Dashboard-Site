@@ -66,12 +66,6 @@ export default function RaceResults() {
     }
   };
 
-  // console.log("lastRaceResult", lastRaceResult);
-  console.log(
-    "raceResults",
-    raceResults.map((result: any) => result.driverNumber)
-  );
-
   return (
     <div className="relative w-full">
       {/* 헤더 섹션 */}
@@ -91,7 +85,7 @@ export default function RaceResults() {
           </div>
         </div>
         <span className="text-xs font-extrabold px-3 py-1.5 bg-primary/20 text-primary rounded-full border border-primary/30">
-          R20
+          {lastRaceResult?.races?.round || 0} 라운드
         </span>
       </div>
 

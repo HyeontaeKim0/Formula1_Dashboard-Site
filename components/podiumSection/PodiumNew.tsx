@@ -66,7 +66,7 @@ export default function Podium() {
       setIsLoading(true);
       try {
         const sessionResults = await getSessionResults();
-        console.log("sessionResults", sessionResults);
+
         setDriverStandingPodium(
           sessionResults.map((result) => ({
             position: result.position,
@@ -100,8 +100,6 @@ export default function Podium() {
     teamLogoUrl: getTeamLogoUrl(driver.driver_number),
     carImageUrl: getCar(driver.driver_number),
   }));
-
-  console.log("podiumData", orderedDrivers);
 
   // 캐러셀 네비게이션 함수
   const goToPrevious = () => {

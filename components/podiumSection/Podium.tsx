@@ -49,7 +49,7 @@ export default function Podium() {
     const fetchSessionResults = async () => {
       try {
         const sessionResults = await getSessionResults();
-        console.log("sessionResults", sessionResults);
+
         setDriverStandingPodium(
           sessionResults.map((result) => ({
             position: result.position,

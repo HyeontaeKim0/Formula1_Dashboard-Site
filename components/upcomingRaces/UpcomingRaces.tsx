@@ -40,9 +40,6 @@ export default function UpcomingRaces() {
   const [upcomingRacesApi, setUpcomingRacesApi] =
     useState<NextRacesResponse | null>(null);
 
-  console.log("upcomingRacesApi", upcomingRacesApi?.race[0].circuit.country);
-  console.log("upcomingRacesApi", upcomingRacesApi?.race[0].circuit.city);
-
   const freePractice1: RaceEvent[] =
     upcomingRacesApi?.race.map((race: any) => ({
       name: race.name,
