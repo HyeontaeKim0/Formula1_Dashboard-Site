@@ -5,10 +5,13 @@ import Image from "next/image";
 import { getSessionResults } from "@/lib/sessionResultApi";
 import type {
   DriverStandingPodium,
-  Meeting,
   PodiumDriver,
+  Sessions,
 } from "@/lib/types/types";
 import { useEffect, useState } from "react";
+
+import { getLastestMeeting } from "@/lib/lastestMeeting";
+import type { LastestMeeting } from "@/lib/lastestMeeting";
 
 // 포디움 드라이버 팀 로고
 import McLarenLogo from "@/assets/img/teamLogo/McLaren.webp";
@@ -20,19 +23,33 @@ import MaxVerstappen from "@/assets/img/driverProfile/RedBull/max.webp";
 import KimiAntonelli from "@/assets/img/driverProfile/Mercedes/kimi.webp";
 import LandoNorris from "@/assets/img/driverProfile/McLaren/norris.webp";
 
-import { getMeetings } from "@/lib/meetingApi";
-
 export default function Podium() {
   const [driverStandingPodium, setDriverStandingPodium] = useState<
     DriverStandingPodium[]
   >([]);
 
-  const [latestMeeting, setLatestMeeting] = useState<Meeting | null>(null);
+  const [lastestMeeting, setLastestMeeting] = useState<LastestMeeting | null>(
+    null
+  );
+
+  // 최근 레이스 데이터
+
+  useEffect(() => {
+    const fetchLastestMeeting = async () => {
+      const lastestMeeting = await getLastestMeeting();
+
+      setLastestMeeting(lastestMeeting);
+    };
+    fetchLastestMeeting();
+  }, []);
+
+  // 최근 포디움 드라이버 데이터
 
   useEffect(() => {
     const fetchSessionResults = async () => {
       try {
         const sessionResults = await getSessionResults();
+        console.log("sessionResults", sessionResults);
         setDriverStandingPodium(
           sessionResults.map((result) => ({
             position: result.position,
@@ -44,18 +61,6 @@ export default function Podium() {
       }
     };
     fetchSessionResults();
-  }, []);
-
-  useEffect(() => {
-    const fetchMeetings = async () => {
-      try {
-        const latestMeeting = await getMeetings(2025, "Mexico");
-        setLatestMeeting(latestMeeting[0]);
-      } catch (error) {
-        console.error("레이스 정보를 불러오지 못했습니다.", error);
-      }
-    };
-    fetchMeetings();
   }, []);
 
   const getDriverName = (driver_number: number) => {
@@ -154,11 +159,11 @@ export default function Podium() {
   const getPositionIcon = (position: number) => {
     switch (position) {
       case 1:
-        return <Trophy className="text-yellow-400" size={32} />;
+        return <Trophy className="text-white" size={32} />;
       case 2:
-        return <Medal className="text-gray-300" size={28} />;
+        return <Medal className="text-white" size={28} />;
       case 3:
-        return <Medal className="text-orange-500" size={24} />;
+        return <Medal className="text-primary" size={24} />;
       default:
         return null;
     }
@@ -167,20 +172,20 @@ export default function Podium() {
   const getPositionGradient = (position: number) => {
     switch (position) {
       case 1:
-        return "from-yellow-500/20 to-yellow-600/10";
+        return "from-white/20 to-white/10";
       case 2:
-        return "from-gray-400/20 to-gray-500/10";
+        return "from-white/20 to-white/10";
       case 3:
-        return "from-orange-600/20 to-orange-700/10";
+        return "from-primary/20 to-primary/10";
       default:
-        return "from-gray-500/20 to-gray-600/10";
+        return "from-white/20 to-white/10";
     }
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-dark-light to-dark rounded-xl border border-dark-lighter p-6 animate-fade-in overflow-hidden">
+    <div className="relative bg-white rounded-xl border border-gray-200 p-6 animate-fade-in overflow-hidden shadow-lg">
       {/* 배경 레이어 1: 기본 그라데이션 */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark-light via-dark to-dark-light"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-white"></div>
 
       {/* 배경 레이어 2: 움직이는 그라데이션 */}
       <div className="absolute inset-0 podium-bg-gradient bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/10 opacity-60"></div>
@@ -190,14 +195,14 @@ export default function Podium() {
         className="absolute inset-0 podium-glow opacity-40"
         style={{
           background:
-            "radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.2) 0%, transparent 50%)",
+            "radial-gradient(circle at 30% 30%, rgba(255, 59, 48, 0.2) 0%, transparent 50%)",
         }}
       ></div>
       <div
         className="absolute inset-0 podium-glow opacity-30"
         style={{
           background:
-            "radial-gradient(circle at 70% 70%, rgba(6, 255, 165, 0.15) 0%, transparent 50%)",
+            "radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 50%)",
           animationDelay: "1.5s",
         }}
       ></div>
@@ -226,8 +231,13 @@ export default function Podium() {
               <Trophy className="text-white" size={20} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold">최근 레이스 포디움</h2>
-              <p className="text-sm text-gray-400">멕시코 그랑프리</p>
+              <h2 className="text-2xl font-bold text-gray-900">
+                최근 레이스 포디움
+              </h2>
+              <p className="text-sm text-gray-600">
+                {lastestMeeting?.circuit.country} |{" "}
+                {lastestMeeting?.circuit.city} 그랑프리
+              </p>
             </div>
           </div>
         </div>
@@ -247,7 +257,7 @@ export default function Podium() {
                 {driver.imageUrl && (
                   <div className="relative w-28 h-28 mb-4 group-hover:scale-110 transition-transform duration-300">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
-                    <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-dark-lighter group-hover:border-primary/50 transition-colors duration-300 bg-dark">
+                    <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-gray-200 group-hover:border-primary/50 transition-colors duration-300 bg-gray-50">
                       <Image
                         src={driver.imageUrl}
                         alt={driver.driverName}
@@ -275,7 +285,7 @@ export default function Podium() {
 
                 {/* 드라이버 정보 */}
                 <div className="text-center">
-                  <div className="font-bold text-base text-white mb-1.5 group-hover:text-primary transition-colors duration-300">
+                  <div className="font-bold text-base text-gray-900 mb-1.5 group-hover:text-primary transition-colors duration-300">
                     {driver.driverName}
                   </div>
                   <div className="flex items-center justify-center gap-2 mb-1">
@@ -291,9 +301,9 @@ export default function Podium() {
                         />
                       </div>
                     )}
-                    <div className="text-sm text-gray-400">{driver.team}</div>
+                    <div className="text-sm text-gray-600">{driver.team}</div>
                   </div>
-                  <div className="text-sm  font-mono text-white">
+                  <div className="text-sm  font-mono text-gray-900">
                     #{driver.driverCode}
                   </div>
                 </div>
@@ -309,22 +319,22 @@ export default function Podium() {
                 style={{
                   borderTopColor:
                     driver.position === 1
-                      ? "#FBBF24"
+                      ? "#FFFFFF"
                       : driver.position === 2
-                      ? "#D1D5DB"
-                      : "#F97316",
+                      ? "#FFFFFF"
+                      : "#FF3B30",
                   borderLeftColor:
                     driver.position === 1
-                      ? "#FBBF24"
+                      ? "#FFFFFF"
                       : driver.position === 2
-                      ? "#D1D5DB"
-                      : "#F97316",
+                      ? "#FFFFFF"
+                      : "#FF3B30",
                   borderRightColor:
                     driver.position === 1
-                      ? "#FBBF24"
+                      ? "#FFFFFF"
                       : driver.position === 2
-                      ? "#D1D5DB"
-                      : "#F97316",
+                      ? "#FFFFFF"
+                      : "#FF3B30",
                 }}
               >
                 {/* 포디움 번호 */}
@@ -332,10 +342,10 @@ export default function Podium() {
                   <div
                     className={`text-5xl font-bold ${
                       driver.position === 1
-                        ? "text-yellow-400"
+                        ? "text-primary"
                         : driver.position === 2
-                        ? "text-gray-300"
-                        : "text-orange-500"
+                        ? "text-gray-600"
+                        : "text-primary"
                     }`}
                   >
                     {driver.position}

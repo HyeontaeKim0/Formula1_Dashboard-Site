@@ -69,37 +69,34 @@ export default function ChampionshipStandings() {
   const [hoveredPosition, setHoveredPosition] = useState<number | null>(null);
 
   return (
-    <div className="relative w-full">
-      {/* 헤더 섹션 */}
-      <div className="mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
-            <Medal className="text-primary" size={24} />
+    <div className="bg-gradient-to-br from-dark-light to-dark rounded-xl border border-dark-lighter p-6 animate-fade-in">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 via-yellow-600 to-orange-600 rounded-lg flex items-center justify-center shadow-lg shadow-yellow-500/30">
+            <Medal className="text-white" size={20} />
           </div>
           <div>
-            <h3 className="text-xl font-extrabold tracking-tight text-gray-900">
-              챔피언십 순위
-            </h3>
-            <p className="mt-1 text-sm font-medium text-gray-600">2025 시즌</p>
+            <h2 className="text-2xl font-bold">챔피언십 순위</h2>
+            <p className="text-sm text-gray-400">2025 시즌</p>
           </div>
         </div>
-        <div className="flex space-x-1 rounded-2xl bg-gray-100 p-1 border border-gray-200">
+        <div className="flex space-x-1 bg-dark rounded-lg p-1 border border-dark-lighter">
           <button
             onClick={() => setView("drivers")}
-            className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all duration-300 ${
               view === "drivers"
-                ? "bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30"
-                : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
+                ? "bg-gradient-to-r from-primary to-secondary text-white shadow-lg shadow-primary/30"
+                : "text-gray-400 hover:text-white hover:bg-dark-light"
             }`}
           >
             드라이버
           </button>
           <button
             onClick={() => setView("constructors")}
-            className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all duration-300 ${
               view === "constructors"
-                ? "bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30"
-                : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
+                ? "bg-gradient-to-r from-primary to-secondary text-white shadow-lg shadow-primary/30"
+                : "text-gray-400 hover:text-white hover:bg-dark-light"
             }`}
           >
             컨스트럭터
@@ -107,55 +104,53 @@ export default function ChampionshipStandings() {
         </div>
       </div>
 
-      {/* 메인 컨텐츠 */}
-      <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
-        {view === "drivers" && (
-          <div className="space-y-3">
-            {driverStandings.map((standing, index) => {
-              const percentage = (standing.points / maxPoints) * 100;
-              return (
+      {view === "drivers" && (
+        <div className="space-y-3">
+          {driverStandings.map((standing, index) => {
+            const percentage = (standing.points / maxPoints) * 100;
+            return (
+              <div
+                key={standing.position}
+                className="group relative overflow-hidden bg-gradient-to-r from-dark to-dark-light rounded-lg border border-dark-lighter hover:border-primary transition-all duration-300 hover-scale cursor-pointer"
+                onMouseEnter={() => setHoveredPosition(standing.position)}
+                onMouseLeave={() => setHoveredPosition(null)}
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
                 <div
-                  key={standing.position}
-                  className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-r from-gray-50 to-white hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md"
-                  onMouseEnter={() => setHoveredPosition(standing.position)}
-                  onMouseLeave={() => setHoveredPosition(null)}
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
-                    animationDelay: `${index * 0.1}s`,
+                    background: standing.teamColor
+                      ? `linear-gradient(90deg, ${standing.teamColor}05 0%, transparent 100%)`
+                      : "none",
                   }}
-                >
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background: standing.teamColor
-                        ? `linear-gradient(90deg, ${standing.teamColor}15 0%, transparent 100%)`
-                        : "none",
-                    }}
-                  ></div>
+                ></div>
 
-                  <div className="relative p-5">
+                <div className="relative p-4">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-4 flex-1">
                       <div className="flex items-center justify-center w-12 h-12 rounded-lg relative">
                         {standing.position === 1 && (
                           <Trophy
-                            className="text-primary animate-pulse-slow"
+                            className="text-yellow-500 animate-pulse-slow"
                             size={28}
                           />
                         )}
                         {standing.position === 2 && (
-                          <Medal className="text-gray-400" size={28} />
+                          <Medal className="text-gray-300" size={28} />
                         )}
                         {standing.position === 3 && (
-                          <Medal className="text-primary" size={28} />
+                          <Medal className="text-orange-500" size={28} />
                         )}
                         {standing.position > 3 && (
-                          <span className="text-2xl font-bold text-gray-400">
+                          <span className="text-2xl font-bold text-gray-500">
                             {standing.position}
                           </span>
                         )}
                       </div>
                       <div className="flex-1">
-                        <div className="font-semibold text-lg text-gray-900 group-hover:text-primary transition-colors duration-300">
+                        <div className="font-semibold text-lg group-hover:text-primary transition-colors duration-300">
                           {standing.driverName}
                         </div>
                         <div className="flex items-center space-x-2 mt-0.5">
@@ -163,7 +158,7 @@ export default function ChampionshipStandings() {
                             className="w-2 h-2 rounded-full"
                             style={{ backgroundColor: standing.teamColor }}
                           ></div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-400">
                             {standing.team}
                           </div>
                         </div>
@@ -173,61 +168,54 @@ export default function ChampionshipStandings() {
                       <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                         {standing.points}
                       </div>
-                      <div className="text-xs text-gray-600 mt-1">
+                      <div className="text-xs text-gray-400 mt-1">
                         {standing.wins}승 · {standing.podiums}포디움
                       </div>
                     </div>
                   </div>
-                    <div className="relative h-2.5 bg-gray-200 rounded-full overflow-hidden">
-                      <div
-                        className="absolute top-0 left-0 h-full rounded-full transition-all duration-1000 ease-out"
-                        style={{
-                          width: `${percentage}%`,
-                          background: standing.teamColor
-                            ? `linear-gradient(90deg, ${standing.teamColor} 0%, ${standing.teamColor}CC 100%)`
-                            : "linear-gradient(90deg, #FF3B30 0%, #FFFFFF 100%)",
-                          boxShadow:
-                            hoveredPosition === standing.position
-                              ? `0 0 15px ${standing.teamColor || "#FF3B30"}80`
-                              : "none",
-                        }}
-                      ></div>
-                    </div>
+                  <div className="relative h-2 bg-dark rounded-full overflow-hidden">
+                    <div
+                      className="progress-bar absolute top-0 left-0 rounded-full transition-all duration-1000 ease-out"
+                      style={{
+                        width: `${percentage}%`,
+                        background: standing.teamColor
+                          ? `linear-gradient(90deg, ${standing.teamColor} 0%, ${standing.teamColor}CC 100%)`
+                          : "linear-gradient(90deg, #00D4FF 0%, #06FFA5 100%)",
+                        boxShadow:
+                          hoveredPosition === standing.position
+                            ? `0 0 10px ${standing.teamColor || "#00D4FF"}`
+                            : "none",
+                      }}
+                    ></div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
-
-        {view === "constructors" && (
-          <div className="text-center py-16 text-gray-600">
-            <div className="mb-6">
-              <div className="relative inline-block">
-                <div className="h-16 w-16 animate-spin rounded-full border-4 border-primary/20 border-t-primary"></div>
-                <div
-                  className="absolute inset-0 h-16 w-16 animate-spin rounded-full border-4 border-transparent border-r-secondary"
-                  style={{
-                    animationDirection: "reverse",
-                    animationDuration: "1.5s",
-                  }}
-                ></div>
               </div>
-            </div>
-            <p className="text-base font-medium">컨스트럭터 순위 데이터 로딩 중...</p>
-          </div>
-        )}
-
-        <div className="mt-6 pt-5 border-t border-gray-200">
-          <button className="w-full py-3.5 text-sm font-semibold text-gray-700 hover:text-white rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 border border-gray-200 hover:border-primary bg-gradient-to-r from-gray-50 to-white hover:from-primary hover:to-primary-dark group">
-            <span className="flex items-center justify-center space-x-2">
-              <span>전체 순위 보기</span>
-              <span className="transform group-hover:translate-x-1 transition-transform duration-300">
-                →
-              </span>
-            </span>
-          </button>
+            );
+          })}
         </div>
+      )}
+
+      {view === "constructors" && (
+        <div className="text-center py-12 text-gray-400 animate-fade-in">
+          <div className="mb-4">
+            <div
+              className="inline-block w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin"
+              style={{ animationDuration: "2s" }}
+            ></div>
+          </div>
+          <p>컨스트럭터 순위 데이터 로딩 중...</p>
+        </div>
+      )}
+
+      <div className="mt-6 pt-4 border-t border-dark-lighter">
+        <button className="w-full py-3 text-sm font-medium text-gray-300 hover:text-white bg-dark hover:bg-primary/10 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 border border-dark-lighter hover:border-primary/50 group">
+          <span className="flex items-center justify-center space-x-2">
+            <span>전체 순위 보기</span>
+            <span className="transform group-hover:translate-x-1 transition-transform duration-300">
+              →
+            </span>
+          </span>
+        </button>
       </div>
     </div>
   );

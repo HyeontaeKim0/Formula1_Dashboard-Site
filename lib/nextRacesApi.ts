@@ -17,9 +17,14 @@ export interface Schedule {
 export interface NextRaceItem {
   raceId: string;
   raceName: string;
-  circuit: string;
+  circuit: Circuit;
   country: string;
   schedule?: Schedule;
+}
+
+export interface Circuit {
+  country: string;
+  city: string;
 }
 
 export interface NextRacesResponse {
@@ -28,6 +33,7 @@ export interface NextRacesResponse {
   total: number;
   season: number;
   round: number;
+
   race: NextRaceItem[];
   championship: {
     championshipId: string;

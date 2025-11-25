@@ -1,4 +1,4 @@
-import DriversSection from "@/components/DriversSection";
+import DriversSection from "@/components/driverSection/DriversSection";
 import { getDriversFromOpenF1, transformOpenF1Driver } from "@/lib/openf1";
 
 export default async function DriversPage() {

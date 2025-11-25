@@ -1,11 +1,11 @@
 "use client";
 
-import UpcomingRaces from "@/components/UpcomingRaces";
-import RaceResults from "@/components/RaceResults";
-import ChampionshipStandings from "@/components/ChampionshipStandings";
-import NewsSection from "@/components/NewsSection";
-import Podium from "@/components/Podium";
-import PodiumNew from "@/components/PodiumNew";
+import UpcomingRaces from "@/components/upcomingRaces/UpcomingRaces";
+import RaceResults from "@/components/raceResults/RaceResults";
+import ChampionshipStandings from "@/components/championshipStandings/ChampionshipStandings";
+import NewsSection from "@/components/newsSection/NewsSection";
+import Podium from "@/components/podiumSection/Podium";
+import PodiumNew from "@/components/podiumSection/PodiumNew";
 
 export default function Home() {
   return (

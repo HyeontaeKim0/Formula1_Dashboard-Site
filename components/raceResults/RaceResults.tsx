@@ -1,0 +1,228 @@
+"use client";
+
+import { Trophy, Award, Clock, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { getLastRaceResult } from "@/lib/lastRaceResult";
+import type { DriverResult } from "@/lib/types/types";
+import {
+  getDriverName,
+  getTeamColor,
+  getTeamName,
+} from "@/lib/utils/driverUtils";
+
+export default function RaceResults() {
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+  const [lastRaceResult, setLastRaceResult] = useState<any | null>(null);
+
+  useEffect(() => {
+    const fetchLastRaceResult = async () => {
+      const lastRaceResult = await getLastRaceResult();
+      setLastRaceResult(lastRaceResult);
+    };
+    fetchLastRaceResult();
+  }, []);
+
+  console.log("lastRaceResult", lastRaceResult);
+
+  // position을 숫자로 변환하는 함수 (문자열은 큰 숫자로 변환하여 맨 뒤로)
+  const parsePosition = (position: any): number => {
+    if (typeof position === "number") return position;
+    if (typeof position === "string") {
+      const num = parseInt(position, 10);
+      if (!isNaN(num)) return num;
+      // "NC", "DSQ" 등의 문자열은 9999로 변환하여 맨 뒤로
+      return 9999;
+    }
+    return 9999;
+  };
+
+  // 각 드라이버별 결과를 배열로 변환
+  const raceResults: DriverResult[] =
+    lastRaceResult?.races?.results
+      ?.map((result: any) => ({
+        position: parsePosition(result.position),
+        driverName: getDriverName(result.driver?.number) || "",
+        driverCode: result.driver?.code || result.driver?.driverId || "",
+        team: getTeamName(result.driver?.number) || "",
+        time: result.time || result.duration || "",
+        laps: result.laps || result.numberOfLaps || lastRaceResult?.laps || 0,
+        points: result.points || 0,
+        teamColor: getTeamColor(result.driver?.number) || "",
+        // 원본 position 값도 저장 (표시용)
+        originalPosition: result.position,
+      }))
+      .sort((a: any, b: any) => a.position - b.position) || [];
+
+  const getPositionColor = (position: number) => {
+    switch (position) {
+      case 1:
+        return "text-yellow-600";
+      case 2:
+        return "text-gray-600";
+      case 3:
+        return "text-orange-600";
+      default:
+        return "text-gray-600";
+    }
+  };
+
+  return (
+    <div className="relative w-full">
+      {/* 헤더 섹션 */}
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+            <Trophy className="text-primary" size={24} />
+          </div>
+          <div>
+            <h3 className="text-xl font-extrabold tracking-tight text-gray-900">
+              최근 레이스 결과
+            </h3>
+            <p className="mt-1 text-sm font-medium text-gray-600">
+              {lastRaceResult?.races?.circuit.city} 그랑프리
+            </p>
+          </div>
+        </div>
+        <span className="text-xs font-extrabold px-3 py-1.5 bg-primary/20 text-primary rounded-full border border-primary/30">
+          R20
+        </span>
+      </div>
+
+      {/* 메인 컨텐츠 */}
+      <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
+        <div className="overflow-x-auto -mx-6 px-6">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="text-left py-4 px-4 text-xs font-extrabold text-gray-600 uppercase tracking-wider">
+                  순위
+                </th>
+                <th className="text-left py-4 px-4 text-xs font-extrabold text-white/70 uppercase tracking-wider">
+                  드라이버
+                </th>
+                <th className="text-left py-4 px-4 text-xs font-extrabold text-white/70 uppercase tracking-wider">
+                  시간
+                </th>
+                <th className="text-center py-4 px-4 text-xs font-extrabold text-gray-400 uppercase tracking-wider">
+                  랩
+                </th>
+                <th className="text-center py-4 px-4 text-xs font-extrabold text-gray-400 uppercase tracking-wider">
+                  포인트
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {raceResults.map((result, index) => (
+                <tr
+                  key={`${result.position}-${index}`}
+                  className="border-b border-gray-200 hover:bg-gray-50 transition-all duration-300 group cursor-pointer relative"
+                  onMouseEnter={() => setHoveredRow(result.position)}
+                  onMouseLeave={() => setHoveredRow(null)}
+                  style={{
+                    animationDelay: `${index * 0.05}s`,
+                  }}
+                >
+                  <td className="py-4 px-4">
+                    <div className="flex items-center space-x-2">
+                      <span
+                        className={`font-bold text-lg ${getPositionColor(
+                          result.position
+                        )}`}
+                      >
+                        {(result as any).originalPosition ?? result.position}
+                      </span>
+                      {result.position === 1 &&
+                        typeof (result as any).originalPosition ===
+                          "number" && (
+                          <Trophy
+                            className={`${getPositionColor(
+                              result.position
+                            )} animate-pulse-slow`}
+                            size={18}
+                          />
+                        )}
+                      {result.position === 2 &&
+                        typeof (result as any).originalPosition ===
+                          "number" && (
+                          <Award
+                            className={getPositionColor(result.position)}
+                            size={18}
+                          />
+                        )}
+                      {result.position === 3 &&
+                        typeof (result as any).originalPosition ===
+                          "number" && (
+                          <Award
+                            className={getPositionColor(result.position)}
+                            size={18}
+                          />
+                        )}
+                    </div>
+                  </td>
+                  <td className="py-4 px-4">
+                    <div className="flex items-center space-x-3">
+                      {result.teamColor && (
+                        <div
+                          className="w-1.5 h-12 rounded-full transition-all duration-300 group-hover:shadow-lg"
+                          style={{
+                            backgroundColor: result.teamColor,
+                            boxShadow:
+                              hoveredRow === result.position
+                                ? `0 0 15px ${result.teamColor}80`
+                                : "none",
+                          }}
+                        ></div>
+                      )}
+                      <div>
+                        <div className="font-semibold text-sm  text-gray-900 group-hover:text-primary transition-colors duration-300">
+                          {result.driverName}
+                        </div>
+                        <div className="text-sm text-gray-600 font-medium">
+                          {result.team}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-4 px-4">
+                    <div className="flex items-center space-x-1.5">
+                      <Clock size={14} className="text-gray-400" />
+                      <span className="text-sm font-mono font-medium">
+                        {result.time || "-"}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="py-4 px-4 text-center text-sm text-gray-700 font-semibold">
+                    {result.laps}
+                  </td>
+                  <td className="py-4 px-4 text-center">
+                    <div className="flex items-center justify-center space-x-2">
+                      <span className="font-bold text-lg text-primary">
+                        {result.points}
+                      </span>
+                      {/* <ChevronRight
+                        size={16}
+                        className="text-gray-400 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+                      /> */}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mt-6 pt-5 border-t border-gray-200">
+          <button className="w-full py-3.5 text-sm font-semibold text-gray-700 hover:text-white rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 border border-gray-200 hover:border-primary bg-gradient-to-r from-gray-50 to-white hover:from-primary hover:to-primary-dark group">
+            <span className="flex items-center justify-center space-x-2">
+              <span>전체 결과 보기</span>
+              <ChevronRight
+                size={16}
+                className="transform group-hover:translate-x-1 transition-transform duration-300"
+              />
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

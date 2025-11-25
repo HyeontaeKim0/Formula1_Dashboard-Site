@@ -4,11 +4,7 @@ import { Calendar, Clock, Flag, Play } from "lucide-react";
 import { useState, useEffect } from "react";
 
 import { getNextRaces } from "@/lib/nextRacesApi";
-import type {
-  NextRacesResponse,
-  NextRaceItem,
-  Schedule,
-} from "@/lib/nextRacesApi";
+import type { NextRacesResponse } from "@/lib/nextRacesApi";
 
 import { GiF1Car } from "react-icons/gi";
 
@@ -44,28 +40,29 @@ export default function UpcomingRaces() {
   const [upcomingRacesApi, setUpcomingRacesApi] =
     useState<NextRacesResponse | null>(null);
 
-  const upcomingRaces: RaceEvent[] | undefined = upcomingRacesApi?.race.map(
-    (race: any) => ({
-      name: race.name,
-      date: race.schedule?.fp1?.date,
-      time: race.schedule?.fp1?.time,
-      daysUntil: 3,
-      type: "fp1",
-    })
-  );
+  // const upcomingRaces: RaceEvent[] | undefined = upcomingRacesApi?.race.map(
+  //   (race: any) => ({
+  //     name: race.race,
+  //     date: race.date,
+  //     time: race.time,
+  //     daysUntil: 3,
+  //     type: race.schedule?.race,
+  //   })
+  // );
 
   console.log("upcomingRacesApi", upcomingRacesApi?.race[0].schedule);
 
   // 목데이터
 
-  // const upcomingRaces: NextRaceItem[] =
-  //   upcomingRacesApi?.race.map((race: NextRaceItem) => ({
-  //     raceId: race.raceId,
-  //     raceName: race.raceName,
-  //     circuit: race.circuit,
-  //     schedule: race.schedule,
-  //     country: race.country,
-  //   })) || [];
+  const upcomingRaces: RaceEvent[] = [
+    {
+      name: "Brazil Grand Prix",
+      date: "2025-11-20",
+      time: "10:00:00",
+      daysUntil: 3,
+      type: "race",
+    },
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -100,7 +97,7 @@ export default function UpcomingRaces() {
               다가오는 레이스
             </h3>
             <p className="mt-1 text-sm font-medium text-gray-600">
-              {upcomingRaces?.[0].name}
+              브라질 그랑프리
             </p>
           </div>
         </div>
@@ -118,7 +115,7 @@ export default function UpcomingRaces() {
       {/* 메인 컨텐츠 */}
       <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
         <div className="space-y-3">
-          {upcomingRaces?.map((race, index) => (
+          {upcomingRaces.map((race, index) => (
             <div
               key={index}
               className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-r from-gray-50 to-white hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md"
@@ -131,29 +128,39 @@ export default function UpcomingRaces() {
               <div className="relative p-5 flex items-center justify-between">
                 <div className="flex items-center space-x-4 flex-1">
                   <div
-                    className={`flex flex-col items-center justify-center w-16 h-16 rounded-xl  shadow-lg border border-white/10 relative overflow-hidden`}
-                    style={{
-                      backgroundColor: race.date ? "green" : "red",
-                    }}
+                    className={`flex flex-col items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${getTypeColor(
+                      race.type
+                    )} shadow-lg border border-white/10 relative overflow-hidden`}
                   >
                     <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="relative z-10 flex flex-col items-center">
                       <span className="text-xs font-extrabold text-white mb-0.5">
-                        D-
+                        D-{race.daysUntil}
                       </span>
                       <span className="text-[10px] text-white/80 font-medium">
-                        일 후
+                        {race.daysUntil}일 후
                       </span>
                     </div>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center space-x-2 mb-1">
-                      {getTypeIcon(race.type as RaceEvent["type"])}
+                      {getTypeIcon(race.type)}
                       <h3 className="font-semibold text-lg group-hover:text-primary transition-colors duration-300">
-                        {race.date}
+                        {race.name}
                       </h3>
                     </div>
-                    <p className="text-sm text-gray-600">{race.time}</p>
+                    <div className="flex items-center space-x-4 text-sm text-gray-600">
+                      <div className="flex items-center space-x-1.5">
+                        <Calendar size={14} />
+                        <span className="font-medium">{race.date}</span>
+                      </div>
+                      <div className="flex items-center space-x-1.5">
+                        <Clock size={14} />
+                        <span className="font-mono font-medium">
+                          {race.time}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="ml-4 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300">

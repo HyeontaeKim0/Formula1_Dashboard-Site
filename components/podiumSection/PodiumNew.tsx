@@ -195,7 +195,8 @@ export default function Podium() {
               최근 레이스
             </h3>
             <p className="mt-1 text-sm font-medium text-gray-500">
-              {lastestMeeting?.circuit.country} · {lastestMeeting?.circuit.city}
+              {lastestMeeting?.circuit.country} · {lastestMeeting?.circuit.city}{" "}
+              그랑프리
             </p>
           </div>
         </div>
