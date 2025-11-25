@@ -101,6 +101,8 @@ export default function Podium() {
     carImageUrl: getCar(driver.driver_number),
   }));
 
+  console.log("podiumData", orderedDrivers);
+
   // 캐러셀 네비게이션 함수
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) =>

@@ -85,6 +85,7 @@ export interface DriverResult {
   driverName: string;
   driverCode: string;
   team: string;
+  driverNumber: string;
   time: string;
   laps: number;
   points: number;

@@ -8,6 +8,7 @@ import {
   getDriverName,
   getTeamColor,
   getTeamName,
+  getTeamLogoUrl,
 } from "@/lib/utils/driverUtils";
 
 export default function RaceResults() {
@@ -21,8 +22,6 @@ export default function RaceResults() {
     };
     fetchLastRaceResult();
   }, []);
-
-  console.log("lastRaceResult", lastRaceResult);
 
   // position을 숫자로 변환하는 함수 (문자열은 큰 숫자로 변환하여 맨 뒤로)
   const parsePosition = (position: any): number => {
@@ -43,6 +42,7 @@ export default function RaceResults() {
         position: parsePosition(result.position),
         driverName: getDriverName(result.driver?.number) || "",
         driverCode: result.driver?.code || result.driver?.driverId || "",
+        driverNumber: result.driver?.number || "",
         team: getTeamName(result.driver?.number) || "",
         time: result.time || result.duration || "",
         laps: result.laps || result.numberOfLaps || lastRaceResult?.laps || 0,
@@ -66,6 +66,12 @@ export default function RaceResults() {
     }
   };
 
+  // console.log("lastRaceResult", lastRaceResult);
+  console.log(
+    "raceResults",
+    raceResults.map((result: any) => result.driverNumber)
+  );
+
   return (
     <div className="relative w-full">
       {/* 헤더 섹션 */}
@@ -79,7 +85,8 @@ export default function RaceResults() {
               최근 레이스 결과
             </h3>
             <p className="mt-1 text-sm font-medium text-gray-600">
-              {lastRaceResult?.races?.circuit.city} 그랑프리
+              {lastRaceResult?.races?.circuit.city} ·{" "}
+              {lastRaceResult?.races?.circuit.country} 그랑프리
             </p>
           </div>
         </div>
@@ -177,8 +184,23 @@ export default function RaceResults() {
                         <div className="font-semibold text-sm  text-gray-900 group-hover:text-primary transition-colors duration-300">
                           {result.driverName}
                         </div>
-                        <div className="text-sm text-gray-600 font-medium">
-                          {result.team}
+                        <div className="flex items-center gap-[7px]">
+                          <div className="text-sm text-gray-600 font-medium">
+                            {result.team}
+                          </div>
+                          {getTeamLogoUrl(
+                            Number(result.driverNumber || "0")
+                          ) && (
+                            <div className="mt-1">
+                              <img
+                                src={getTeamLogoUrl(
+                                  Number(result.driverNumber || "0")
+                                )}
+                                alt={`${result.team} 로고`}
+                                className="h-[23px] w-[23px] object-contain"
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -210,7 +232,7 @@ export default function RaceResults() {
             </tbody>
           </table>
         </div>
-
+        {/* 
         <div className="mt-6 pt-5 border-t border-gray-200">
           <button className="w-full py-3.5 text-sm font-semibold text-gray-700 hover:text-white rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 border border-gray-200 hover:border-primary bg-gradient-to-r from-gray-50 to-white hover:from-primary hover:to-primary-dark group">
             <span className="flex items-center justify-center space-x-2">
@@ -221,7 +243,7 @@ export default function RaceResults() {
               />
             </span>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -33,11 +33,17 @@ export default function Home() {
       </div>
 
       {/* Results and Standings Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="animate-slide-up" style={{ animationDelay: "0.3s" }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div
+          className="animate-slide-in-left mt-10"
+          style={{ animationDelay: "0.3s" }}
+        >
           <RaceResults />
         </div>
-        <div className="animate-slide-up" style={{ animationDelay: "0.4s" }}>
+        <div
+          className="animate-slide-in-right mt-10"
+          style={{ animationDelay: "0.4s" }}
+        >
           <ChampionshipStandings />
         </div>
       </div>

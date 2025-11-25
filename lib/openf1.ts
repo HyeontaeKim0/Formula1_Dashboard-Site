@@ -6,7 +6,7 @@ import McLarenLogo from "../assets/img/teamLogo/McLaren.webp";
 // Aston Martin
 import Stroll from "../assets/img/driverProfile/AstonMartin/stroll.webp";
 import Alonso from "../assets/img/driverProfile/AstonMartin/fernando.webp";
-import AstonMartinLogo from "../assets/img/teamLogo/Martin.svg";
+import AstonMartinLogo from "../assets/img/teamLogo/Martin.png";
 
 // Red Bull
 import Verstappen from "../assets/img/driverProfile/RedBull/max.webp";
@@ -32,7 +32,7 @@ import HaasLogo from "../assets/img/teamLogo/Haas.svg";
 // Alpine
 import Gasly from "../assets/img/driverProfile/Alpine/gasly.webp";
 import Franco from "../assets/img/driverProfile/Alpine/franco.webp";
-import AlpineLogo from "../assets/img/teamLogo/Alpine.svg";
+import AlpineLogo from "../assets/img/teamLogo/Alpine.png";
 // Kick Sauber
 import Niko from "../assets/img/driverProfile/KickSauber/niko.webp";
 import Gabriel from "../assets/img/driverProfile/KickSauber/gabriel.webp";
@@ -40,7 +40,7 @@ import KickSauberLogo from "../assets/img/teamLogo/Kick.svg";
 // Racing bulls
 import Isack from "../assets/img/driverProfile/RacingBulls/isack.webp";
 import Liam from "../assets/img/driverProfile/RacingBulls/lowson.webp";
-import RacingBullsLogo from "../assets/img/teamLogo/RacingBulls.svg";
+import RacingBullsLogo from "../assets/img/teamLogo/RacingBulls.png";
 
 import type { Driver, OpenF1Driver } from "@/lib/types/types";
 

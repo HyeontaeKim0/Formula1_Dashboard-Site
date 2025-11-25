@@ -9,11 +9,11 @@ import MercedesLogo from "@/assets/img/teamLogo/Mercedes.svg";
 import RedBullLogo from "@/assets/img/teamLogo/RedBull.svg";
 import FerrariLogo from "@/assets/img/teamLogo/Ferrari.svg";
 import WilliamsLogo from "@/assets/img/teamLogo/Williams.svg";
-import AstonMartinLogo from "@/assets/img/teamLogo/Martin.svg";
+import AstonMartinLogo from "@/assets/img/teamLogo/Martin.png";
 import HaasLogo from "@/assets/img/teamLogo/Haas.svg";
-import AlpineLogo from "@/assets/img/teamLogo/Alpine.svg";
+import AlpineLogo from "@/assets/img/teamLogo/Alpine.png";
 import KickSauberLogo from "@/assets/img/teamLogo/Kick.svg";
-import RacingBullsLogo from "@/assets/img/teamLogo/RacingBulls.svg";
+import RacingBullsLogo from "@/assets/img/teamLogo/RacingBulls.png";
 
 // 모든 드라이버 이미지
 import MaxVerstappen from "@/assets/img/podium/Max_Podium.png";
@@ -202,6 +202,7 @@ export const getTeamLogoUrl = (driver_number: number) => {
   switch (driver_number) {
     case 1:
     case 22:
+    case 33:
       return RedBullLogo.src;
     case 12:
     case 63:
