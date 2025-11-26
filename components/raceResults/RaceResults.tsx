@@ -35,7 +35,7 @@ export default function RaceResults() {
     return 9999;
   };
 
-  console.log("lastRaceResult", lastRaceResult);
+  // console.log("lastRaceResult", lastRaceResult);
 
   // 각 드라이버별 결과를 배열로 변환
   const raceResults: DriverResult[] =

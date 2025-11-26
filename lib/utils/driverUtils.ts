@@ -37,6 +37,17 @@ import FrancoColapinto from "@/assets/img/driverProfile/Alpine/franco.webp";
 import IsackHadjar from "@/assets/img/driverProfile/RacingBulls/isack.webp";
 import LiamLawson from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
 
+import LusailCircuit from "@/assets/img/circuit/Lusail_circuit.svg";
+
+export const getCircuitImageUrl = (circuit_name: string) => {
+  switch (circuit_name) {
+    case "Lusail":
+      return LusailCircuit.src;
+    default:
+      return "";
+  }
+};
+
 export const getCar = (driver_number: number) => {
   switch (driver_number) {
     case 4:

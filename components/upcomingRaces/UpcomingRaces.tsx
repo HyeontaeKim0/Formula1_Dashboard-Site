@@ -40,6 +40,9 @@ export default function UpcomingRaces() {
   const [upcomingRacesApi, setUpcomingRacesApi] =
     useState<NextRacesResponse | null>(null);
 
+  // 서킷
+  // console.log("upcomingRacesApi", upcomingRacesApi?.race[0].circuit.city);
+
   const freePractice1: RaceEvent[] =
     upcomingRacesApi?.race.map((race: any) => ({
       name: race.name,
@@ -124,44 +127,46 @@ export default function UpcomingRaces() {
   }, []);
 
   return (
-    <div className="relative w-full">
-      {/* 헤더 섹션 */}
-      <div className="mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
-            <Calendar className="text-primary" size={24} />
+    <div>
+      <div className="relative w-full">
+        {/* 헤더 섹션 */}
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+              <Calendar className="text-primary" size={24} />
+            </div>
+            <div>
+              <h3 className="text-xl font-extrabold tracking-tight text-gray-900">
+                다가오는 레이스
+              </h3>
+              <p className="mt-1 text-sm font-medium text-gray-600">
+                {upcomingRacesApi?.race[0].circuit.city} ·{" "}
+                {upcomingRacesApi?.race[0].circuit.country} 그랑프리
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-xl font-extrabold tracking-tight text-gray-900">
-              다가오는 레이스
-            </h3>
-            <p className="mt-1 text-sm font-medium text-gray-600">
-              {upcomingRacesApi?.race[0].circuit.city} ·{" "}
-              {upcomingRacesApi?.race[0].circuit.country} 그랑프리
-            </p>
+          <div className="flex items-center gap-2 text-sm text-gray-600 bg-gray-100 px-3 py-2 rounded-xl border border-gray-200">
+            <Clock size={14} />
+            <span className="font-mono font-semibold">
+              {currentTime.toLocaleTimeString("ko-KR", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </span>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-600 bg-gray-100 px-3 py-2 rounded-xl border border-gray-200">
-          <Clock size={14} />
-          <span className="font-mono font-semibold">
-            {currentTime.toLocaleTimeString("ko-KR", {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </span>
-        </div>
-      </div>
 
-      <RaceTypeList
-        freePractice1={freePractice1 || ([] as RaceEvent[])}
-        freePractice2={freePractice2 || ([] as RaceEvent[])}
-        freePractice3={freePractice3 || ([] as RaceEvent[])}
-        qualifying={qualifying || ([] as RaceEvent[])}
-        sprint={sprint || ([] as RaceEvent[])}
-        race={race || ([] as RaceEvent[])}
-        sprintQualy={sprintQualy || ([] as RaceEvent[])}
-        getTypeIcon={getTypeIcon}
-      />
+        <RaceTypeList
+          freePractice1={freePractice1 || ([] as RaceEvent[])}
+          freePractice2={freePractice2 || ([] as RaceEvent[])}
+          freePractice3={freePractice3 || ([] as RaceEvent[])}
+          qualifying={qualifying || ([] as RaceEvent[])}
+          sprint={sprint || ([] as RaceEvent[])}
+          race={race || ([] as RaceEvent[])}
+          sprintQualy={sprintQualy || ([] as RaceEvent[])}
+          getTypeIcon={getTypeIcon}
+        />
+      </div>
     </div>
   );
 }

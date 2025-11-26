@@ -33,7 +33,7 @@ export default function ConstructorSection({
     null
   );
 
-  console.log("driverChampion", driverChampion);
+  // console.log("driverChampion", driverChampion);
 
   // 컨스트럭터 순위 데이터
   useEffect(() => {
@@ -97,7 +97,7 @@ export default function ConstructorSection({
       : []),
   ];
 
-  console.log("driverStandingData", driverStandingData);
+  // console.log("driverStandingData", driverStandingData);
 
   return (
     <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">

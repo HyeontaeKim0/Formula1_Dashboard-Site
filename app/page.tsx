@@ -6,6 +6,7 @@ import ChampionshipStandings from "@/components/championshipStandings/Championsh
 import NewsSection from "@/components/newsSection/NewsSection";
 import Podium from "@/components/podiumSection/Podium";
 import PodiumNew from "@/components/podiumSection/PodiumNew";
+import CircuitSection from "@/components/circuitSection/CircuitSection";
 
 export default function Home() {
   return (
@@ -28,7 +29,7 @@ export default function Home() {
           className="animate-slide-in-right"
           style={{ animationDelay: "0.2s" }}
         >
-          <NewsSection />
+          <CircuitSection />
         </div>
       </div>
 
