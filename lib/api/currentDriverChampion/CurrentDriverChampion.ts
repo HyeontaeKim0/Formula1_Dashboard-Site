@@ -24,8 +24,8 @@ export interface DriverChampion {
   points: number;
   position: number;
   wins: number;
-  driver: Driver[];
-  team: Team[];
+  driver: Driver;
+  team: Team;
 }
 
 export interface DriverChampionApiResponse {
@@ -36,7 +36,7 @@ export interface DriverChampionApiResponse {
   total: number;
   season: number;
   championshipId: string;
-  driver_championship: DriverChampion[];
+  drivers_championship: DriverChampion[];
 }
 
 export const getCurrentDriverChampion = async (): Promise<
@@ -52,11 +52,11 @@ export const getCurrentDriverChampion = async (): Promise<
       );
     }
     const data: DriverChampionApiResponse = await response.json();
-    if (!data?.driver_championship?.length) {
+    if (!data?.drivers_championship?.length) {
       console.warn("No driver champion data available.");
       return null;
     }
-    return data.driver_championship;
+    return data.drivers_championship;
   } catch (error) {
     console.error("Error fetching driver champion:", error);
     return null;

@@ -8,6 +8,7 @@ import {
   getConstructorTeamName,
   getConstructorTeamColor,
   getConstructorTeamLogoUrl,
+  getDriverChampionName,
 } from "@/lib/utils/driverUtils";
 interface ConstructorSectionProps {
   view: "drivers" | "constructors";
@@ -44,18 +45,6 @@ export default function ConstructorSection({
     };
     fetchConstructorStandings();
   }, []);
-
-  // 드라이버 챔피언 데이터
-  useEffect(() => {
-    const fetchDriverChampion = async () => {
-      const driverChampion = await getCurrentDriverChampion();
-      if (driverChampion) {
-        setDriverChampion(driverChampion);
-      }
-    };
-    fetchDriverChampion();
-  }, []);
-
   interface ConstructorStanding {
     position: number;
     teamName: string;
@@ -76,6 +65,39 @@ export default function ConstructorSection({
   ];
 
   // 드라이버 챔피언 데이터
+  useEffect(() => {
+    const fetchDriverChampion = async () => {
+      const driverChampion = await getCurrentDriverChampion();
+      if (driverChampion) {
+        setDriverChampion(driverChampion);
+      }
+    };
+    fetchDriverChampion();
+  }, []);
+
+  interface DriverStandingData {
+    position: number;
+    driverName: string;
+    driverCode: string;
+    team: string;
+    points: number;
+    wins: number;
+  }
+
+  const driverStandingData: DriverStandingData[] = [
+    ...(driverChampion
+      ? driverChampion.map((standing) => ({
+          position: standing.position,
+          driverName: standing.driver.name,
+          driverCode: standing.driver.shortName,
+          team: standing.team.teamName,
+          points: standing.points,
+          wins: standing.wins,
+        }))
+      : []),
+  ];
+
+  console.log("driverStandingData", driverStandingData);
 
   return (
     <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
@@ -170,9 +192,11 @@ export default function ConstructorSection({
         </div>
       )}
 
+      {/* 드라이버 탭 메뉴 */}
+
       {view === "drivers" && (
         <div className="space-y-3">
-          {constructorStandingData?.map((standing, index) => {
+          {driverStandingData?.map((standing, index) => {
             // const percentage = (standing.points / maxPoints) * 100;
             return (
               <div
@@ -218,15 +242,15 @@ export default function ConstructorSection({
                       <div className="flex items-center space-x-7">
                         <div className="text-sm text-gray-600">
                           <img
-                            src={getConstructorTeamLogoUrl(standing.teamName)}
-                            alt={standing.teamName}
+                            src={getConstructorTeamLogoUrl(standing.team)}
+                            alt={standing.team}
                             className="h-[30px] w-[30px] object-contain"
                           />
                         </div>
                         <div>
                           <div className="flex items-center space-x-2">
                             <div className="font-semibold text-lg text-gray-900 group-hover:text-primary transition-colors duration-300">
-                              {getConstructorTeamName(standing.teamName)}
+                              {getDriverChampionName(standing.driverCode)}
                             </div>
                           </div>
                           <div className="flex items-center space-x-2 mt-0.5">
@@ -234,23 +258,26 @@ export default function ConstructorSection({
                               className="w-2 h-2 rounded-full"
                               style={{
                                 backgroundColor: getConstructorTeamColor(
-                                  standing.teamName
+                                  standing.team
                                 ),
                               }}
                             ></div>
                             <div className="text-sm text-gray-600">
-                              {standing.teamName}
+                              {standing.team}
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-bold bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
-                        {standing.points}
-                      </div>
-                      <div className="text-xs text-gray-600 mt-1">
-                        {standing.wins}승
+                    <div className="text-right flex items-center space-x-5">
+                      {/* <div>{standing.driverCode}</div> */}
+                      <div>
+                        <div className="text-3xl font-bold bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
+                          {standing.points}
+                        </div>
+                        <div className="text-xs text-gray-600 mt-1">
+                          {standing.wins}승
+                        </div>
                       </div>
                     </div>
                   </div>

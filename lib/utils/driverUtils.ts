@@ -102,6 +102,56 @@ export const getDriverName = (driver_number: number) => {
   }
 };
 
+export const getDriverChampionName = (driver_code: string) => {
+  switch (driver_code) {
+    case "VER":
+      return "막스 베르스타펜";
+    case "TSU":
+      return "유키 츠노다";
+    case "ANT":
+      return "키미 안토넬리";
+    case "RUS":
+      return "조지 러셀";
+    case "NOR":
+      return "랜도 노리스";
+    case "PIA":
+      return "오스카 피아스트리";
+    case "SAI":
+      return "카를로스 사인츠";
+    case "ALB":
+      return "알렉스 알본";
+    case "HAM":
+      return "루이스 해밀턴";
+    case "LEC":
+      return "샤를 르클레르";
+    case "ALO":
+      return "페르난도 알론소";
+    case "STR":
+      return "랜스 스트롤";
+    case "OCO":
+      return "에스테반 오콘";
+    case "BEA":
+      return "올리버 베어먼";
+    case "BOR":
+      return "가브리엘 보르토레토";
+    case "HUL":
+      return "니코 휠켄베르그";
+    case "GAS":
+      return "피에르 가슬리";
+    case "COL":
+      return "프란코 콜라핀토";
+    case "HAD":
+      return "아이작 하자르";
+    case "LAW":
+      return "리암 로슨";
+    case "DOO":
+      return "잭 두한";
+
+    default:
+      return "";
+  }
+};
+
 export const getTeamName = (driver_number: number) => {
   switch (driver_number) {
     case 1:
@@ -310,6 +360,53 @@ export const getConstructorTeamName = (team_name: string) => {
       return "레이싱 불스";
     default:
       return team_name;
+  }
+};
+
+export const getDriverChampionImageUrl = (driver_code: string) => {
+  switch (driver_code) {
+    case "VER":
+      return MaxVerstappen.src;
+    case "TSU":
+      return YukiTsunoda.src;
+    case "ANT":
+      return KimiAntonelli.src;
+    case "RUS":
+      return GeorgeRussell.src;
+    case "NOR":
+      return LandoNorris.src;
+    case "PIA":
+      return OscarPiastri.src;
+    case "SAI":
+      return CarlosSainz.src;
+    case "ALB":
+      return AlexAlbon.src;
+    case "HAM":
+      return LewisHamilton.src;
+    case "LEC":
+      return CharlesLeclerc.src;
+    case "ALO":
+      return FernandoAlonso.src;
+    case "STR":
+      return LanceStroll.src;
+    case "OCO":
+      return EstebanOcon.src;
+    case "BEA":
+      return OliverBearman.src;
+    case "BOR":
+      return GabrielBortoleto.src;
+    case "HUL":
+      return NicoHulkenberg.src;
+    case "GAS":
+      return PierreGasly.src;
+    case "COL":
+      return FrancoColapinto.src;
+    case "HAD":
+      return IsackHadjar.src;
+    case "LAW":
+      return LiamLawson.src;
+    default:
+      return "";
   }
 };
 
