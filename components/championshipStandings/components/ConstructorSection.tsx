@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import {
   getConstructorTeamName,
   getConstructorTeamColor,
+  getConstructorTeamLogoUrl,
 } from "@/lib/utils/driverUtils";
 interface ConstructorSectionProps {
   view: "drivers" | "constructors";
@@ -96,7 +97,7 @@ export default function ConstructorSection({
                           <MedalIcon className="text-gray-400" size={28} />
                         )}
                         {standing.position === 3 && (
-                          <MedalIcon className="text-primary" size={28} />
+                          <MedalIcon className="text-orange-600" size={28} />
                         )}
                         {standing.position > 3 && (
                           <span className="text-2xl font-bold text-gray-400">
@@ -104,21 +105,32 @@ export default function ConstructorSection({
                           </span>
                         )}
                       </div>
-                      <div className="">
-                        <div className="font-semibold text-lg text-gray-900 group-hover:text-primary transition-colors duration-300">
-                          {getConstructorTeamName(standing.teamName)}
+                      <div className="flex items-center space-x-7">
+                        <div className="text-sm text-gray-600">
+                          <img
+                            src={getConstructorTeamLogoUrl(standing.teamName)}
+                            alt={standing.teamName}
+                            className="h-[30px] w-[30px] object-contain"
+                          />
                         </div>
-                        <div className="flex items-center space-x-2 mt-0.5">
-                          <div
-                            className="w-2 h-2 rounded-full"
-                            style={{
-                              backgroundColor: getConstructorTeamColor(
-                                standing.teamName
-                              ),
-                            }}
-                          ></div>
-                          <div className="text-sm text-gray-600">
-                            {standing.teamName}
+                        <div>
+                          <div className="flex items-center space-x-2">
+                            <div className="font-semibold text-lg text-gray-900 group-hover:text-primary transition-colors duration-300">
+                              {getConstructorTeamName(standing.teamName)}
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2 mt-0.5">
+                            <div
+                              className="w-2 h-2 rounded-full"
+                              style={{
+                                backgroundColor: getConstructorTeamColor(
+                                  standing.teamName
+                                ),
+                              }}
+                            ></div>
+                            <div className="text-sm text-gray-600">
+                              {standing.teamName}
+                            </div>
                           </div>
                         </div>
                       </div>

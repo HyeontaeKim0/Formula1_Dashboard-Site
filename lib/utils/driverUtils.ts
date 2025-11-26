@@ -261,6 +261,31 @@ export const getTeamLogoUrl = (driver_number: number) => {
   }
 };
 
+export const getConstructorTeamLogoUrl = (team_name: string) => {
+  switch (team_name) {
+    case "Red Bull Racing":
+      return RedBullLogo.src;
+    case "Mercedes Formula 1 Team":
+      return MercedesLogo.src;
+    case "McLaren Formula 1 Team":
+      return McLarenLogo.src;
+    case "Scuderia Ferrari":
+      return FerrariLogo.src;
+    case "Williams Racing":
+      return WilliamsLogo.src;
+    case "Aston Martin F1 Team":
+      return AstonMartinLogo.src;
+    case "Haas F1 Team":
+      return HaasLogo.src;
+    case "Sauber F1 Team":
+      return KickSauberLogo.src;
+    case "Alpine F1 Team":
+      return AlpineLogo.src;
+    case "RB F1 Team":
+      return RacingBullsLogo.src;
+  }
+};
+
 export const getConstructorTeamName = (team_name: string) => {
   switch (team_name) {
     case "Red Bull Racing":
