@@ -2,7 +2,10 @@
 
 import { Clock, ArrowRight } from "lucide-react";
 import type { NextRacesResponse } from "@/lib/nextRacesApi";
-import { getCircuitImageUrl } from "@/lib/utils/driverUtils";
+import {
+  getCircuitImageUrl,
+  getDriverChampionName,
+} from "@/lib/utils/driverUtils";
 import Image from "next/image";
 export default function CircuitSection({
   upcomingRacesApi,
@@ -15,9 +18,9 @@ export default function CircuitSection({
     <div className="relative w-full">
       {/* 메인 컨텐츠 */}
       <div className="mt-[0px] relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
-        <p className="text-sm text-gray-600">
+        {/* <p className="text-sm text-gray-600">
           {upcomingRacesApi?.race[0].circuit.circuitName}
-        </p>
+        </p> */}
         <div className="w-full h-full flex items-center justify-center mt-10">
           <Image
             src={getCircuitImageUrl(
@@ -37,9 +40,11 @@ export default function CircuitSection({
             코너 수 : {upcomingRacesApi?.race[0].circuit.corners}
           </p>
           <p className="text-sm text-gray-600">
-            패스티스트 랩 :{" "}
-            {upcomingRacesApi?.race[0].circuit.fastestLapDriverId} /{" "}
-            {upcomingRacesApi?.race[0].circuit.fastestLapYear}
+            패스티스트 랩 기록 :{" "}
+            {getDriverChampionName(
+              upcomingRacesApi?.race[0].circuit.fastestLapDriverId as string
+            )}{" "}
+            / {upcomingRacesApi?.race[0].circuit.fastestLapYear}
           </p>
         </div>
       </div>

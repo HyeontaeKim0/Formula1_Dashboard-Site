@@ -119,6 +119,7 @@ export const getDriverName = (driver_number: number) => {
 export const getDriverChampionName = (driver_code: string) => {
   switch (driver_code) {
     case "VER":
+    case "max_verstappen":
       return "막스 베르스타펜";
     case "TSU":
       return "유키 츠노다";
