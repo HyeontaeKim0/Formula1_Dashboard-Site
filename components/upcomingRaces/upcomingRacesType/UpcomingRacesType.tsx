@@ -3,7 +3,7 @@
 import { Calendar, Clock, Flag, Play } from "lucide-react";
 import { useState, useEffect } from "react";
 
-import type { NextRacesResponse } from "@/lib/nextRacesApi";
+import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 
 import RaceTypeList from "../components/raceType/RaceTypeList";
 

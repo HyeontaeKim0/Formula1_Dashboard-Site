@@ -2,7 +2,7 @@
 
 import { Trophy, Medal } from "lucide-react";
 import Image from "next/image";
-import { getSessionResults } from "@/lib/sessionResultApi";
+import { getSessionResults } from "@/lib/api/sessionResultApi/sessionResultApi";
 import type {
   DriverStandingPodium,
   PodiumDriver,
@@ -10,8 +10,8 @@ import type {
 } from "@/lib/types/types";
 import { useEffect, useState } from "react";
 
-import { getLastestMeeting } from "@/lib/lastestMeeting";
-import type { LastestMeeting } from "@/lib/lastestMeeting";
+import { getLastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
+import type { LastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 
 // 포디움 드라이버 팀 로고
 import McLarenLogo from "@/assets/img/teamLogo/McLaren.webp";

@@ -3,8 +3,6 @@
 import { Trophy, Medal } from "lucide-react";
 import { useState } from "react";
 
-import { getSessionResults } from "@/lib/sessionResultApi";
-
 import HeaderSection from "./components/HeaderSection";
 import ConstructorSection from "./components/ConstructorSection";
 

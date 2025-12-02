@@ -2,7 +2,7 @@
 
 import { Trophy, Award, Clock, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { getLastRaceResult } from "@/lib/lastRaceResult";
+import { getLastRaceResult } from "@/lib/api/lastRaceResultApi/lastRaceResult";
 import type { DriverResult } from "@/lib/types/types";
 import {
   getDriverName,
@@ -10,10 +10,16 @@ import {
   getTeamName,
   getTeamLogoUrl,
 } from "@/lib/utils/driverUtils";
+import RacingTypeTabMenu from "./components/RacingTypeTabMenu";
+
+import HeaderSection from "./components/HeaderSection";
 
 export default function RaceResults() {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const [lastRaceResult, setLastRaceResult] = useState<any | null>(null);
+  const [view, setView] = useState<
+    "practice" | "sprint" | "qualifying" | "race"
+  >("practice");
 
   useEffect(() => {
     const fetchLastRaceResult = async () => {
@@ -72,38 +78,27 @@ export default function RaceResults() {
     <div className="relative w-full">
       {/* 헤더 섹션 */}
       <div className="mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
-            <Trophy className="text-primary" size={24} />
-          </div>
-          <div>
-            <h3 className="text-xl font-extrabold tracking-tight text-gray-900">
-              최근 레이스 결과
-            </h3>
-            <p className="mt-1 text-sm font-medium text-gray-600">
-              {lastRaceResult?.races?.circuit.city} ·{" "}
-              {lastRaceResult?.races?.circuit.country} 그랑프리
-            </p>
-          </div>
-        </div>
-        <span className="text-xs font-extrabold px-3 py-1.5 bg-primary/20 text-primary rounded-full border border-primary/30">
+        <HeaderSection lastRaceResult={lastRaceResult} />
+        {/* <span className="text-xs font-extrabold px-3 py-1.5 bg-primary/20 text-primary rounded-full border border-primary/30">
           {lastRaceResult?.races?.round || 0} 라운드
-        </span>
+        </span> */}
+        <div className=" flex  justify-end">
+          <RacingTypeTabMenu view={view} setView={setView} />
+        </div>
       </div>
-
       {/* 메인 컨텐츠 */}
       <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
         <div className="overflow-x-auto -mx-6 px-6">
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200">
-                <th className="text-left py-4 px-4 text-xs font-extrabold text-gray-600 uppercase tracking-wider">
+                <th className="text-left py-4 px-4 text-xs font-extrabold text-gray-400 uppercase tracking-wider">
                   순위
                 </th>
-                <th className="text-left py-4 px-4 text-xs font-extrabold text-white/70 uppercase tracking-wider">
+                <th className="text-left py-4 px-4 text-xs font-extrabold text-gray-400 uppercase tracking-wider">
                   드라이버
                 </th>
-                <th className="text-left py-4 px-4 text-xs font-extrabold text-white/70 uppercase tracking-wider">
+                <th className="text-left py-4 px-4 text-xs font-extrabold text-gray-400 uppercase tracking-wider">
                   시간
                 </th>
                 <th className="text-center py-4 px-4 text-xs font-extrabold text-gray-400 uppercase tracking-wider">

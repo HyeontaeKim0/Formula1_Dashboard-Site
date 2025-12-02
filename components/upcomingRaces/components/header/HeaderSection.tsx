@@ -1,5 +1,5 @@
 import { Calendar, Clock } from "lucide-react";
-import type { NextRacesResponse } from "@/lib/nextRacesApi";
+import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 import { useState, useEffect } from "react";
 export default function HeaderSection({
   upcomingRacesApi,

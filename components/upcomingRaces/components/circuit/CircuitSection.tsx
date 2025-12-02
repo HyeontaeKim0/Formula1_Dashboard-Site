@@ -1,7 +1,7 @@
 "use client";
 
 import { Clock, ArrowRight } from "lucide-react";
-import type { NextRacesResponse } from "@/lib/nextRacesApi";
+import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 import {
   getCircuitImageUrl,
   getDriverChampionName,

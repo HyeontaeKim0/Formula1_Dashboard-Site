@@ -9,10 +9,10 @@ import type {
 } from "@/lib/types/types";
 import { useEffect, useState } from "react";
 
-import { getSessionResults } from "@/lib/sessionResultApi";
-import { getLastestMeeting } from "@/lib/lastestMeeting";
+import { getSessionResults } from "@/lib/api/sessionResultApi/sessionResultApi";
+import { getLastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 
-import type { LastestMeeting } from "@/lib/lastestMeeting";
+import type { LastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 
 import {
   getCar,

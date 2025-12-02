@@ -1,4 +1,4 @@
-import { getLatestSessionKey } from "./openf1";
+import { getLatestSessionKey } from "../../openf1";
 import type { SessionResult } from "@/lib/types/types";
 
 export async function getSessionResults(): Promise<SessionResult[]> {

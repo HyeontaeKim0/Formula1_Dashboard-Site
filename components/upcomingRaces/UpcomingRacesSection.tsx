@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { getNextRaces } from "@/lib/nextRacesApi";
-import type { NextRacesResponse } from "@/lib/nextRacesApi";
+import { getNextRaces } from "@/lib/api/nextRacesApi/nextRacesApi";
+import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 import UpcomingRacesType from "./upcomingRacesType/UpcomingRacesType";
 import CircuitSection from "./components/circuit/CircuitSection";
 import HeaderSection from "./components/header/HeaderSection";
