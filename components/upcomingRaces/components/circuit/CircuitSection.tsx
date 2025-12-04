@@ -1,6 +1,6 @@
 "use client";
 
-import { Clock, ArrowRight } from "lucide-react";
+import { Clock, ArrowRight, Calendar, CircuitBoard } from "lucide-react";
 import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 import {
   getCircuitImageUrl,
@@ -22,9 +22,19 @@ export default function CircuitSection({
     <div className="relative w-full">
       {/* 메인 컨텐츠 */}
       <div className="mt-[0px] relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
-        <p className="text-lg font-bold text-gray-600">
-          {getCircuitName(upcomingRacesApi?.race[0]?.circuit?.circuitId)}
-        </p>
+        <div className="flex gap-2 justify-start items-center">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+            <CircuitBoard className="text-primary" size={20} />
+          </div>
+          <div>
+            <p className="text-lg font-bold">
+              {getCircuitName(upcomingRacesApi?.race[0]?.circuit?.circuitId)}
+            </p>
+            <p className="text-[12px] font-medium text-gray-600">
+              {upcomingRacesApi?.race[0]?.circuit?.circuitName}
+            </p>
+          </div>
+        </div>
         <div className="w-full h-full flex items-center justify-center mt-10">
           <Image
             src={getCircuitImageUrl(
