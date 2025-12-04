@@ -45,7 +45,7 @@ export default function RaceResults() {
   // 탭메뉴 상태
   const [view, setView] = useState<
     "practice" | "sprint" | "qualifying" | "race"
-  >("practice");
+  >("race");
 
   // 레이스
   useEffect(() => {
