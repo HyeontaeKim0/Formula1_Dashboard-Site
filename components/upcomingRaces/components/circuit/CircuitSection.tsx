@@ -5,6 +5,7 @@ import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 import {
   getCircuitImageUrl,
   getDriverChampionName,
+  getCircuitName,
 } from "@/lib/utils/driverUtils";
 import Image from "next/image";
 export default function CircuitSection({
@@ -12,15 +13,18 @@ export default function CircuitSection({
 }: {
   upcomingRacesApi: NextRacesResponse;
 }) {
-  console.log("upcomingRacesApi", upcomingRacesApi?.race[0].circuit);
+  console.log(
+    "upcomingRacesApi",
+    upcomingRacesApi?.race[0]?.circuit?.circuitName
+  );
 
   return (
     <div className="relative w-full">
       {/* 메인 컨텐츠 */}
       <div className="mt-[0px] relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
-        {/* <p className="text-sm text-gray-600">
-          {upcomingRacesApi?.race[0].circuit.circuitName}
-        </p> */}
+        <p className="text-lg font-bold text-gray-600">
+          {getCircuitName(upcomingRacesApi?.race[0]?.circuit?.circuitId)}
+        </p>
         <div className="w-full h-full flex items-center justify-center mt-10">
           <Image
             src={getCircuitImageUrl(

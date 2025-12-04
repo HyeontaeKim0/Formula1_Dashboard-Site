@@ -53,6 +53,16 @@ export const getCircuitImageUrl = (circuit_name: string) => {
   }
 };
 
+export const getCircuitName = (circuit_name: string) => {
+  switch (circuit_name) {
+    case "lusail":
+      return "루살 서킷";
+    case "yas_marina":
+      return "야스 마리나 서킷";
+    default:
+      return "";
+  }
+};
 export const getCar = (driver_number: number) => {
   switch (driver_number) {
     case 4:
