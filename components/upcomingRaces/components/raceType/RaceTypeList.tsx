@@ -121,7 +121,9 @@ export default function RaceTypeList({
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative z-10 flex flex-col items-center">
                   <span className="text-xs font-extrabold text-white mb-0.5">
-                    {hasDate ? `D-${daysUntil}` : "--"}
+                    {hasDate
+                      ? `D-${daysUntil === 0 ? "DAY" : daysUntil}`
+                      : "--"}
                   </span>
                 </div>
               </div>
