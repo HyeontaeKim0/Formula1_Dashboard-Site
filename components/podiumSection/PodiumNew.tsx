@@ -9,8 +9,10 @@ import type {
 } from "@/lib/types/types";
 import { useEffect, useState } from "react";
 
-import { getSessionResults } from "@/lib/api/sessionResultApi/sessionResultApi";
+// import { getSessionResults } from "@/lib/api/sessionResultApi/sessionResultApi";
+
 import { getLastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
+import { getLastRaceResult } from "@/lib/api/lastResults/lastRaceResultApi/lastRaceResult";
 
 import type { LastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 
@@ -32,11 +34,16 @@ export default function Podium() {
   >([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [lastRaceResult, setLastRaceResult] = useState<any | null>(null);
   // 최근레이스, fastestLap,,,기타등등
   const [lastestMeeting, setLastestMeeting] = useState<LastestMeeting | null>(
     null
   );
+
+  const podiumDrivers =
+    lastRaceResult?.races?.results?.slice(0, 3) ||
+    lastRaceResult?.slice(0, 3) ||
+    [];
 
   // 최근 레이스 데이터
   useEffect(() => {
@@ -48,60 +55,73 @@ export default function Podium() {
     fetchLastestMeeting();
   }, []);
 
+  useEffect(() => {
+    const fetchLastRaceResult = async () => {
+      const lastRaceResult = await getLastRaceResult();
+      setLastRaceResult(lastRaceResult);
+      setIsLoading(false);
+    };
+    fetchLastRaceResult();
+  }, []);
+
   // 자동 슬라이드 기능
   useEffect(() => {
-    if (driverStandingPodium.length <= 1) return;
+    if (podiumDrivers?.length <= 1) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => {
-        const podiumCount = Math.min(3, driverStandingPodium.length);
+        const podiumCount = Math.min(3, podiumDrivers?.length);
         return prevIndex === podiumCount - 1 ? 0 : prevIndex + 1;
       });
     }, 5000); // 5초마다 자동 슬라이드
 
     return () => clearInterval(interval);
-  }, [driverStandingPodium.length]);
+  }, [podiumDrivers?.length]);
 
   // 최근 포디움 드라이버 데이터
-  useEffect(() => {
-    const fetchSessionResults = async () => {
-      setIsLoading(true);
-      try {
-        const sessionResults = await getSessionResults();
+  // useEffect(() => {
+  //   const fetchSessionResults = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const sessionResults = await getSessionResults();
 
-        setDriverStandingPodium(
-          sessionResults.map((result) => ({
-            position: result.position,
-            driver_number: result.driver_number,
-          }))
-        );
-        // 데이터 로드 시 인덱스 리셋
-        setCurrentIndex(0);
-      } catch (error) {
-        console.error("세션 결과를 불러오지 못했습니다.", error);
-      } finally {
-        setIsLoading(false);
-      }
+  //       setDriverStandingPodium(
+  //         sessionResults.map((result) => ({
+  //           position: result.position,
+  //           driver_number: result.driver_number,
+  //         }))
+  //       );
+  //       // 데이터 로드 시 인덱스 리셋
+  //       setCurrentIndex(0);
+  //     } catch (error) {
+  //       console.error("세션 결과를 불러오지 못했습니다.", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   fetchSessionResults();
+  // }, []);
+
+  // 포디움 순서대로 정렬 (1위, 2위, 3위) - position 기준으로 정렬
+  const orderedDrivers = podiumDrivers
+    .slice()
+    .sort((a: any, b: any) => (a.position || 0) - (b.position || 0))
+    .slice(0, 3);
+
+  const podiumData: PodiumDriver[] = orderedDrivers.map((driver: any) => {
+    const driverNumber =
+      driver.driver?.number || driver.driver_number || driver.number;
+    return {
+      position: driver.position,
+      driverName: getDriverName(driverNumber),
+      driverCode: driver.driver?.shortName || driverNumber?.toString() || "",
+      team: getTeamName(driverNumber),
+      teamColor: getTeamColor(driverNumber),
+      imageUrl: getDriverImageUrl(driverNumber),
+      teamLogoUrl: getTeamLogoUrl(driverNumber),
+      carImageUrl: getCar(driverNumber),
     };
-    fetchSessionResults();
-  }, []);
-
-  // 포디움 순서대로 정렬 (1위, 2위, 3위)
-  const podiumOrder = [0, 1, 2];
-  const orderedDrivers = podiumOrder
-    .map((index) => driverStandingPodium[index])
-    .filter((driver): driver is DriverStandingPodium => driver !== undefined);
-
-  const podiumData: PodiumDriver[] = orderedDrivers.map((driver) => ({
-    position: driver.position,
-    driverName: getDriverName(driver.driver_number),
-    driverCode: driver.driver_number.toString(),
-    team: getTeamName(driver.driver_number),
-    teamColor: getTeamColor(driver.driver_number),
-    imageUrl: getDriverImageUrl(driver.driver_number),
-    teamLogoUrl: getTeamLogoUrl(driver.driver_number),
-    carImageUrl: getCar(driver.driver_number),
-  }));
+  });
 
   // 캐러셀 네비게이션 함수
   const goToPrevious = () => {
@@ -119,6 +139,33 @@ export default function Podium() {
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
+
+  console.log("lastestMeeting", lastestMeeting?.winner?.driverId);
+
+  console.log("lastRaceResult", lastRaceResult?.races?.results.slice(0, 3));
+
+  // 데이터가 없을 때 처리
+  if (!isLoading && podiumData.length === 0) {
+    return (
+      <div className="relative w-full">
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+              <Trophy className="text-primary" size={24} />
+            </div>
+            <div>
+              <h3 className="text-xl font-extrabold tracking-tight text-white">
+                최근 레이스
+              </h3>
+              <p className="mt-1 text-sm font-medium text-gray-400">
+                포디움 데이터가 없습니다
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // 로딩 화면
   if (isLoading) {
@@ -188,7 +235,7 @@ export default function Podium() {
     <div className="relative w-full">
       {/* 헤더 섹션 */}
       <div className="mb-6 flex items-center justify-between">
-        {lastestMeeting?.circuit.country === "United Arab Emirates" ? (
+        {lastestMeeting?.circuit?.country === "United Arab Emirates" ? (
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
@@ -198,8 +245,8 @@ export default function Podium() {
                 월드 챔피언 {lastestMeeting?.season}
               </h3>
               <p className="mt-1 text-sm font-medium text-gray-500">
-                {lastestMeeting?.circuit.country} ·{" "}
-                {lastestMeeting?.circuit.city}· Final Grand Prix
+                {lastestMeeting?.circuit?.country} ·{" "}
+                {lastestMeeting?.circuit?.city}· Final Grand Prix
               </p>
             </div>
           </div>
@@ -213,8 +260,9 @@ export default function Podium() {
                 최근 레이스
               </h3>
               <p className="mt-1 text-sm font-medium text-gray-500">
-                {lastestMeeting?.circuit.country} ·{" "}
-                {lastestMeeting?.circuit.city} 그랑프리
+                {lastestMeeting?.circuit?.country
+                  ? `${lastestMeeting.circuit.country} · ${lastestMeeting.circuit.city} 그랑프리`
+                  : "레이스 정보 로딩 중..."}
               </p>
             </div>
           </div>
@@ -229,7 +277,7 @@ export default function Podium() {
             className="flex transition-transform duration-700 ease-out"
             style={{
               transform:
-                lastestMeeting?.circuit.country === "United Arab Emirates"
+                lastestMeeting?.circuit?.country === "United Arab Emirates"
                   ? "translateX(0%)"
                   : `translateX(-${currentIndex * 100}%)`,
             }}
@@ -255,10 +303,10 @@ export default function Podium() {
                   >
                     {/* 메인 컨텐츠 */}
                     <div className="relative z-10 flex min-h-[500px] flex-col md:flex-row md:items-center md:justify-between px-4 sm:px-8 md:px-16 lg:px-24 xl:px-[200px]">
-                      {lastestMeeting?.circuit.country ===
+                      {lastestMeeting?.circuit?.country ===
                       "United Arab Emirates" ? (
                         <>
-                          <div className="flex flex-1 flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-15">
+                          <div className="relative flex flex-1 flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-15 min-h-[500px]">
                             <Image
                               src={MaxVerstappen}
                               alt="Max Verstappen"

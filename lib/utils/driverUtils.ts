@@ -448,6 +448,7 @@ export const getDriverChampionImageUrl = (driver_code: string) => {
 export const getDriverImageUrl = (driver_number: number) => {
   switch (driver_number) {
     case 1:
+    case 33:
       return MaxVerstappen.src;
     case 22:
       return YukiTsunoda.src;
