@@ -20,14 +20,14 @@ export default function Navbar() {
 
   const navItems = [
     { label: "홈", href: "/" },
+    { label: "결과", href: "/drivers" },
     { label: "게시판", href: "/board" },
     { label: "뉴스", href: "/news" },
     { label: "일정", href: "/schedule" },
-    { label: "결과", href: "/results" },
-    { label: "순위", href: "/standings" },
-    { label: "드라이버", href: "/drivers" },
-    { label: "팀", href: "/teams" },
-    { label: "동영상", href: "/videos" },
+    // { label: "결과", href: "/results" },
+    // { label: "순위", href: "/standings" },
+    // { label: "팀", href: "/teams" },
+    // { label: "동영상", href: "/videos" },
   ];
 
   const toggleTheme = () => {

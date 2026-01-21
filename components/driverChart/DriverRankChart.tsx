@@ -29,12 +29,16 @@ interface DriverRankChartProps {
   data: ChartDataPoint[];
   driverCode: string;
   driverNumber: number;
+  top3Count: number;
+  winnerCount: number;
 }
 
 export default function DriverRankChart({
   data,
   driverCode,
   driverNumber,
+  top3Count,
+  winnerCount,
 }: DriverRankChartProps) {
   // Y축 역순 처리: 1위가 위에 오도록
   // "NC" 등 문자열 position은 제외하고 계산
@@ -107,7 +111,15 @@ export default function DriverRankChart({
 
   return (
     <div className="w-full h-[500px] p-6 bg-white rounded-lg shadow-sm">
-     
+ 
+     <div className=" text-gray-300 text-xl font-semibold">우승 횟수 : {winnerCount}</div>
+     <div className=" text-gray-300 text-xl font-semibold">포디움 횟수 : {top3Count}</div>
+
+
+
+{chartData.length > 0 ? (
+
+
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={chartData}
@@ -185,7 +197,12 @@ export default function DriverRankChart({
           )}
         </LineChart>
       </ResponsiveContainer>
-  
+      ): (
+        <div className="flex items-center justify-center h-full">
+          <p className="text-gray-500">데이터가 없습니다.</p>
+        </div>
+      )}
+    
     </div>
   );
 }

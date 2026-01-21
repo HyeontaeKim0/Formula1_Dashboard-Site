@@ -3,6 +3,8 @@ import DriverRankChart from "@/components/driverChart/DriverRankChart";
 
 type ChartDataPoint = {
   driverNumber: number;
+  top3Count: number;
+  winnerCount: number;
   round: number;
   position: number | string;
   roundLabel: string;
@@ -22,6 +24,10 @@ export default async function DriverChartPage(props: {
     rounds.map((round) => getDriverResultChartData(year, round))
   );
 
+
+
+
+
   // 차트용 데이터 가공: 각 라운드에서 해당 드라이버의 순위 추출
   const chartData: ChartDataPoint[] = rounds
     .map((round, index): ChartDataPoint | null => {
@@ -31,11 +37,32 @@ export default async function DriverChartPage(props: {
       const driver = roundData.find(
         (item) => item.driver.shortName === driverCode
       );
+
+ 
+      const top3Count = driverResultChartDataList
+        .map((roundData) => {
+          const d = roundData?.find(
+            (item) => item.driver.shortName === driverCode
+          );
+          return typeof d?.position === "number" && d.position < 4 ? 1 : 0;
+        })
+        .reduce((acc: number, curr: number) => acc + curr, 0);
+
+   const winnerCount = driverResultChartDataList
+        .map((roundData) => {
+          const d = roundData?.find(
+            (item) => item.driver.shortName === driverCode
+          );
+          return typeof d?.position === "number" && d.position === 1 ? 1 : 0;
+        })
+        .reduce((acc: number, curr: number) => acc + curr, 0);
       
       if (!driver) return null;
       
       return {
         driverNumber: driver.driver.number,
+        top3Count: top3Count,
+        winnerCount: winnerCount,
         round,
         position: driver.position,
         roundLabel: `${round}R`,
@@ -53,6 +80,8 @@ export default async function DriverChartPage(props: {
           data={chartData} 
           driverCode={driverCode} 
           driverNumber={chartData[0]?.driverNumber || 0} 
+          top3Count={chartData[0]?.top3Count || 0}
+          winnerCount={chartData[0]?.winnerCount || 0}
         />
       </div>
     </div>
