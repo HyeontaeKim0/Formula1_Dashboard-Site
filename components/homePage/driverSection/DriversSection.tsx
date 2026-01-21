@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import NetherlandsFlag from "@/assets/img/flag/netherland.svg";
 import type { Driver, DriversSectionProps } from "@/lib/types/types";
+import { useRouter } from "next/navigation";
 
 export type { Driver } from "@/lib/types/types";
 
@@ -31,7 +32,7 @@ export default function DriversSection({
   drivers = defaultDrivers,
 }: DriversSectionProps) {
   const [hoveredDriver, setHoveredDriver] = useState<string | null>(null);
-
+  const router = useRouter();
   const getPositionBadge = (position: number) => {
     if (position === 1) {
       return (
@@ -95,27 +96,11 @@ export default function DriversSection({
                 style={{
                   animationDelay: `${index * 0.05}s`,
                 }}
+                onClick={() => {
+                  router.push(`/driverChart?driverCode=${driver.driverCode}`);
+                }}
               >
-                {/* 배경 글로우 효과 */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background: `radial-gradient(circle at center, ${driver.teamColor}20 0%, transparent 70%)`,
-                  }}
-                >
-                  <Image
-                    src={NetherlandsFlag}
-                    alt="Netherlands Flag"
-                    fill
-                    className="object-contain"
-                    sizes="24px"
-                    unoptimized
-                    style={{
-                      opacity: "0.3",
-                      marginTop: "-100px",
-                    }}
-                  />
-                </div>
+               
 
                 {/* 순위 배지 */}
                 {/* {getPositionBadge(driver.position)} */}

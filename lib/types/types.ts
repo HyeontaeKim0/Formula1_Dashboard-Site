@@ -95,6 +95,52 @@ export interface DriverResult {
   teamColor?: string;
 }
 
+// F1 API 응답 구조에 맞춘 타입 정의
+export interface RaceResultDriver {
+  driverId: string;
+  number: number;
+  shortName: string;
+  url: string;
+  name: string;
+  surname: string;
+  nationality: string;
+  birthday: string;
+}
+
+export interface RaceResultTeam {
+  teamId: string;
+  teamName: string;
+  nationality: string;
+  firstAppareance: number;
+  constructorsChampionships: number;
+  driversChampionships: number;
+  url: string;
+}
+
+export interface RaceResultItem {
+  position: number;
+  points: number;
+  grid: number;
+  time: string;
+  fastLap: string | null;
+  retired: string | null;
+  driver: RaceResultDriver;
+  team: RaceResultTeam;
+}
+
+// API 응답 전체 구조 (배열 또는 래핑된 객체일 수 있음)
+export type RaceResultResponse = 
+  | RaceResultItem[]
+  | {
+      results?: RaceResultItem[];
+    }
+  | {
+      races?: {
+        results?: RaceResultItem[];
+      };
+    };
+
+
 export interface SessionResult {
   dnf: boolean;
   dns: boolean;
