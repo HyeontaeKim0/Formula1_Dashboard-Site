@@ -112,8 +112,7 @@ export default function DriverRankChart({
   return (
     <div className="w-full h-[500px] p-6 bg-white rounded-lg shadow-sm">
  
-     <div className=" text-gray-300 text-xl font-semibold">우승 횟수 : {winnerCount}</div>
-     <div className=" text-gray-300 text-xl font-semibold">포디움 횟수 : {top3Count}</div>
+   
 
 
 

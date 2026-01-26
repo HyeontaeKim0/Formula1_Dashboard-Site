@@ -21,7 +21,7 @@ export default function Navbar() {
   const navItems = [
     { label: "홈", href: "/" },
     { label: "결과", href: "/drivers" },
-    { label: "게시판", href: "/board" },
+    // { label: "게시판", href: "/board" },
     { label: "뉴스", href: "/news" },
     { label: "일정", href: "/schedule" },
     // { label: "결과", href: "/results" },
