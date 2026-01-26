@@ -68,7 +68,7 @@ export default function Footer() {
                   href="/contact"
                   className="text-gray-600 hover:text-primary transition-all duration-300 inline-block hover:translate-x-1 font-medium"
                 >
-                  문의 · 제안
+                  문의 · 제안 (없음)
                 </Link>
               </li>
               <li>
@@ -76,7 +76,7 @@ export default function Footer() {
                   href="/terms"
                   className="text-gray-600 hover:text-primary transition-all duration-300 inline-block hover:translate-x-1 font-medium"
                 >
-                  이용약관
+                  이용약관 (없음)
                 </Link>
               </li>
               <li>
@@ -84,7 +84,7 @@ export default function Footer() {
                   href="/privacy"
                   className="text-gray-600 hover:text-primary transition-all duration-300 inline-block hover:translate-x-1 font-medium"
                 >
-                  개인정보처리방침
+                  개인정보처리방침 (없음)
                 </Link>
               </li>
             </ul>
