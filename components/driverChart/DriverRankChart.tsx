@@ -1,16 +1,16 @@
 "use client";
 
+import { getTeamColor } from "@/lib/utils/driverUtils";
 import {
-  LineChart,
+  CartesianGrid,
+  Dot,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Dot,
 } from "recharts";
-import { getTeamColor } from "@/lib/utils/driverUtils";
 
 interface ChartDataPoint {
   driverNumber: number;
@@ -45,12 +45,9 @@ export default function DriverRankChart({
   const numericPositions = data
     .map((d) => d.position)
     .filter((p): p is number => typeof p === "number");
-  const maxPosition = numericPositions.length > 0 
-    ? Math.max(...numericPositions, 20) 
-    : 20;
+  const maxPosition =
+    numericPositions.length > 0 ? Math.max(...numericPositions, 20) : 20;
   const minPosition = 1;
-
- 
 
   // Y축 틱 생성 (1, 5, 10, 30 등)
   const generateYTicks = () => {
@@ -81,7 +78,6 @@ export default function DriverRankChart({
     payload?: ChartDataWithDisplay;
   }) => {
     const { cx, cy, payload } = props;
-  
 
     if (cx === undefined || cy === undefined) return null;
 
@@ -90,7 +86,7 @@ export default function DriverRankChart({
         cx={cx}
         cy={cy}
         r={6}
-        fill={getTeamColor(payload?.driverNumber)} 
+        fill={getTeamColor(payload?.driverNumber)}
         stroke="#fff"
         strokeWidth={2}
       />
@@ -108,101 +104,90 @@ export default function DriverRankChart({
     };
   });
 
-
   return (
     <div className="w-full h-[500px] p-6 bg-white rounded-lg shadow-sm">
- 
-   
-
-
-
-{chartData.length > 0 ? (
-
-
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          data={chartData}
-          margin={{ top: 60, right: 50, left: 10, bottom: 60 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-          <XAxis
-            dataKey="round"
-            tickFormatter={formatXAxis}
-            stroke="#6B7280"
-            tick={{ fill: "#6B7280" }}
-            label={{
-              value: "",
-              position: "insideBottomRight",
-              offset: -10,
-              style: { textAnchor: "start", fill: "#6B7280" },
-            }}
-          />
-          <YAxis
-            domain={[minPosition, maxPosition + 1]}
-            tickFormatter={formatYAxis}
-            reversed={true} // Y축 역순
-            ticks={yTicks}
-            stroke="#6B7280"
-            tick={{ fill: "#6B7280" }}
-            label={{
-              value: "",
-              angle: -90,
-              position: "insideLeft",
-              style: { textAnchor: "middle", fill: "#6B7280" },
-            }}
-          />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: "#fff",
-              border: "1px solid #E5E7EB",
-              borderRadius: "8px",
-            }}
-            formatter={(value: any, name: string, props: any) => {
-              const payload = props?.payload;
-              if (!payload) return ["", ""];
-              
-              const originalPosition = payload.originalPosition;
-              if (typeof originalPosition === "string") {
-                return [originalPosition, `${payload.round}R`];
-              }
-              return [`${originalPosition}위`, `${payload.round}R`];
-            }}
-            // labelFormatter={(label: string | number) => `${label}R`}
-          />
-          {/* 전체 선: displayPosition을 사용하여 NC도 표시되도록 함 */}
-          {chartData.length > 1 && (
-            <Line
-              type="monotone"
-              dataKey="displayPosition"
-              stroke={getTeamColor(driverNumber)}
-              strokeWidth={5}
-              dot={<CustomDot />}
-              activeDot={{ r: 8 }}
-              connectNulls={true}
+      {chartData.length > 0 ? (
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            data={chartData}
+            margin={{ top: 60, right: 50, left: 10, bottom: 60 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+            <XAxis
+              dataKey="round"
+              tickFormatter={formatXAxis}
+              stroke="#6B7280"
+              tick={{ fill: "#6B7280" }}
+              label={{
+                value: "",
+                position: "insideBottomRight",
+                offset: -10,
+                style: { textAnchor: "start", fill: "#6B7280" },
+              }}
             />
-          )}
-      
-          {/* 데이터가 1개인 경우 */}
-          {chartData.length === 1 && (
-            <Line
-              type="monotone"
-              dataKey="displayPosition"
-              stroke={getTeamColor(driverNumber)}
-              strokeWidth={3}
-              dot={<CustomDot />}
-              activeDot={{ r: 8 }}
-              connectNulls={true}
+            <YAxis
+              domain={[minPosition, maxPosition + 1]}
+              tickFormatter={formatYAxis}
+              reversed={true} // Y축 역순
+              ticks={yTicks}
+              stroke="#6B7280"
+              tick={{ fill: "#6B7280" }}
+              label={{
+                value: "",
+                angle: -90,
+                position: "insideLeft",
+                style: { textAnchor: "middle", fill: "#6B7280" },
+              }}
             />
-          )}
-        </LineChart>
-      </ResponsiveContainer>
-      ): (
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#fff",
+                border: "1px solid #E5E7EB",
+                borderRadius: "8px",
+              }}
+              formatter={(value: any, name: string, props: any) => {
+                const payload = props?.payload;
+                if (!payload) return ["", ""];
+
+                const originalPosition = payload.originalPosition;
+                if (typeof originalPosition === "string") {
+                  return [originalPosition, `${payload.round}R`];
+                }
+                return [`${originalPosition}위`, `${payload.round}R`];
+              }}
+            />
+            {/* 전체 선: displayPosition을 사용하여 NC도 표시되도록 함 */}
+            {chartData.length > 1 && (
+              <Line
+                type="monotone"
+                dataKey="displayPosition"
+                stroke={getTeamColor(driverNumber)}
+                strokeWidth={5}
+                dot={<CustomDot />}
+                activeDot={{ r: 8 }}
+                connectNulls={true}
+              />
+            )}
+
+            {/* 데이터가 1개인 경우 */}
+            {chartData.length === 1 && (
+              <Line
+                type="monotone"
+                dataKey="displayPosition"
+                stroke={getTeamColor(driverNumber)}
+                strokeWidth={3}
+                dot={<CustomDot />}
+                activeDot={{ r: 8 }}
+                connectNulls={true}
+              />
+            )}
+          </LineChart>
+        </ResponsiveContainer>
+      ) : (
         <div className="flex items-center justify-center h-full">
           <p className="text-gray-500">데이터가 없습니다.</p>
         </div>
       )}
-    
     </div>
   );
 }
-
