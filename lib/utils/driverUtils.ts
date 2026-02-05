@@ -42,6 +42,7 @@ import LiamLawson from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
 import LusailCircuit from "@/assets/img/circuit/Qatar_Circuit.avif";
 import YasMarinaCircuit from "@/assets/img/circuit/Abu_Dhabi_Circuit.avif";
 import AlbertParkCircuit from "@/assets/img/circuit/Australia_Circuit.avif";
+import AustraliaFlag from "@/assets/img/flag/Australia.webp";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
@@ -68,6 +69,14 @@ export const getCircuitName = (circuit_name: string) => {
       return "";
   }
 };
+
+export const getCountryFlagUrl = (country_name: string) => {
+  switch (country_name) {
+    case "Australia":
+      return AustraliaFlag.src;
+  }
+};
+
 export const getCar = (driver_number: number | null | undefined) => {
   if (driver_number == null) {
     return "";

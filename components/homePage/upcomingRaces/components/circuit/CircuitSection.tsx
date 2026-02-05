@@ -9,6 +9,7 @@ import {
   getConstructorTeamLogoUrl,
   getDriverChampionImageUrl,
   getConstructorTeamColor,
+  getCountryFlagUrl,
 } from "@/lib/utils/driverUtils";
 import Image from "next/image";
 export default function CircuitSection({
@@ -31,25 +32,43 @@ export default function CircuitSection({
     <div className="relative w-full">
       {/* 메인 컨텐츠 */}
       <div className="mt-[0px] relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
-        <div className="flex gap-2 justify-start items-center">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
-            <CircuitBoard className="text-primary" size={20} />
-          </div>
-          <div>
-            {upcomingRacesApi?.race[0]?.circuit?.circuitId === undefined ? (
-              <p className="text-lg font-bold text-gray-400">Comming ...</p>
-            ) : (
-              <p className="text-lg font-bold">
-                {getCircuitName(upcomingRacesApi?.race[0]?.circuit?.circuitId)}
-              </p>
-            )}
-            {upcomingRacesApi?.race[0]?.circuit?.circuitName === undefined ? (
-              <p className="text-[12px] font-bold text-gray-400">Soon ...</p>
-            ) : (
-              <p className="text-[12px] font-medium text-gray-600">
-                {upcomingRacesApi?.race[0]?.circuit?.circuitName}
-              </p>
-            )}
+        <div>
+          <div className="flex gap-2 justify-between items-center px-2">
+            <div className="flex items-center gap-2">
+              <div className="flex h-10 w-10  items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+                <CircuitBoard className="text-primary" size={20} />
+              </div>
+              <div>
+                {upcomingRacesApi?.race[0]?.circuit?.circuitId === undefined ? (
+                  <p className="text-lg font-bold text-gray-400">Comming ...</p>
+                ) : (
+                  <p className="text-lg font-bold">
+                    {getCircuitName(
+                      upcomingRacesApi?.race[0]?.circuit?.circuitId,
+                    )}
+                  </p>
+                )}
+                {upcomingRacesApi?.race[0]?.circuit?.circuitName ===
+                undefined ? (
+                  <p className="text-[12px] font-bold text-gray-400">
+                    Soon ...
+                  </p>
+                ) : (
+                  <p className="text-[12px] font-medium text-gray-600">
+                    {upcomingRacesApi?.race[0]?.circuit?.circuitName}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div>
+              <img
+                src={getCountryFlagUrl(
+                  upcomingRacesApi?.race[0]?.circuit?.country as string,
+                )}
+                width={50}
+                height={50}
+              />
+            </div>
           </div>
         </div>
         {upcomingRacesApi?.race[0]?.circuit?.circuitId === undefined ? (
