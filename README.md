@@ -1,7 +1,7 @@
 ## 개요
 
-- 포뮬러1 레이스 일정, 결과, 순위, 드라이버 정보를 한눈에 볼 수 있는 대시보드 웹 애플리케이션입니다.
-- A dashboard web application that provides a quick, at-a-glance view of Formula 1 race schedule, results, rankings, and driver information.
+- 포뮬러1 레이스 일정, 결과, 순위, 최신뉴스, 드라이버 정보를 한눈에 볼 수 있는 대시보드 웹 애플리케이션입니다.
+- A dashboard web application that provides a quick, at-a-glance view of Formula 1 race schedule, results, rankings,lastest news and driver information.
 
 <img width="1280" height="320" alt="MainTitle" src="https://github.com/user-attachments/assets/9b8e29fe-6f4e-457d-883b-a6c0157c8bd7" />
 <img width="1921" height="580" alt="image" src="https://github.com/user-attachments/assets/c5392956-11d8-4c4e-9cc6-c3b276232e4e" />
