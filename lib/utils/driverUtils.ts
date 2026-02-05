@@ -41,6 +41,7 @@ import LiamLawson from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
 
 import LusailCircuit from "@/assets/img/circuit/Qatar_Circuit.avif";
 import YasMarinaCircuit from "@/assets/img/circuit/Abu_Dhabi_Circuit.avif";
+import AlbertParkCircuit from "@/assets/img/circuit/Australia_Circuit.avif";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
@@ -48,6 +49,8 @@ export const getCircuitImageUrl = (circuit_name: string) => {
       return LusailCircuit.src;
     case "yas_marina":
       return YasMarinaCircuit.src;
+    case "albert_park":
+      return AlbertParkCircuit.src;
     default:
       return "";
   }
@@ -59,6 +62,8 @@ export const getCircuitName = (circuit_name: string) => {
       return "루살 서킷";
     case "yas_marina":
       return "야스 마리나 서킷";
+    case "albert_park":
+      return "알베르트 파크 서킷";
     default:
       return "";
   }
@@ -163,6 +168,7 @@ export const getDriverChampionName = (driver_code: string) => {
     case "HAM":
       return "루이스 해밀턴";
     case "LEC":
+    case "leclerc":
       return "샤를 르클레르";
     case "ALO":
       return "페르난도 알론소";
@@ -304,6 +310,7 @@ export const getConstructorTeamColor = (team_name: string) => {
     case "McLaren Formula 1 Team":
       return "#FF8000";
     case "Scuderia Ferrari":
+    case "ferrari":
       return "#DC143C";
     case "Williams Racing":
       return "#00A3E0";
@@ -370,6 +377,7 @@ export const getConstructorTeamLogoUrl = (team_name: string) => {
     case "McLaren Formula 1 Team":
       return McLarenLogo.src;
     case "Scuderia Ferrari":
+    case "ferrari":
       return FerrariLogo.src;
     case "Williams Racing":
       return WilliamsLogo.src;
@@ -434,6 +442,7 @@ export const getDriverChampionImageUrl = (driver_code: string) => {
     case "HAM":
       return LewisHamilton.src;
     case "LEC":
+    case "leclerc":
       return CharlesLeclerc.src;
     case "ALO":
       return FernandoAlonso.src;

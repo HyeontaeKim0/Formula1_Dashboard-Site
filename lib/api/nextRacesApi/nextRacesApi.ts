@@ -33,6 +33,7 @@ export interface Circuit {
   corners: number;
   fastestLapDriverId: string;
   fastestLapYear: number;
+  fastestLapTeamId: string;
 }
 
 export interface NextRacesResponse {
