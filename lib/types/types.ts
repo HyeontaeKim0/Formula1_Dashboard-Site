@@ -78,6 +78,9 @@ export interface NewsItem {
   timeAgo: string;
   category?: string;
   trending?: boolean;
+  url: string;
+  image: string;
+  description: string;
 }
 
 export interface DriverResult {
@@ -129,7 +132,7 @@ export interface RaceResultItem {
 }
 
 // API 응답 전체 구조 (배열 또는 래핑된 객체일 수 있음)
-export type RaceResultResponse = 
+export type RaceResultResponse =
   | RaceResultItem[]
   | {
       results?: RaceResultItem[];
@@ -139,7 +142,6 @@ export type RaceResultResponse =
         results?: RaceResultItem[];
       };
     };
-
 
 export interface SessionResult {
   dnf: boolean;

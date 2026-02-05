@@ -21,10 +21,10 @@ export default function Navbar() {
   const navItems = [
     { label: "홈", href: "/" },
     { label: "결과", href: "/drivers" },
-    { label: "일정", href: "/schedule" },
+    // { label: "일정", href: "/schedule" },
     // { label: "밈생성기", href: "/memeGenerator" },
     // { label: "게시판", href: "/board" },
-    // { label: "뉴스", href: "/news" },
+    { label: "뉴스", href: "/news" },
     // { label: "결과", href: "/results" },
     // { label: "순위", href: "/standings" },
     // { label: "팀", href: "/teams" },
@@ -51,7 +51,6 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center space-x-4">
-        
             <div className="hidden md:flex items-center space-x-1">
               {navItems.map((item, index) => (
                 <Link
