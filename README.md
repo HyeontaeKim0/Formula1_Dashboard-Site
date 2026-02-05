@@ -19,12 +19,13 @@
 
 - 📅 다가오는 레이스 일정 (upcoming race schedule)
 - 🏁 최근 레이스 결과 (the results of the latest race)
+- 📰 최신 뉴스 (the latest news)
 - 🏆 챔피언십 순위 (드라이버/컨스트럭터) [Championship Ranking (Driver/Construtor)]
 - 📱 반응형 디자인 (responsive design)
 
 ### Comming Soon
 
-- 📰 최신 뉴스 (the latest news)
+
 - 🌓 다크 모드 지원 (dark mod)
 - 🗣️ 커뮤니티 (cummunity)
 
