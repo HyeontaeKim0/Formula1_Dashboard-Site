@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import Logo from "@/assets/img/logo/MainTitle.png";
 import Image from "next/image";
+import { FaGithub } from "react-icons/fa";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -69,6 +70,17 @@ export default function Navbar() {
             </div>
 
             <div className="flex items-center space-x-4">
+              <div className="mt-10">
+                <Link
+                  href="https://github.com/HyeontaeKim0"
+                  className="text-lg flex gap-2  tracking-tight text-gray-900 mb-10"
+                >
+                  <div className="flex items-center justify-center">
+                    <FaGithub className="text-xl" />
+                  </div>
+                  <span className="text-sm font-semibold">HyeontaeKim0</span>
+                </Link>
+              </div>
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-xl text-gray-700 hover:text-primary hover:bg-gray-100 transition-all duration-300 hover:rotate-180 hover:scale-110"
