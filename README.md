@@ -4,7 +4,8 @@
 - A dashboard web application that provides a quick, at-a-glance view of Formula 1 race schedule, results, rankings, and driver information.
 
 <img width="1280" height="320" alt="MainTitle" src="https://github.com/user-attachments/assets/9b8e29fe-6f4e-457d-883b-a6c0157c8bd7" />
-<img width="1508" height="734" alt="image" src="https://github.com/user-attachments/assets/b5f80f09-7c4c-4f96-93cb-d8d783c07fd9" />
+<img width="1921" height="580" alt="image" src="https://github.com/user-attachments/assets/c5392956-11d8-4c4e-9cc6-c3b276232e4e" />
+
 <br/>
 
 ## 기술 스택
