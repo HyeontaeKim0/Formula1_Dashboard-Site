@@ -39,7 +39,7 @@ export default function Podium() {
   const [lastRaceResult, setLastRaceResult] = useState<any | null>(null);
   // 최근레이스, fastestLap,,,기타등등
   const [lastestMeeting, setLastestMeeting] = useState<LastestMeeting | null>(
-    null
+    null,
   );
 
   const podiumDrivers =
@@ -130,13 +130,13 @@ export default function Podium() {
   // 캐러셀 네비게이션 함수
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? podiumData.length - 1 : prevIndex - 1
+      prevIndex === 0 ? podiumData.length - 1 : prevIndex - 1,
     );
   };
 
   const goToNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === podiumData.length - 1 ? 0 : prevIndex + 1
+      prevIndex === podiumData.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
@@ -189,7 +189,7 @@ export default function Podium() {
         </div>
 
         {/* 로딩 컨테이너 */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/90 via-slate-800/90 to-slate-900/90 p-0">
+        <div className="relative overflow-hidden rounded-3xl p-0">
           <div className="relative z-10 flex min-h-[500px] flex-col items-center justify-center px-20">
             {/* 로딩 스피너 */}
             <div className="relative">
@@ -211,18 +211,9 @@ export default function Podium() {
 
             {/* 로딩 텍스트 */}
             <div className="mt-8 text-center">
-              <div className="text-2xl font-bold text-white">
-                포디움 데이터 로딩 중
-              </div>
+              <div className="text-2xl font-bold text-white">로딩 중</div>
               <div className="mt-2 text-sm text-gray-400">
                 잠시만 기다려주세요...
-              </div>
-            </div>
-
-            {/* 진행 바 */}
-            <div className="mt-8 w-full max-w-xs">
-              <div className="h-1 overflow-hidden rounded-full bg-slate-700">
-                <div className="h-full bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] animate-[shimmer_2s_infinite]"></div>
               </div>
             </div>
           </div>
