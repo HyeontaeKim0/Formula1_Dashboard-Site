@@ -150,7 +150,7 @@ export default function Podium() {
   //     <div className="relative w-full">
   //       <div className="mb-6 flex items-center justify-between">
   //         <div className="flex items-center gap-4">
-  //           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+  //           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
   //             <Trophy className="text-primary" size={24} />
   //           </div>
   //           <div>
@@ -174,7 +174,7 @@ export default function Podium() {
         {/* 헤더 섹션 */}
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
             </div>
             <div>
@@ -211,7 +211,7 @@ export default function Podium() {
 
             {/* 로딩 텍스트 */}
             <div className="mt-8 text-center">
-              <div className="text-2xl font-bold text-white">로딩 중</div>
+              <div className="text-2xl font-bold text-gray-400">로딩 중</div>
               <div className="mt-2 text-sm text-gray-400">
                 잠시만 기다려주세요...
               </div>
@@ -228,7 +228,7 @@ export default function Podium() {
       <div className="mb-6 flex items-center justify-between">
         {lastestMeeting?.circuit?.country === "United Arab Emirates" ? (
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
             </div>
             <div>
@@ -243,7 +243,7 @@ export default function Podium() {
           </div>
         ) : (
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
             </div>
             <div>
@@ -422,7 +422,7 @@ export default function Podium() {
                                         unoptimized
                                       />
                                       {/* 그라데이션 오버레이 */}
-                                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                                      <div className="absolute inset-0 bg-black/20" />
                                     </div>
 
                                     {/* 순위 번호 */}

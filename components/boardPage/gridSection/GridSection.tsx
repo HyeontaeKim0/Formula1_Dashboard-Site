@@ -104,7 +104,7 @@ export default function GridSection({}) {
   return (
     <>
       <div className="mb-6 flex items-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
           <MessageCircle className="text-primary" size={24} />
         </div>
         <div>

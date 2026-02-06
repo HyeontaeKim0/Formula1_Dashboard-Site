@@ -29,7 +29,7 @@ export default function Podium() {
   >([]);
 
   const [lastestMeeting, setLastestMeeting] = useState<LastestMeeting | null>(
-    null
+    null,
   );
 
   // 최근 레이스 데이터
@@ -54,7 +54,7 @@ export default function Podium() {
           sessionResults.map((result) => ({
             position: result.position,
             driver_number: result.driver_number,
-          }))
+          })),
         );
       } catch (error) {
         console.error("세션 결과를 불러오지 못했습니다.", error);
@@ -312,29 +312,29 @@ export default function Podium() {
               {/* 포디움 (아래쪽) */}
               <div
                 className={`w-full ${getPositionHeight(
-                  driver.position
+                  driver.position,
                 )} relative rounded-t-lg bg-gradient-to-t ${getPositionGradient(
-                  driver.position
+                  driver.position,
                 )} border-t-2 border-l-2 border-r-2 transition-all duration-300 group-hover:scale-105 group-hover:border-primary/50 overflow-hidden`}
                 style={{
                   borderTopColor:
                     driver.position === 1
                       ? "#FFFFFF"
                       : driver.position === 2
-                      ? "#FFFFFF"
-                      : "#FF3B30",
+                        ? "#FFFFFF"
+                        : "#FF3B30",
                   borderLeftColor:
                     driver.position === 1
                       ? "#FFFFFF"
                       : driver.position === 2
-                      ? "#FFFFFF"
-                      : "#FF3B30",
+                        ? "#FFFFFF"
+                        : "#FF3B30",
                   borderRightColor:
                     driver.position === 1
                       ? "#FFFFFF"
                       : driver.position === 2
-                      ? "#FFFFFF"
-                      : "#FF3B30",
+                        ? "#FFFFFF"
+                        : "#FF3B30",
                 }}
               >
                 {/* 포디움 번호 */}
@@ -344,8 +344,8 @@ export default function Podium() {
                       driver.position === 1
                         ? "text-primary"
                         : driver.position === 2
-                        ? "text-gray-600"
-                        : "text-primary"
+                          ? "text-gray-600"
+                          : "text-primary"
                     }`}
                   >
                     {driver.position}

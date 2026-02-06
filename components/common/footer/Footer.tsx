@@ -3,7 +3,7 @@ import { FaGithub } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-t from-white via-gray-50 to-white border-t border-gray-200 mt-16">
+    <footer className="relative bg-gray-50 border-t border-gray-200 mt-16">
       <div className="container mx-auto px-4 py-12">
         <div className="flex items-center justify-center">
           <div>

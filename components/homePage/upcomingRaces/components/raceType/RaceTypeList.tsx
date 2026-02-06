@@ -107,8 +107,8 @@ export default function RaceTypeList({
     // 일정이 있을 때 기존 UI
     return (
       <div key={raceType.id} className="space-y-3 mt-5">
-        <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-r from-gray-50 to-white hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shimmer"></div>
+        <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md">
+          <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shimmer"></div>
 
           <div className="relative p-5 flex items-center justify-between">
             <div className="flex items-center space-x-4 flex-1">
@@ -167,7 +167,7 @@ export default function RaceTypeList({
           .map(renderRaceItem)}
 
         {/* <div className="mt-6 pt-5 border-t border-gray-200">
-          <button className="w-full py-3.5 text-sm font-semibold text-gray-700 hover:text-white rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 border border-gray-200 hover:border-primary bg-gradient-to-r from-gray-50 to-white hover:from-primary hover:to-primary-dark group">
+          <button className="w-full py-3.5 text-sm font-semibold text-gray-700 hover:text-white rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 border border-gray-200 hover:border-primary bg-gray-50 hover:bg-primary group">
             <span className="flex items-center justify-center space-x-2">
               <span>전체 일정 보기</span>
               <span className="transform group-hover:translate-x-1 transition-transform duration-300">

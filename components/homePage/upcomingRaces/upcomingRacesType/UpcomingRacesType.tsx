@@ -13,13 +13,13 @@ import HeaderSection from "../components/header/HeaderSection";
 const getTypeColor = (type: RaceEvent["type"]) => {
   switch (type) {
     case "race":
-      return "from-primary to-primary-dark";
+      return "bg-primary";
     case "qualifying":
-      return "from-secondary to-secondary";
+      return "bg-secondary";
     case "sprint":
-      return "from-primary-light to-secondary";
+      return "bg-primary";
     default:
-      return "from-dark-lighter to-dark-light";
+      return "bg-gray-600";
   }
 };
 

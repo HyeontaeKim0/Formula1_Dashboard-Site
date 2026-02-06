@@ -30,7 +30,7 @@ export default function ConstructorSection({
     ConstructorsChampionshipResponse[]
   >([]);
   const [driverChampion, setDriverChampion] = useState<DriverChampion[] | null>(
-    null
+    null,
   );
 
   // console.log("driverChampion", driverChampion);
@@ -165,7 +165,7 @@ export default function ConstructorSection({
                               className="w-2 h-2 rounded-full"
                               style={{
                                 backgroundColor: getConstructorTeamColor(
-                                  standing.teamName
+                                  standing.teamName,
                                 ),
                               }}
                             ></div>
@@ -258,7 +258,7 @@ export default function ConstructorSection({
                               className="w-2 h-2 rounded-full"
                               style={{
                                 backgroundColor: getConstructorTeamColor(
-                                  standing.team
+                                  standing.team,
                                 ),
                               }}
                             ></div>

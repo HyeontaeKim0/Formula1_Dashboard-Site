@@ -12,7 +12,7 @@ export default function HeaderSection({
   return (
     <div className="mb-6 flex items-center justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
           <MedalIcon className="text-primary" size={24} />
         </div>
         <div>
@@ -27,7 +27,7 @@ export default function HeaderSection({
           onClick={() => setView("drivers")}
           className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
             view === "drivers"
-              ? "bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30"
+              ? "bg-primary text-white shadow-lg shadow-primary/30"
               : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
           }`}
         >
@@ -37,7 +37,7 @@ export default function HeaderSection({
           onClick={() => setView("constructors")}
           className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
             view === "constructors"
-              ? "bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30"
+              ? "bg-primary text-white shadow-lg shadow-primary/30"
               : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
           }`}
         >

@@ -35,7 +35,7 @@ export default function CircuitSection({
         <div>
           <div className="flex gap-2 justify-between items-center px-2">
             <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10  items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+              <div className="flex h-10 w-10  items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
                 <CircuitBoard className="text-primary" size={20} />
               </div>
               <div>

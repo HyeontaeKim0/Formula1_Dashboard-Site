@@ -63,7 +63,7 @@ export default function DriversSection({
       {/* 헤더 섹션 */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 backdrop-blur-sm">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
             <Users className="text-primary" size={24} />
           </div>
           <div>
@@ -90,7 +90,7 @@ export default function DriversSection({
             {drivers.map((driver, index) => (
               <div
                 key={driver.driverCode || driver.driverNumber || index}
-                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-gray-50 to-white hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md"
+                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md"
                 onMouseEnter={() => setHoveredDriver(driver.driverCode)}
                 onMouseLeave={() => setHoveredDriver(null)}
                 style={{
@@ -113,7 +113,7 @@ export default function DriversSection({
                       <div
                         className="absolute inset-0 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300"
                         style={{
-                          background: `radial-gradient(circle, ${driver.teamColor}40 0%, transparent 70%)`,
+                          backgroundColor: `${driver.teamColor}40`,
                         }}
                       ></div>
                       <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-gray-200 group-hover:border-primary/50 transition-colors duration-300 bg-gray-50">

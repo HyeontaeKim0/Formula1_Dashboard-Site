@@ -11,7 +11,7 @@ export default function RacingTypeTabMenu({
         onClick={() => setView("practice")}
         className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
           view === "practice"
-            ? "bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30"
+            ? "bg-primary text-white shadow-lg shadow-primary/30"
             : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
         }`}
       >
@@ -21,7 +21,7 @@ export default function RacingTypeTabMenu({
         onClick={() => setView("sprint")}
         className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
           view === "sprint"
-            ? "bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30"
+            ? "bg-primary text-white shadow-lg shadow-primary/30"
             : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
         }`}
       >
@@ -31,7 +31,7 @@ export default function RacingTypeTabMenu({
         onClick={() => setView("qualifying")}
         className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
           view === "qualifying"
-            ? "bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30"
+            ? "bg-primary text-white shadow-lg shadow-primary/30"
             : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
         }`}
       >
@@ -41,7 +41,7 @@ export default function RacingTypeTabMenu({
         onClick={() => setView("race")}
         className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
           view === "race"
-            ? "bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30"
+            ? "bg-primary text-white shadow-lg shadow-primary/30"
             : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
         }`}
       >
