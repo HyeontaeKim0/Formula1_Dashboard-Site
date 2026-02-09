@@ -16,24 +16,47 @@ import HaasLogo from "@/assets/img/teamLogo/Haas.svg";
 import AlpineLogo from "@/assets/img/teamLogo/Alpine.png";
 import KickSauberLogo from "@/assets/img/teamLogo/Kick.svg";
 import RacingBullsLogo from "@/assets/img/teamLogo/RacingBulls.png";
+import AudiLogo from "@/assets/img/teamLogo/Audi.webp";
 
-// 모든 드라이버 이미지
-import MaxVerstappen from "@/assets/img/podium/Max_Podium.png";
+// 모든 드라이버 이미지 (포디움)
+import MaxVerstappen_podium from "@/assets/img/podium/Max_Podium.png";
+import YukiTsunoda_podium from "@/assets/img/driverProfile/RedBull/yuki.webp";
+import KimiAntonelli_podium from "@/assets/img/podium/Kimi_Podium4.png";
+import GeorgeRussell_podium from "@/assets/img/podium/Russell_Podium.png";
+import LandoNorris_podium from "@/assets/img/podium/Norris_Podium.png";
+import OscarPiastri_podium from "@/assets/img/podium/Oscar_Podium.png";
+import CarlosSainz_podium from "@/assets/img/podium/Saintz_Podium.png";
+import AlexAlbon_podium from "@/assets/img/driverProfile/Williams/albon.webp";
+import LewisHamilton_podium from "@/assets/img/driverProfile/Ferrari/hamilton.webp";
+import CharlesLeclerc_podium from "@/assets/img/driverProfile/Ferrari/leclerc.webp";
+import FernandoAlonso_podium from "@/assets/img/driverProfile/AstonMartin/fernando.webp";
+import LanceStroll_podium from "@/assets/img/driverProfile/AstonMartin/stroll.webp";
+import EstebanOcon_podium from "@/assets/img/driverProfile/Haas/ocon.webp";
+import OliverBearman_podium from "@/assets/img/driverProfile/Haas/oliver.webp";
+import GabrielBortoleto_podium from "@/assets/img/driverProfile/KickSauber/gabriel.webp";
+import NicoHulkenberg_podium from "@/assets/img/driverProfile/KickSauber/niko.webp";
+import PierreGasly_podium from "@/assets/img/driverProfile/Alpine/gasly2.webp";
+import FrancoColapinto_podium from "@/assets/img/driverProfile/Alpine/franco2.webp";
+import IsackHadjar_podium from "@/assets/img/driverProfile/RacingBulls/isack.webp";
+import LiamLawson_podium from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
+
+// 드라이버 프로필 샷
+import MaxVerstappen from "@/assets/img/driverProfile/RedBull/max.webp";
 import YukiTsunoda from "@/assets/img/driverProfile/RedBull/yuki.webp";
-import KimiAntonelli from "@/assets/img/podium/Kimi_Podium4.png";
-import GeorgeRussell from "@/assets/img/podium/Russell_Podium.png";
-import LandoNorris from "@/assets/img/podium/Norris_Podium.png";
-import OscarPiastri from "@/assets/img/podium/Oscar_Podium.png";
-import CarlosSainz from "@/assets/img/podium/Saintz_Podium.png";
+import KimiAntonelli from "@/assets/img/driverProfile/Mercedes/kimi2.webp";
+import GeorgeRussell from "@/assets/img/driverProfile/Mercedes/george2.webp";
+import LandoNorris from "@/assets/img/driverProfile/McLaren/norris.webp";
+import OscarPiastri from "@/assets/img/driverProfile/McLaren/piastri.webp";
+import CarlosSainz from "@/assets/img/driverProfile/Williams/sainz.webp";
 import AlexAlbon from "@/assets/img/driverProfile/Williams/albon.webp";
-import LewisHamilton from "@/assets/img/driverProfile/Ferrari/hamilton.webp";
-import CharlesLeclerc from "@/assets/img/driverProfile/Ferrari/leclerc.webp";
+import LewisHamilton from "@/assets/img/driverProfile/Ferrari/hamilton2.webp";
+import CharlesLeclerc from "@/assets/img/driverProfile/Ferrari/leclerc2.webp";
 import FernandoAlonso from "@/assets/img/driverProfile/AstonMartin/fernando.webp";
 import LanceStroll from "@/assets/img/driverProfile/AstonMartin/stroll.webp";
 import EstebanOcon from "@/assets/img/driverProfile/Haas/ocon.webp";
 import OliverBearman from "@/assets/img/driverProfile/Haas/oliver.webp";
-import GabrielBortoleto from "@/assets/img/driverProfile/KickSauber/gabriel.webp";
-import NicoHulkenberg from "@/assets/img/driverProfile/KickSauber/niko.webp";
+import GabrielBortoleto from "@/assets/img/driverProfile/KickSauber/gabriel2.webp";
+import NicoHulkenberg from "@/assets/img/driverProfile/KickSauber/niko2.webp";
 import PierreGasly from "@/assets/img/driverProfile/Alpine/gasly.webp";
 import FrancoColapinto from "@/assets/img/driverProfile/Alpine/franco.webp";
 import IsackHadjar from "@/assets/img/driverProfile/RacingBulls/isack.webp";
@@ -243,9 +266,9 @@ export const getTeamName = (driver_number: number | null | undefined) => {
     case 31:
       return "하스";
     case 5:
-      return "킥 자우버";
+      return "아우디";
     case 27:
-      return "킥 자우버";
+      return "아우디";
     case 10:
       return "알핀";
     case 43:
@@ -296,7 +319,7 @@ export const getTeamColor = (driver_number: number | null | undefined) => {
     // Kick Sauber
     case 5:
     case 27:
-      return "#52C41A";
+      return "#fd2e00";
     // Alpine
     case 10:
     case 43:
@@ -365,7 +388,7 @@ export const getTeamLogoUrl = (driver_number: number | null | undefined) => {
       return HaasLogo.src;
     case 5:
     case 27:
-      return KickSauberLogo.src;
+      return AudiLogo.src;
     case 10:
     case 43:
       return AlpineLogo.src;
@@ -395,11 +418,13 @@ export const getConstructorTeamLogoUrl = (team_name: string) => {
     case "Haas F1 Team":
       return HaasLogo.src;
     case "Sauber F1 Team":
-      return KickSauberLogo.src;
+      return AudiLogo.src;
     case "Alpine F1 Team":
       return AlpineLogo.src;
     case "RB F1 Team":
       return RacingBullsLogo.src;
+    case "Audi Revolut F1 Team":
+      return AudiLogo.src;
   }
 };
 
@@ -420,17 +445,19 @@ export const getConstructorTeamName = (team_name: string) => {
     case "Haas F1 Team":
       return "하스";
     case "Sauber F1 Team":
-      return "킥 자우버";
+      return "아우디";
     case "Alpine F1 Team":
       return "알핀";
     case "RB F1 Team":
       return "레이싱 불스";
+    case "Audi Revolut F1 Team":
+      return "아우디";
     default:
       return team_name;
   }
 };
 
-export const getDriverChampionImageUrl = (driver_code: string) => {
+export const getDriverHeadshotUrl = (driver_code: string) => {
   switch (driver_code) {
     case "VER":
       return MaxVerstappen.src;
@@ -485,45 +512,45 @@ export const getDriverImageUrl = (driver_number: number | null | undefined) => {
   switch (driver_number) {
     case 1:
     case 33:
-      return MaxVerstappen.src;
+      return MaxVerstappen_podium.src;
     case 22:
-      return YukiTsunoda.src;
+      return YukiTsunoda_podium.src;
     case 12:
-      return KimiAntonelli.src;
+      return KimiAntonelli_podium.src;
     case 63:
-      return GeorgeRussell.src;
+      return GeorgeRussell_podium.src;
     case 4:
-      return LandoNorris.src;
+      return LandoNorris_podium.src;
     case 81:
-      return OscarPiastri.src;
+      return OscarPiastri_podium.src;
     case 55:
-      return CarlosSainz.src;
+      return CarlosSainz_podium.src;
     case 23:
-      return AlexAlbon.src;
+      return AlexAlbon_podium.src;
     case 44:
-      return LewisHamilton.src;
+      return LewisHamilton_podium.src;
     case 16:
-      return CharlesLeclerc.src;
+      return CharlesLeclerc_podium.src;
     case 14:
-      return FernandoAlonso.src;
+      return FernandoAlonso_podium.src;
     case 18:
-      return LanceStroll.src;
+      return LanceStroll_podium.src;
     case 31:
-      return EstebanOcon.src;
+      return EstebanOcon_podium.src;
     case 87:
-      return OliverBearman.src;
+      return OliverBearman_podium.src;
     case 5:
-      return GabrielBortoleto.src;
+      return GabrielBortoleto_podium.src;
     case 27:
-      return NicoHulkenberg.src;
+      return NicoHulkenberg_podium.src;
     case 10:
-      return PierreGasly.src;
+      return PierreGasly_podium.src;
     case 43:
-      return FrancoColapinto.src;
+      return FrancoColapinto_podium.src;
     case 6:
-      return IsackHadjar.src;
+      return IsackHadjar_podium.src;
     case 30:
-      return LiamLawson.src;
+      return LiamLawson_podium.src;
     default:
       return "";
   }

@@ -25,7 +25,12 @@ function getTimeAgo(pubDate: string): string {
   return `${Math.floor(diffDays / 30)}개월 전`;
 }
 
-type RssItem = { title?: string; pubDate?: string; creator?: string };
+type RssItem = {
+  title?: string;
+  pubDate?: string;
+  creator?: string;
+  description?: string;
+};
 
 export async function getNews(): Promise<NewsItem[]> {
   const feedPromises = FEEDS.map((url) => parser.parseURL(url));
@@ -37,7 +42,6 @@ export async function getNews(): Promise<NewsItem[]> {
       source: feed.title,
       url: feed.link,
       image: feed.enclosure?.url ?? "",
-      description: feed.description ?? "",
     })),
   );
 
@@ -55,7 +59,7 @@ export async function getNews(): Promise<NewsItem[]> {
       timeAgo: getTimeAgo(rss.pubDate ?? ""),
       url: item.link ?? "",
       image: item.enclosure?.url ?? "",
-      description: item.description ?? "",
+      description: rss.description ?? "",
     };
   });
 }

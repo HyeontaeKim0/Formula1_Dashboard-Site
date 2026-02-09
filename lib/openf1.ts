@@ -14,12 +14,12 @@ import Tsunoda from "../assets/img/driverProfile/RedBull/yuki.webp";
 
 import RedBullLogo from "../assets/img/teamLogo/RedBull.svg";
 // Ferrari
-import Hamilton from "../assets/img/driverProfile/Ferrari/hamilton.webp";
-import Leclerc from "../assets/img/driverProfile/Ferrari/leclerc.webp";
+import Hamilton from "../assets/img/driverProfile/Ferrari/hamilton2.webp";
+import Leclerc from "../assets/img/driverProfile/Ferrari/leclerc2.webp";
 import FerrariLogo from "../assets/img/teamLogo/Ferrari.svg";
 // Mercedes
-import Russell from "../assets/img/driverProfile/Mercedes/george.webp";
-import Kimi from "../assets/img/driverProfile/Mercedes/kimi.webp";
+import Russell from "../assets/img/driverProfile/Mercedes/george2.webp";
+import Kimi from "../assets/img/driverProfile/Mercedes/kimi2.webp";
 import MercedesLogo from "../assets/img/teamLogo/Mercedes.svg";
 // Williams
 import Sainz from "../assets/img/driverProfile/Williams/sainz.webp";
@@ -34,9 +34,9 @@ import Gasly from "../assets/img/driverProfile/Alpine/gasly.webp";
 import Franco from "../assets/img/driverProfile/Alpine/franco.webp";
 import AlpineLogo from "../assets/img/teamLogo/Alpine.png";
 // Kick Sauber
-import Niko from "../assets/img/driverProfile/KickSauber/niko.webp";
-import Gabriel from "../assets/img/driverProfile/KickSauber/gabriel.webp";
-import KickSauberLogo from "../assets/img/teamLogo/Kick.svg";
+import Niko from "../assets/img/driverProfile/KickSauber/niko2.webp";
+import Gabriel from "../assets/img/driverProfile/KickSauber/gabriel2.webp";
+import KickSauberLogo from "../assets/img/teamLogo/Audi.webp";
 // Racing bulls
 import Isack from "../assets/img/driverProfile/RacingBulls/isack.webp";
 import Liam from "../assets/img/driverProfile/RacingBulls/lowson.webp";
@@ -71,7 +71,7 @@ const teamNameMap: Record<string, string> = {
   "Haas F1 Team": "하스",
   Williams: "윌리엄스",
   RB: "RB",
-  "Kick Sauber": "킥 자우버",
+  "Kick Sauber": "아우디",
   "Racing Bulls": "레이싱 불스",
 };
 
@@ -196,7 +196,7 @@ export function getDriverHeadshot(name: string): string {
 
 // OpenF1 API에서 드라이버 목록 가져오기
 export async function getDriversFromOpenF1(
-  sessionKey: string = "latest"
+  sessionKey: string = "latest",
 ): Promise<OpenF1Driver[]> {
   try {
     // 타임아웃 설정 (10초)
@@ -208,7 +208,7 @@ export async function getDriversFromOpenF1(
       {
         signal: controller.signal,
         next: { revalidate: 3600 }, // 1시간마다 재검증
-      }
+      },
     );
 
     clearTimeout(timeoutId);
@@ -235,7 +235,7 @@ export function transformOpenF1Driver(
   position: number = 0,
   points: number = 0,
   wins: number = 0,
-  podiums: number = 0
+  podiums: number = 0,
 ): Driver {
   const teamColor =
     `#${driver.team_colour}` === `#00A1E8`
@@ -272,7 +272,7 @@ export async function getLatestSessionKey(): Promise<string | null> {
       "https://api.openf1.org/v1/sessions?session_key=latest",
       {
         next: { revalidate: 3600 }, // 1시간마다 재검증
-      }
+      },
     );
 
     if (!response.ok) {

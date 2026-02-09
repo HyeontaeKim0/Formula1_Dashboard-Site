@@ -4,12 +4,11 @@ import { Clock, ArrowRight, Calendar, CircuitBoard } from "lucide-react";
 import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 import {
   getCircuitImageUrl,
-  getDriverChampionName,
   getCircuitName,
   getConstructorTeamLogoUrl,
-  getDriverChampionImageUrl,
   getConstructorTeamColor,
   getCountryFlagUrl,
+  getDriverHeadshotUrl,
 } from "@/lib/utils/driverUtils";
 import Image from "next/image";
 export default function CircuitSection({
@@ -109,7 +108,7 @@ export default function CircuitSection({
                     className="relative top-[33px] right-[-75px]"
                   />
                   <img
-                    src={getDriverChampionImageUrl(
+                    src={getDriverHeadshotUrl(
                       upcomingRacesApi?.race[0].circuit
                         .fastestLapDriverId as string,
                     )}

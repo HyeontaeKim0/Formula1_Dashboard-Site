@@ -64,6 +64,8 @@ export default function ConstructorSection({
     })),
   ];
 
+  console.log("constructorStandingData", constructorStandingData);
+
   // 드라이버 챔피언 데이터
   useEffect(() => {
     const fetchDriverChampion = async () => {
@@ -170,7 +172,9 @@ export default function ConstructorSection({
                               }}
                             ></div>
                             <div className="text-sm text-gray-600">
-                              {standing.teamName}
+                              {standing.teamName === "Sauber F1 Team"
+                                ? "Audi Revolut F1 Team"
+                                : standing.teamName}
                             </div>
                           </div>
                         </div>
