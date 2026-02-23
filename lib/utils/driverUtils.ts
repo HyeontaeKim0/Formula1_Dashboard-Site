@@ -61,6 +61,9 @@ import PierreGasly from "@/assets/img/driverProfile/Alpine/gasly.webp";
 import FrancoColapinto from "@/assets/img/driverProfile/Alpine/franco.webp";
 import IsackHadjar from "@/assets/img/driverProfile/RacingBulls/isack.webp";
 import LiamLawson from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
+import Lindblad from "@/assets/img/driverProfile/RacingBulls/Lind.webp";
+import Perez from "@/assets/img/driverProfile/Cadillac/Perez.webp";
+import Bottas from "@/assets/img/driverProfile/Cadillac/Bottas.webp";
 
 import LusailCircuit from "@/assets/img/circuit/Qatar_Circuit.avif";
 import YasMarinaCircuit from "@/assets/img/circuit/Abu_Dhabi_Circuit.avif";
@@ -500,6 +503,12 @@ export const getDriverHeadshotUrl = (driver_code: string) => {
       return IsackHadjar.src;
     case "LAW":
       return LiamLawson.src;
+    case "LIN":
+      return Lindblad.src;
+    case "PER":
+      return Perez.src;
+    case "BOT":
+      return Bottas.src;
     default:
       return "";
   }
@@ -551,6 +560,7 @@ export const getDriverImageUrl = (driver_number: number | null | undefined) => {
       return IsackHadjar_podium.src;
     case 30:
       return LiamLawson_podium.src;
+
     default:
       return "";
   }

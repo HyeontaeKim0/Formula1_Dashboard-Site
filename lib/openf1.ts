@@ -33,14 +33,23 @@ import HaasLogo from "../assets/img/teamLogo/Haas.svg";
 import Gasly from "../assets/img/driverProfile/Alpine/gasly.webp";
 import Franco from "../assets/img/driverProfile/Alpine/franco.webp";
 import AlpineLogo from "../assets/img/teamLogo/Alpine.png";
-// Kick Sauber
+
+// audi
 import Niko from "../assets/img/driverProfile/KickSauber/niko2.webp";
 import Gabriel from "../assets/img/driverProfile/KickSauber/gabriel2.webp";
 import KickSauberLogo from "../assets/img/teamLogo/Audi.webp";
+import AudiLogo from "../assets/img/teamLogo/Audi.webp";
+
 // Racing bulls
 import Isack from "../assets/img/driverProfile/RacingBulls/isack.webp";
 import Liam from "../assets/img/driverProfile/RacingBulls/lowson.webp";
 import RacingBullsLogo from "../assets/img/teamLogo/RacingBulls.png";
+import Lindblad from "../assets/img/driverProfile/RacingBulls/Lind.webp";
+
+// Cadillac
+import Perez from "../assets/img/driverProfile/Cadillac/Perez.webp";
+import Bottas from "../assets/img/driverProfile/Cadillac/Bottas.webp";
+import CadillacLogo from "../assets/img/teamLogo/Cadillac.png";
 
 import type { Driver, OpenF1Driver } from "@/lib/types/types";
 
@@ -53,11 +62,12 @@ const teamLogoMap: Record<string, string> = {
   Ferrari: FerrariLogo.src || "",
   Mercedes: MercedesLogo.src || "",
   "Aston Martin": AstonMartinLogo.src || "",
-  "Kick Sauber": KickSauberLogo.src || "",
+  Audi: AudiLogo.src || "",
   Alpine: AlpineLogo.src || "",
   Williams: WilliamsLogo.src || "",
   "Haas F1 Team": HaasLogo.src || "",
   "Racing Bulls": RacingBullsLogo.src || "",
+  Cadillac: CadillacLogo.src || "",
 };
 
 // 팀 이름 한글 매핑
@@ -71,8 +81,9 @@ const teamNameMap: Record<string, string> = {
   "Haas F1 Team": "하스",
   Williams: "윌리엄스",
   RB: "RB",
-  "Kick Sauber": "아우디",
+  Audi: "아우디",
   "Racing Bulls": "레이싱 불스",
+  Cadillac: "캐딜락",
 };
 
 // 국가 코드 한글 매핑
@@ -135,6 +146,12 @@ const driverHeadshotMap: Record<string, string> = {
   "Kimi Antonelli": Kimi.src || "",
   "Liam LAWSON": Liam.src || "",
   "Liam Lawson": Liam.src || "",
+  "Arvid LINDBLAD": Lindblad.src || "",
+  "Arvid Lindblad": Lindblad.src || "",
+  "Sergio PEREZ": Perez.src || "",
+  "Sergio Perez": Perez.src || "",
+  "Valtteri BOTTAS": Bottas.src || "",
+  "Valtteri Bottas": Bottas.src || "",
 };
 
 // 드라이버 이름 한글 번역 맵
@@ -182,6 +199,10 @@ const driverNameMap: Record<string, string> = {
   "Kimi Antonelli": "키미 안토넬리",
   "Liam LAWSON": "리암 로슨",
   "Liam Lawson": "리암 로슨",
+  "Arvid Lindblad": "아비드 린드블라드",
+  "Arvid LINDBLAD": "아비드 린드블라드",
+  "Valtteri BOTTAS": "발테리 보타스",
+  "Valtteri Bottas": "발테리 보타스",
 };
 
 // 드라이버 이름 번역 함수
