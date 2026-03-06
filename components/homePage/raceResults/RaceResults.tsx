@@ -29,13 +29,13 @@ export default function RaceResults() {
   const [lastRaceResult, setLastRaceResult] = useState<any | null>(null);
   // 프렉티스 결과
   const [freePractice1Result, setFreePractice1Result] = useState<any | null>(
-    null
+    null,
   );
   const [freePractice2Result, setFreePractice2Result] = useState<any | null>(
-    null
+    null,
   );
   const [freePractice3Result, setFreePractice3Result] = useState<any | null>(
-    null
+    null,
   );
   // 스프린트 결과
   const [sprintResult, setSprintResult] = useState<any | null>(null);
@@ -47,7 +47,7 @@ export default function RaceResults() {
     "practice" | "sprint" | "qualifying" | "race"
   >("race");
 
-  console.log("view", view);
+  console.log("freePractice1Result", freePractice1Result);
 
   // 레이스
   useEffect(() => {
@@ -229,13 +229,13 @@ export default function RaceResults() {
     const practice2Result =
       sprintResult === null
         ? practice2Results.find(
-            (r) => r.driverNumber === result.driverNumber && r.time !== ""
+            (r) => r.driverNumber === result.driverNumber && r.time !== "",
           )
         : undefined;
     const practice3Result =
       sprintResult === null
         ? practice3Results.find(
-            (r) => r.driverNumber === result.driverNumber && r.time !== ""
+            (r) => r.driverNumber === result.driverNumber && r.time !== "",
           )
         : undefined;
     return {
@@ -262,10 +262,10 @@ export default function RaceResults() {
             view === "race"
               ? raceResults
               : view === "practice"
-              ? practiceResults
-              : view === "sprint"
-              ? sprintResults
-              : qualifyingResults
+                ? practiceResults
+                : view === "sprint"
+                  ? sprintResults
+                  : qualifyingResults
           }
           setHoveredRow={setHoveredRow}
           hoveredRow={hoveredRow}

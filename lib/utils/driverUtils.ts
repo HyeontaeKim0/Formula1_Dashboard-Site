@@ -41,7 +41,7 @@ import IsackHadjar_podium from "@/assets/img/driverProfile/RacingBulls/isack.web
 import LiamLawson_podium from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
 
 // 드라이버 프로필 샷
-import MaxVerstappen from "@/assets/img/driverProfile/RedBull/max.webp";
+import MaxVerstappen from "@/assets/img/driverProfile/RedBull/max2.webp";
 import YukiTsunoda from "@/assets/img/driverProfile/RedBull/yuki.webp";
 import KimiAntonelli from "@/assets/img/driverProfile/Mercedes/kimi2.webp";
 import GeorgeRussell from "@/assets/img/driverProfile/Mercedes/george2.webp";
@@ -59,7 +59,7 @@ import GabrielBortoleto from "@/assets/img/driverProfile/KickSauber/gabriel2.web
 import NicoHulkenberg from "@/assets/img/driverProfile/KickSauber/niko2.webp";
 import PierreGasly from "@/assets/img/driverProfile/Alpine/gasly.webp";
 import FrancoColapinto from "@/assets/img/driverProfile/Alpine/franco.webp";
-import IsackHadjar from "@/assets/img/driverProfile/RacingBulls/isack.webp";
+import IsackHadjar from "@/assets/img/driverProfile/RedBull/isak2.webp";
 import LiamLawson from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
 import Lindblad from "@/assets/img/driverProfile/RacingBulls/Lind.webp";
 import Perez from "@/assets/img/driverProfile/Cadillac/Perez.webp";
@@ -108,16 +108,18 @@ export const getCar = (driver_number: number | null | undefined) => {
     return "";
   }
   switch (driver_number) {
-    case 4:
+    case 1:
     case 81:
       return McLarenCar.src;
     case 63:
     case 12:
       return MercedesCar.src;
     case 1:
-    case 33:
+    case 3:
+    case 6:
       return RedBullCar.src;
     case 55:
+    case 23:
       return WilliamsCar.src;
     case 44:
     case 16:
@@ -133,7 +135,7 @@ export const getDriverName = (driver_number: number | null | undefined) => {
     return "";
   }
   switch (driver_number) {
-    case 1:
+    case 3:
       return "막스 베르스타펜";
     case 33:
       return "막스 베르스타펜";
@@ -169,12 +171,19 @@ export const getDriverName = (driver_number: number | null | undefined) => {
       return "프란코 콜라핀토";
     case 6:
       return "아이작 하자르";
+    case 41:
+      return "아비드 린드블라드";
     case 30:
       return "리암 로슨";
     case 81:
       return "오스카 피아스트리";
+    case 1:
     case 4:
       return "랜도 노리스";
+    case 11:
+      return "세르히오 페레즈";
+    case 77:
+      return "발테리 보타스";
 
     default:
       return driver_number.toString();
@@ -227,6 +236,12 @@ export const getDriverChampionName = (driver_code: string) => {
       return "리암 로슨";
     case "DOO":
       return "잭 두한";
+    case "LIN":
+      return "아비드 린드블라드";
+    case "PER":
+      return "세르히오 페레즈";
+    case "BOT":
+      return "발테리 보타스";
 
     default:
       return "";
@@ -277,7 +292,7 @@ export const getTeamName = (driver_number: number | null | undefined) => {
     case 43:
       return "알핀";
     case 6:
-      return "레이싱 불스";
+      return "레드불";
     case 30:
       return "레이싱 불스";
     default:
@@ -292,6 +307,7 @@ export const getTeamColor = (driver_number: number | null | undefined) => {
   switch (driver_number) {
     // Red Bull
     case 1:
+    case 6:
     case 33:
     case 22:
       return "#1E41FF";
@@ -328,7 +344,7 @@ export const getTeamColor = (driver_number: number | null | undefined) => {
     case 43:
       return "#FF009C";
     // Racing Bulls
-    case 6:
+
     case 30:
       return "#e3e3e4";
     default:
@@ -370,6 +386,7 @@ export const getTeamLogoUrl = (driver_number: number | null | undefined) => {
     case 1:
     case 22:
     case 33:
+    case 6:
       return RedBullLogo.src;
     case 12:
     case 63:
@@ -395,7 +412,7 @@ export const getTeamLogoUrl = (driver_number: number | null | undefined) => {
     case 10:
     case 43:
       return AlpineLogo.src;
-    case 6:
+    case 41:
     case 30:
       return RacingBullsLogo.src;
     default:

@@ -9,8 +9,8 @@ import Alonso from "../assets/img/driverProfile/AstonMartin/fernando.webp";
 import AstonMartinLogo from "../assets/img/teamLogo/Martin.png";
 
 // Red Bull
-import Verstappen from "../assets/img/driverProfile/RedBull/max.webp";
-import Tsunoda from "../assets/img/driverProfile/RedBull/yuki.webp";
+import Verstappen from "../assets/img/driverProfile/RedBull/max2.webp";
+import Isack from "../assets/img/driverProfile/RedBull/isak2.webp";
 
 import RedBullLogo from "../assets/img/teamLogo/RedBull.svg";
 // Ferrari
@@ -30,8 +30,8 @@ import Ocon from "../assets/img/driverProfile/Haas/ocon.webp";
 import Oliver from "../assets/img/driverProfile/Haas/oliver.webp";
 import HaasLogo from "../assets/img/teamLogo/Haas.svg";
 // Alpine
-import Gasly from "../assets/img/driverProfile/Alpine/gasly.webp";
-import Franco from "../assets/img/driverProfile/Alpine/franco.webp";
+import Gasly from "../assets/img/driverProfile/Alpine/gasly2.webp";
+import Franco from "../assets/img/driverProfile/Alpine/franco2.webp";
 import AlpineLogo from "../assets/img/teamLogo/Alpine.png";
 
 // audi
@@ -41,7 +41,6 @@ import KickSauberLogo from "../assets/img/teamLogo/Audi.webp";
 import AudiLogo from "../assets/img/teamLogo/Audi.webp";
 
 // Racing bulls
-import Isack from "../assets/img/driverProfile/RacingBulls/isack.webp";
 import Liam from "../assets/img/driverProfile/RacingBulls/lowson.webp";
 import RacingBullsLogo from "../assets/img/teamLogo/RacingBulls.png";
 import Lindblad from "../assets/img/driverProfile/RacingBulls/Lind.webp";
@@ -124,8 +123,7 @@ const driverHeadshotMap: Record<string, string> = {
   "Esteban Ocon": Ocon.src || "",
   "Pierre GASLY": Gasly.src || "",
   "Pierre Gasly": Gasly.src || "",
-  "Yuki TSUNODA": Tsunoda.src || "",
-  "Yuki Tsunoda": Tsunoda.src || "",
+
   "Oscar PIASTRI": Piastri.src || "",
   "Oscar Piastri": Piastri.src || "",
   "Lance STROLL": Stroll.src || "",
