@@ -8,7 +8,7 @@ import type {
   Sessions,
 } from "@/lib/types/types";
 import { useEffect, useState } from "react";
-
+import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 // import { getSessionResults } from "@/lib/api/sessionResultApi/sessionResultApi";
 
 import { getLastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
@@ -19,6 +19,8 @@ import type { LastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 import MaxVerstappen from "@/assets/img/champion/champion_Max.png";
 import Norris from "@/assets/img/champion/champion_Norris3.jpg";
 import McLaren from "@/assets/img/teamLogo/McLaren.webp";
+
+import { getNextRaces } from "@/lib/api/nextRacesApi/nextRacesApi";
 
 import {
   getCar,
@@ -46,6 +48,25 @@ export default function Podium() {
     lastRaceResult?.races?.results?.slice(0, 3) ||
     lastRaceResult?.slice(0, 3) ||
     [];
+
+  console.log("lastRaceResult", lastRaceResult);
+
+  const [upcomingRacesApi, setUpcomingRacesApi] = useState<
+    NextRacesResponse | undefined
+  >(undefined);
+
+  useEffect(() => {
+    const fetchNextRaces = async () => {
+      try {
+        const nextRaces = await getNextRaces();
+
+        setUpcomingRacesApi(nextRaces);
+      } catch (error) {
+        console.error("Failed to fetch next races:", error);
+      }
+    };
+    fetchNextRaces();
+  }, []);
 
   // 최근 레이스 데이터
   useEffect(() => {
@@ -80,7 +101,8 @@ export default function Podium() {
     return () => clearInterval(interval);
   }, [podiumDrivers?.length]);
 
-  console.log("lastestMeeting", lastestMeeting?.circuit?.country);
+  console.log("lastestMeeting", lastestMeeting?.season);
+  console.log("upcomingRacesApi", upcomingRacesApi?.season);
 
   // 최근 포디움 드라이버 데이터
   // useEffect(() => {
@@ -226,7 +248,8 @@ export default function Podium() {
     <div className="relative w-full">
       {/* 헤더 섹션 */}
       <div className="mb-6 flex items-center justify-between">
-        {lastestMeeting?.circuit?.country === "United Arab Emirates" ? (
+        {lastestMeeting?.circuit?.country === "United Arab Emirates" &&
+        lastestMeeting?.season === new Date().getFullYear() ? (
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
@@ -268,12 +291,14 @@ export default function Podium() {
             className="flex transition-transform duration-700 ease-out"
             style={{
               transform:
-                lastestMeeting?.circuit?.country === "United Arab Emirates"
+                lastestMeeting?.circuit?.country === "United Arab Emirates" &&
+                lastestMeeting?.season === new Date().getFullYear()
                   ? "translateX(0%)"
                   : `translateX(-${currentIndex * 100}%)`,
             }}
           >
-            {lastestMeeting?.circuit?.country === "United Arab Emirates" ? (
+            {lastestMeeting?.circuit?.country === "United Arab Emirates" &&
+            lastestMeeting?.season === new Date().getFullYear() ? (
               <>
                 <div className="relative flex flex-1 flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-15 min-h-[500px]">
                   {/* 원하는 텍스트를 이미지 위에 배치 */}

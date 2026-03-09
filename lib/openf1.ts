@@ -1,6 +1,6 @@
 // McLaren
 import Piastri from "../assets/img/driverProfile/McLaren/piastri.webp";
-import Norris from "../assets/img/driverProfile/McLaren/norris.webp";
+import Norris from "../assets/img/driverProfile/McLaren/lando.webp";
 import McLarenLogo from "../assets/img/teamLogo/McLaren.webp";
 
 // Aston Martin

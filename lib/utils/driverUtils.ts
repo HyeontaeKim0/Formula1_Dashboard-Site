@@ -28,7 +28,7 @@ import OscarPiastri_podium from "@/assets/img/podium/Oscar_Podium.png";
 import CarlosSainz_podium from "@/assets/img/podium/Saintz_Podium.png";
 import AlexAlbon_podium from "@/assets/img/driverProfile/Williams/albon.webp";
 import LewisHamilton_podium from "@/assets/img/driverProfile/Ferrari/hamilton.webp";
-import CharlesLeclerc_podium from "@/assets/img/driverProfile/Ferrari/leclerc.webp";
+import CharlesLeclerc_podium from "@/assets/img/podium/Leclerc_Podium.png";
 import FernandoAlonso_podium from "@/assets/img/driverProfile/AstonMartin/fernando.webp";
 import LanceStroll_podium from "@/assets/img/driverProfile/AstonMartin/stroll.webp";
 import EstebanOcon_podium from "@/assets/img/driverProfile/Haas/ocon.webp";
@@ -45,7 +45,7 @@ import MaxVerstappen from "@/assets/img/driverProfile/RedBull/max2.webp";
 import YukiTsunoda from "@/assets/img/driverProfile/RedBull/yuki.webp";
 import KimiAntonelli from "@/assets/img/driverProfile/Mercedes/kimi2.webp";
 import GeorgeRussell from "@/assets/img/driverProfile/Mercedes/george2.webp";
-import LandoNorris from "@/assets/img/driverProfile/McLaren/norris.webp";
+import LandoNorris from "@/assets/img/driverProfile/McLaren/lando.webp";
 import OscarPiastri from "@/assets/img/driverProfile/McLaren/piastri.webp";
 import CarlosSainz from "@/assets/img/driverProfile/Williams/sainz.webp";
 import AlexAlbon from "@/assets/img/driverProfile/Williams/albon.webp";
@@ -109,12 +109,14 @@ export const getCar = (driver_number: number | null | undefined) => {
   }
   switch (driver_number) {
     case 1:
+    case 4:
     case 81:
       return McLarenCar.src;
     case 63:
     case 12:
       return MercedesCar.src;
     case 1:
+    case 33:
     case 3:
     case 6:
       return RedBullCar.src;

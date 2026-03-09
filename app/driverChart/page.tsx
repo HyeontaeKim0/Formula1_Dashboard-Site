@@ -3,7 +3,12 @@ import { getCurrentDriverChampion } from "@/lib/api/currentDriverChampion/Curren
 import { getLastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 import { getLastQualifyResult } from "@/lib/api/lastResults/lastQualifyApi/lastQualifyApi";
 import DriverRankChart from "@/components/driverChart/DriverRankChart";
-import { getTeamColor, getTeamName, getDriverName, getTeamLogoUrl } from "@/lib/utils/driverUtils";
+import {
+  getTeamColor,
+  getTeamName,
+  getDriverName,
+  getTeamLogoUrl,
+} from "@/lib/utils/driverUtils";
 import Image from "next/image";
 
 type ChartDataPoint = {
@@ -24,10 +29,18 @@ export default async function DriverChartPage(props: {
   const { driverCode } = await props.searchParams;
 
   const year = 2025;
-  const rounds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-  
+  const rounds = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24,
+  ];
+
   // Promise.all을 사용하여 모든 라운드 데이터를 병렬로 호출
-  const [driverResultChartDataList, driverChampionship, lastestMeeting, lastQualify] = await Promise.all([
+  const [
+    driverResultChartDataList,
+    driverChampionship,
+    lastestMeeting,
+    lastQualify,
+  ] = await Promise.all([
     Promise.all(rounds.map((round) => getDriverResultChartData(year, round))),
     getCurrentDriverChampion(),
     getLastestMeeting(),
@@ -39,13 +52,13 @@ export default async function DriverChartPage(props: {
     .map((round, index): ChartDataPoint | null => {
       const roundData = driverResultChartDataList[index];
       if (!roundData || roundData.length === 0) return null;
-      
+
       const driver = roundData.find(
-        (item) => item.driver.shortName === driverCode
+        (item) => item.driver.shortName === driverCode,
       );
-      
+
       if (!driver) return null;
-      
+
       return {
         driverNumber: driver.driver.number,
         top3Count: 0, // 아래에서 계산
@@ -53,9 +66,10 @@ export default async function DriverChartPage(props: {
         round,
         position: driver.position,
         roundLabel: `${round}R`,
-        positionLabel: typeof driver.position === "string" 
-          ? driver.position 
-          : `${driver.position}위`,
+        positionLabel:
+          typeof driver.position === "string"
+            ? driver.position
+            : `${driver.position}위`,
         points: driver.points,
         team: driver.team.teamName,
       };
@@ -65,18 +79,14 @@ export default async function DriverChartPage(props: {
   // 통계 계산
   const top3Count = driverResultChartDataList
     .map((roundData) => {
-      const d = roundData?.find(
-        (item) => item.driver.shortName === driverCode
-      );
+      const d = roundData?.find((item) => item.driver.shortName === driverCode);
       return typeof d?.position === "number" && d.position < 4 ? 1 : 0;
     })
     .reduce((acc: number, curr: number) => acc + curr, 0);
 
   const winnerCount = driverResultChartDataList
     .map((roundData) => {
-      const d = roundData?.find(
-        (item) => item.driver.shortName === driverCode
-      );
+      const d = roundData?.find((item) => item.driver.shortName === driverCode);
       return typeof d?.position === "number" && d.position === 1 ? 1 : 0;
     })
     .reduce((acc: number, curr: number) => acc + curr, 0);
@@ -88,28 +98,39 @@ export default async function DriverChartPage(props: {
   const numericPositions = chartData
     .map((d) => d.position)
     .filter((p): p is number => typeof p === "number");
-  
-  const bestPosition = numericPositions.length > 0 ? Math.min(...numericPositions) : null;
-  const worstPosition = numericPositions.length > 0 ? Math.max(...numericPositions) : null;
-  const averagePosition = numericPositions.length > 0 
-    ? Math.round((numericPositions.reduce((a, b) => a + b, 0) / numericPositions.length) * 10) / 10
-    : null;
+
+  const bestPosition =
+    numericPositions.length > 0 ? Math.min(...numericPositions) : null;
+  const worstPosition =
+    numericPositions.length > 0 ? Math.max(...numericPositions) : null;
+  const averagePosition =
+    numericPositions.length > 0
+      ? Math.round(
+          (numericPositions.reduce((a, b) => a + b, 0) /
+            numericPositions.length) *
+            10,
+        ) / 10
+      : null;
 
   // 챔피언십 정보
   const championshipInfo = driverChampionship?.find(
-    (d) => d.driver.shortName === driverCode
+    (d) => d.driver.shortName === driverCode,
   );
 
   // 최근 레이스 정보
-  const lastRaceInfo = lastestMeeting?.winner?.shortName === driverCode 
-    ? { raceName: lastestMeeting.raceName, position: 1 }
-    : chartData.length > 0 
-      ? { raceName: lastestMeeting?.raceName || "", position: chartData[chartData.length - 1]?.position }
-      : null;
+  const lastRaceInfo =
+    lastestMeeting?.winner?.shortName === driverCode
+      ? { raceName: lastestMeeting.raceName, position: 1 }
+      : chartData.length > 0
+        ? {
+            raceName: lastestMeeting?.raceName || "",
+            position: chartData[chartData.length - 1]?.position,
+          }
+        : null;
 
   // 최근 퀄리파잉 정보
   const lastQualifyInfo = lastQualify?.qualyResults?.find(
-    (q) => q.driver.shortName === driverCode
+    (q) => q.driver.shortName === driverCode,
   );
 
   const driverNumber = chartData[0]?.driverNumber || 0;
@@ -118,11 +139,13 @@ export default async function DriverChartPage(props: {
   const teamColor = getTeamColor(driverNumber);
   const teamLogoUrl = getTeamLogoUrl(driverNumber);
 
+  console.log("driverNumber", driverNumber);
+
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-100">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* 드라이버 헤더 정보 */}
-        {chartData.length > 0 && (
+        {chartData.length > 0 ? (
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center gap-6">
               {teamLogoUrl && (
@@ -152,28 +175,33 @@ export default async function DriverChartPage(props: {
                         챔피언십 {championshipInfo.position}위
                       </span>
                     </>
-                  ) : <>
-                  <span className="text-gray-400">|</span>
-                  <span className="font-semibold">
-                    챔피언십 진행중
-                  </span>
-                  </>}
+                  ) : (
+                    <>
+                      <span className="text-gray-400">|</span>
+                      <span className="font-semibold">챔피언십 진행중</span>
+                    </>
+                  )}
                 </div>
               </div>
               {championshipInfo && (
                 <div className="text-right">
-                  <div className="text-3xl font-bold" style={{ color: teamColor }}>
+                  <div
+                    className="text-3xl font-bold"
+                    style={{ color: teamColor }}
+                  >
                     {championshipInfo.points}
                   </div>
                   <div className="text-sm text-gray-500">포인트</div>
                 </div>
               )}
             </div>
-            <div 
+            <div
               className="w-full h-2 rounded-full mt-4"
               style={{ backgroundColor: teamColor }}
             />
           </div>
+        ) : (
+          <div className="bg-white rounded-lg shadow-sm p-6">{driverName}</div>
         )}
 
         {/* 통계 카드 그리드 */}
@@ -181,13 +209,17 @@ export default async function DriverChartPage(props: {
           {/* 총 포인트 */}
           <div className="bg-white rounded-lg shadow-sm p-4">
             <div className="text-sm text-gray-500 mb-1">총 포인트</div>
-            <div className="text-2xl font-bold text-gray-900">{totalPoints}</div>
+            <div className="text-2xl font-bold text-gray-900">
+              {totalPoints}
+            </div>
           </div>
 
           {/* 우승 횟수 */}
           <div className="bg-white rounded-lg shadow-sm p-4">
             <div className="text-sm text-gray-500 mb-1">우승 횟수</div>
-            <div className="text-2xl font-bold text-yellow-600">{winnerCount}</div>
+            <div className="text-2xl font-bold text-yellow-600">
+              {winnerCount}
+            </div>
           </div>
 
           {/* 포디움 횟수 */}
@@ -199,7 +231,9 @@ export default async function DriverChartPage(props: {
           {/* 참가 레이스 수 */}
           <div className="bg-white rounded-lg shadow-sm p-4">
             <div className="text-sm text-gray-500 mb-1">참가 레이스</div>
-            <div className="text-2xl font-bold text-gray-900">{chartData.length}</div>
+            <div className="text-2xl font-bold text-gray-900">
+              {chartData.length}
+            </div>
           </div>
         </div>
 
@@ -209,31 +243,35 @@ export default async function DriverChartPage(props: {
             {bestPosition && (
               <div className="bg-white rounded-lg shadow-sm p-4">
                 <div className="text-sm text-gray-500 mb-1">최고 순위</div>
-                <div className="text-2xl font-bold text-green-600">{bestPosition}위</div>
+                <div className="text-2xl font-bold text-green-600">
+                  {bestPosition}위
+                </div>
               </div>
             )}
             {worstPosition && (
               <div className="bg-white rounded-lg shadow-sm p-4">
                 <div className="text-sm text-gray-500 mb-1">최저 순위</div>
-                <div className="text-2xl font-bold text-red-600">{worstPosition}위</div>
+                <div className="text-2xl font-bold text-red-600">
+                  {worstPosition}위
+                </div>
               </div>
             )}
             {averagePosition && (
               <div className="bg-white rounded-lg shadow-sm p-4">
                 <div className="text-sm text-gray-500 mb-1">평균 순위</div>
-                <div className="text-2xl font-bold text-gray-900">{averagePosition}위</div>
+                <div className="text-2xl font-bold text-gray-900">
+                  {averagePosition}위
+                </div>
               </div>
             )}
           </div>
         )}
 
-        
-
         {/* 차트 */}
-        <DriverRankChart 
-          data={chartData} 
-          driverCode={driverCode} 
-          driverNumber={driverNumber} 
+        <DriverRankChart
+          data={chartData}
+          driverCode={driverCode}
+          driverNumber={driverNumber}
           top3Count={top3Count}
           winnerCount={winnerCount}
         />
