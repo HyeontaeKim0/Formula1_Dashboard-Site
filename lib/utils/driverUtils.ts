@@ -14,9 +14,9 @@ import WilliamsLogo from "@/assets/img/teamLogo/Williams.svg";
 import AstonMartinLogo from "@/assets/img/teamLogo/Martin.png";
 import HaasLogo from "@/assets/img/teamLogo/Haas.svg";
 import AlpineLogo from "@/assets/img/teamLogo/Alpine.png";
-import KickSauberLogo from "@/assets/img/teamLogo/Kick.svg";
 import RacingBullsLogo from "@/assets/img/teamLogo/RacingBulls.png";
 import AudiLogo from "@/assets/img/teamLogo/Audi.webp";
+import CadillacLogo from "@/assets/img/teamLogo/Cadillac.png";
 
 // 모든 드라이버 이미지 (포디움)
 import MaxVerstappen_podium from "@/assets/img/podium/Max_Podium.png";
@@ -65,10 +65,15 @@ import Lindblad from "@/assets/img/driverProfile/RacingBulls/Lind.webp";
 import Perez from "@/assets/img/driverProfile/Cadillac/Perez.webp";
 import Bottas from "@/assets/img/driverProfile/Cadillac/Bottas.webp";
 
+// 모든 서킷 이미지
 import LusailCircuit from "@/assets/img/circuit/Qatar_Circuit.avif";
 import YasMarinaCircuit from "@/assets/img/circuit/Abu_Dhabi_Circuit.avif";
 import AlbertParkCircuit from "@/assets/img/circuit/Australia_Circuit.avif";
+import ShanghaiCircuit from "@/assets/img/circuit/Shanghai_Circuit.avif";
+
+// 모든 국기 이미지
 import AustraliaFlag from "@/assets/img/flag/Australia.webp";
+import ChinaFlag from "@/assets/img/flag/ChinaFlag.svg";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
@@ -78,6 +83,8 @@ export const getCircuitImageUrl = (circuit_name: string) => {
       return YasMarinaCircuit.src;
     case "albert_park":
       return AlbertParkCircuit.src;
+    case "shanghai":
+      return ShanghaiCircuit.src;
     default:
       return "";
   }
@@ -91,6 +98,8 @@ export const getCircuitName = (circuit_name: string) => {
       return "야스 마리나 서킷";
     case "albert_park":
       return "알베르트 파크 서킷";
+    case "shanghai":
+      return "상하이 서킷";
     default:
       return "";
   }
@@ -100,6 +109,8 @@ export const getCountryFlagUrl = (country_name: string) => {
   switch (country_name) {
     case "Australia":
       return AustraliaFlag.src;
+    case "China":
+      return ChinaFlag.src;
   }
 };
 
@@ -174,6 +185,7 @@ export const getDriverName = (driver_number: number | null | undefined) => {
     case 6:
       return "아이작 하자르";
     case 41:
+    case 36:
       return "아비드 린드블라드";
     case 30:
       return "리암 로슨";
@@ -296,7 +308,12 @@ export const getTeamName = (driver_number: number | null | undefined) => {
     case 6:
       return "레드불";
     case 30:
+    case 36:
       return "레이싱 불스";
+    case 11:
+    case 77:
+      return "케딜락";
+
     default:
       return driver_number.toString();
   }
@@ -346,7 +363,8 @@ export const getTeamColor = (driver_number: number | null | undefined) => {
     case 43:
       return "#FF009C";
     // Racing Bulls
-
+    case 36:
+    case 41:
     case 30:
       return "#e3e3e4";
     default:
@@ -371,12 +389,14 @@ export const getConstructorTeamColor = (team_name: string) => {
       return "#006F62";
     case "Haas F1 Team":
       return "gray";
-    case "Sauber F1 Team":
-      return "#52C41A";
+    case "Audi Revolut F1 Team":
+      return "red";
     case "Alpine F1 Team":
       return "#FF009C";
     case "RB F1 Team":
       return "#e3e3e4";
+    case "Cadillac Formula 1 Team":
+      return "black";
   }
 };
 
@@ -415,8 +435,13 @@ export const getTeamLogoUrl = (driver_number: number | null | undefined) => {
     case 43:
       return AlpineLogo.src;
     case 41:
+    case 36:
     case 30:
       return RacingBullsLogo.src;
+
+    case 11:
+    case 77:
+      return CadillacLogo.src;
     default:
       return "";
   }
@@ -447,6 +472,8 @@ export const getConstructorTeamLogoUrl = (team_name: string) => {
       return RacingBullsLogo.src;
     case "Audi Revolut F1 Team":
       return AudiLogo.src;
+    case "Cadillac Formula 1 Team":
+      return CadillacLogo.src;
   }
 };
 
@@ -474,6 +501,8 @@ export const getConstructorTeamName = (team_name: string) => {
       return "레이싱 불스";
     case "Audi Revolut F1 Team":
       return "아우디";
+    case "Cadillac F1 Team":
+      return "캐딜락";
     default:
       return team_name;
   }
