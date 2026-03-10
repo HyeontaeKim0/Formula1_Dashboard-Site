@@ -19,7 +19,7 @@ export default function HeaderSection({
           <h3 className="text-xl font-extrabold tracking-tight text-gray-900">
             챔피언십 순위
           </h3>
-          <p className="mt-1 text-sm font-medium text-gray-600">2025 시즌</p>
+          <p className="mt-1 text-sm font-medium text-gray-600">2026 시즌</p>
         </div>
       </div>
       <div className="flex space-x-1 rounded-2xl bg-gray-100 p-1 border border-gray-200">

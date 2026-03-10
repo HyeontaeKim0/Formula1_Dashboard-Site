@@ -26,7 +26,7 @@ export default function CircuitSection({
     upcomingRacesApi?.race[0]?.circuit?.fastestLapTeamId as string,
   );
 
-  console.log("color", color);
+  console.log("upcomingRacesApi", upcomingRacesApi);
 
   return (
     <div className="relative w-full">
@@ -89,66 +89,48 @@ export default function CircuitSection({
             />
           </div>
         )}
-        <div className="flex  items-center justify-center">
-          {upcomingRacesApi?.race[0]?.circuit?.circuitId === undefined ? (
-            <div className="w-full h-full flex items-center justify-center mt-10">
-              <p className=" text-gray-400 font-bold">Comming Soon ...</p>
+        {upcomingRacesApi?.race[0]?.circuit?.circuitId === undefined ? (
+          <div className="w-full flex items-center justify-center mt-10">
+            <p className="text-gray-400 font-bold">Comming Soon ...</p>
+          </div>
+        ) : (
+          <div className="mt-10 px-5 flex gap-10">
+            <div className="flex items-center gap-5">
+              <LayoutFormat
+                title={"First Year"}
+                value={upcomingRacesApi?.race[0].circuit.firstParticipationYear.toString()}
+                type={"head"}
+              />
             </div>
-          ) : (
-            <div className="mt-10">
-              {/* 페스티스트 랩 프로필 */}
-
-              <div className="flex items-center justify-between gap-5 mt-5">
-                <LayoutFormat
-                  title={"First Participation Year"}
-                  value={upcomingRacesApi?.race[0].circuit.firstParticipationYear.toString()}
-                  type={"head"}
-                />
-              </div>
-              <div className="flex items-center justify-between gap-[25px] mt-5">
+            <div className="w-full">
+              <div className="flex items-center gap-[50px] mt-6">
                 <LayoutFormat
                   title={"Length"}
-                  type={"head"}
-                  value={
-                    upcomingRacesApi?.race[0].circuit.circuitLength.slice(
-                      0,
-                      1,
-                    ) +
-                    "." +
-                    upcomingRacesApi?.race[0].circuit.circuitLength.slice(
-                      2,
-                      4,
-                    ) +
-                    " km"
-                  }
+                  type={"body"}
+                  value={`${upcomingRacesApi?.race[0].circuit.circuitLength.slice(0, 1)}.${upcomingRacesApi?.race[0].circuit.circuitLength.slice(2, 4)} km`}
                 />
-                <div className="text-gray-400"> | </div>
-                <LayoutFormat
-                  title={"Lap Record"}
-                  value={upcomingRacesApi?.race[0].circuit.lapRecord.toString()}
-                  type={"head"}
-                />
-                <div className="text-gray-400"> | </div>
+
                 <LayoutFormat
                   title={"Corners"}
                   value={upcomingRacesApi?.race[0].circuit.corners.toString()}
-                  type={"head"}
+                  type={"body"}
+                />
+              </div>
+              <div className="flex items-center gap-10 mt-5 ">
+                <LayoutFormat
+                  title={"Fastest Team"}
+                  value={upcomingRacesApi?.race[0].circuit.fastestLapTeamId.toString()}
+                  type={"body"}
+                />
+                <LayoutFormat
+                  title={"Lap Record"}
+                  value={upcomingRacesApi?.race[0].circuit.lapRecord.toString()}
+                  type={"body"}
                 />
               </div>
             </div>
-          )}
-          {/* <p className="text-sm text-gray-600 flex items-center gap-2 font-bold flex-col ">
-            <div>
-              {getDriverChampionName(
-                upcomingRacesApi?.race[0].circuit.fastestLapDriverId as string,
-              )}{" "}
-              / {upcomingRacesApi?.race[0].circuit.fastestLapYear}
-            </div>
-            <div className="text-sm text-gray-600 flex items-center gap-2">
-              <span>{upcomingRacesApi?.race[0].circuit.lapRecord}</span>
-            </div>
-          </p> */}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

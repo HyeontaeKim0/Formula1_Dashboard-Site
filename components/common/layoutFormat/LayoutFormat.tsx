@@ -13,12 +13,12 @@ export default function LayoutFormat({
         {type === "head" ? (
           <p className="text-md font-bold text-gray-400">{title}</p>
         ) : (
-          <p className="text-sm font-bold text-gray-400">{title}</p>
+          <p className="text-md font-bold text-gray-400">{title}</p>
         )}
         {type === "head" ? (
-          <p className="text-2xl font-bold text-gray-600">{value}</p>
+          <p className="text-4xl font-bold text-gray-600">{value}</p>
         ) : (
-          <p className="text-xl font-bold text-gray-600">{value}</p>
+          <p className="text-2xl font-bold text-gray-600">{value}</p>
         )}
       </div>
     </div>

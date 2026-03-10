@@ -71,7 +71,7 @@ export default function DriversSection({
               드라이버
             </h3>
             <p className="mt-1 text-sm font-medium text-gray-600">
-              2025 시즌 드라이버 목록
+              2026 시즌 드라이버 목록
             </p>
           </div>
         </div>
@@ -100,8 +100,6 @@ export default function DriversSection({
                   router.push(`/driverChart?driverCode=${driver.driverCode}`);
                 }}
               >
-               
-
                 {/* 순위 배지 */}
                 {/* {getPositionBadge(driver.position)} */}
 
