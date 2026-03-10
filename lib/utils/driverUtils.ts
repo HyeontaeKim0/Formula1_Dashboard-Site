@@ -341,7 +341,7 @@ export const getTeamColor = (driver_number: number | null | undefined) => {
     // Ferrari
     case 44:
     case 16:
-      return "#DC143C";
+      return "#D40000";
     // Williams
     case 55:
     case 23:
@@ -382,7 +382,7 @@ export const getConstructorTeamColor = (team_name: string) => {
       return "#FF8000";
     case "Scuderia Ferrari":
     case "ferrari":
-      return "#DC143C";
+      return "#D40000";
     case "Williams Racing":
       return "#00A3E0";
     case "Aston Martin F1 Team":
