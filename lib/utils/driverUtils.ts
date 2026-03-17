@@ -21,7 +21,7 @@ import CadillacLogo from "@/assets/img/teamLogo/Cadillac.png";
 // 모든 드라이버 이미지 (포디움)
 import MaxVerstappen_podium from "@/assets/img/podium/Max_Podium.png";
 import YukiTsunoda_podium from "@/assets/img/driverProfile/RedBull/yuki.webp";
-import KimiAntonelli_podium from "@/assets/img/podium/Kimi_Podium4.png";
+import KimiAntonelli_podium from "@/assets/img/podium/Kimi_Podium.png";
 import GeorgeRussell_podium from "@/assets/img/podium/Russell_Podium.png";
 import LandoNorris_podium from "@/assets/img/podium/Norris_Podium.png";
 import OscarPiastri_podium from "@/assets/img/podium/Oscar_Podium.png";
@@ -70,10 +70,12 @@ import LusailCircuit from "@/assets/img/circuit/Qatar_Circuit.avif";
 import YasMarinaCircuit from "@/assets/img/circuit/Abu_Dhabi_Circuit.avif";
 import AlbertParkCircuit from "@/assets/img/circuit/Australia_Circuit.avif";
 import ShanghaiCircuit from "@/assets/img/circuit/Shanghai_Circuit.avif";
+import SuzukaCircuit from "@/assets/img/circuit/Suzuka_Circuit.avif";
 
 // 모든 국기 이미지
 import AustraliaFlag from "@/assets/img/flag/Australia.webp";
 import ChinaFlag from "@/assets/img/flag/ChinaFlag.svg";
+import JapanFlag from "@/assets/img/flag/JapanFlag.png";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
@@ -85,6 +87,8 @@ export const getCircuitImageUrl = (circuit_name: string) => {
       return AlbertParkCircuit.src;
     case "shanghai":
       return ShanghaiCircuit.src;
+    case "suzuka":
+      return SuzukaCircuit.src;
     default:
       return "";
   }
@@ -100,6 +104,8 @@ export const getCircuitName = (circuit_name: string) => {
       return "알베르트 파크 서킷";
     case "shanghai":
       return "상하이 서킷";
+    case "suzuka":
+      return "스즈카 서킷";
     default:
       return "";
   }
@@ -111,6 +117,8 @@ export const getCountryFlagUrl = (country_name: string) => {
       return AustraliaFlag.src;
     case "China":
       return ChinaFlag.src;
+    case "Japan":
+      return JapanFlag.src;
   }
 };
 
