@@ -106,6 +106,25 @@ export const getCircuitName = (circuit_name: string) => {
       return "상하이 서킷";
     case "suzuka":
       return "스즈카 서킷";
+    case "monaco":
+      return "모나코 서킷";
+    case "imola":
+      return "이몰라 서킷";
+    case "spa":
+      return "스파 서킷";
+    case "silverstone":
+      return "실버스톤 서킷";
+    case "hungaroring":
+      return "헝가리 서킷";
+    case "zandvoort":
+      return "잔드보르트 서킷";
+    case "monza":
+      return "몬자 서킷";
+    case "baku":
+      return "바쿠 서킷";
+    case "bahrain":
+      return "바레인 서킷";
+
     default:
       return "";
   }

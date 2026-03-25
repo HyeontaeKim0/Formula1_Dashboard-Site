@@ -9,18 +9,25 @@ export default function LayoutFormat({
 }) {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col  justify-center gap-2">
-        {type === "head" ? (
-          <p className="text-md font-bold text-gray-400">{title}</p>
-        ) : (
-          <p className="text-md font-bold text-gray-400">{title}</p>
-        )}
-        {type === "head" ? (
-          <p className="text-4xl font-bold text-gray-600">{value}</p>
-        ) : (
-          <p className="text-2xl font-bold text-gray-600">{value}</p>
-        )}
-      </div>
+      <p
+        className={`font-semibold uppercase tracking-wider text-gray-400 ${
+          type === "head" ? "text-[11px]" : "text-[10px]"
+        }`}
+      >
+        {title}
+      </p>
+      <p
+        className={`mt-1 font-extrabold leading-tight ${
+          type === "head"
+            ? "text-3xl text-gray-800"
+            : "text-sm text-gray-700"
+        }`}
+      >
+        {value}
+      </p>
+      {type === "head" && (
+        <div className="mt-2.5 h-0.5 w-8 rounded-full bg-primary/40" />
+      )}
     </div>
   );
 }
