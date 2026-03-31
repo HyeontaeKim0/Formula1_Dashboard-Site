@@ -71,11 +71,13 @@ import YasMarinaCircuit from "@/assets/img/circuit/Abu_Dhabi_Circuit.avif";
 import AlbertParkCircuit from "@/assets/img/circuit/Australia_Circuit.avif";
 import ShanghaiCircuit from "@/assets/img/circuit/Shanghai_Circuit.avif";
 import SuzukaCircuit from "@/assets/img/circuit/Suzuka_Circuit.avif";
+import BahrainCircuit from "@/assets/img/circuit/Bahrain_Circuit.avif";
 
 // 모든 국기 이미지
 import AustraliaFlag from "@/assets/img/flag/Australia.webp";
 import ChinaFlag from "@/assets/img/flag/ChinaFlag.svg";
 import JapanFlag from "@/assets/img/flag/JapanFlag.png";
+import BahrainFlag from "@/assets/img/flag/BahrainFlag.svg";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
@@ -89,6 +91,8 @@ export const getCircuitImageUrl = (circuit_name: string) => {
       return ShanghaiCircuit.src;
     case "suzuka":
       return SuzukaCircuit.src;
+    case "bahrain":
+      return BahrainCircuit.src;
     default:
       return "";
   }
@@ -106,6 +110,8 @@ export const getCircuitName = (circuit_name: string) => {
       return "상하이 서킷";
     case "suzuka":
       return "스즈카 서킷";
+    case "bahrain":
+      return "바레인 서킷";
     case "monaco":
       return "모나코 서킷";
     case "imola":
@@ -122,8 +128,6 @@ export const getCircuitName = (circuit_name: string) => {
       return "몬자 서킷";
     case "baku":
       return "바쿠 서킷";
-    case "bahrain":
-      return "바레인 서킷";
 
     default:
       return "";
@@ -138,6 +142,8 @@ export const getCountryFlagUrl = (country_name: string) => {
       return ChinaFlag.src;
     case "Japan":
       return JapanFlag.src;
+    case "Bahrain":
+      return BahrainFlag.src;
   }
 };
 
