@@ -101,9 +101,6 @@ export default function Podium() {
     return () => clearInterval(interval);
   }, [podiumDrivers?.length]);
 
-  console.log("lastestMeeting", lastestMeeting?.season);
-  console.log("upcomingRacesApi", upcomingRacesApi?.season);
-
   // 최근 포디움 드라이버 데이터
   // useEffect(() => {
   //   const fetchSessionResults = async () => {
@@ -165,29 +162,6 @@ export default function Podium() {
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
-
-  // 데이터가 없을 때 처리
-  // if (!isLoading && podiumData.length === 0) {
-  //   return (
-  //     <div className="relative w-full">
-  //       <div className="mb-6 flex items-center justify-between">
-  //         <div className="flex items-center gap-4">
-  //           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
-  //             <Trophy className="text-primary" size={24} />
-  //           </div>
-  //           <div>
-  //             <h3 className="text-xl font-extrabold tracking-tight text-white">
-  //               최근 레이스
-  //             </h3>
-  //             <p className="mt-1 text-sm font-medium text-gray-400">
-  //               포디움 데이터가 없습니다
-  //             </p>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   // 로딩 화면
   if (isLoading) {
