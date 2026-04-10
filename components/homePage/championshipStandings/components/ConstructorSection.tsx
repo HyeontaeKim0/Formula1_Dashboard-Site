@@ -110,7 +110,7 @@ export default function ConstructorSection({
             return (
               <div
                 key={standing.position}
-                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-r from-gray-50 to-white hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md"
+                className="group relative overflow-hidden rounded-2xl border border-gray-200 "
                 onMouseEnter={() => setHoveredPosition(standing.position)}
                 onMouseLeave={() => setHoveredPosition(null)}
                 style={{
@@ -118,7 +118,7 @@ export default function ConstructorSection({
                 }}
               >
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute inset-0 opacity-0  "
                   style={{
                     background: standing.team
                       ? `linear-gradient(90deg, ${standing.team}15 0%, transparent 100%)`
@@ -158,7 +158,7 @@ export default function ConstructorSection({
                         </div>
                         <div>
                           <div className="flex items-center space-x-2">
-                            <div className="font-semibold text-lg text-gray-900 group-hover:text-primary transition-colors duration-300">
+                            <div className="font-semibold text-lg text-gray-900  transition-colors duration-300">
                               {getConstructorTeamName(standing.teamName)}
                             </div>
                           </div>
@@ -205,7 +205,7 @@ export default function ConstructorSection({
             return (
               <div
                 key={standing.position}
-                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-r from-gray-50 to-white hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md"
+                className="group relative overflow-hidden rounded-2xl border border-gray-200 "
                 onMouseEnter={() => setHoveredPosition(standing.position)}
                 onMouseLeave={() => setHoveredPosition(null)}
                 style={{
@@ -213,7 +213,7 @@ export default function ConstructorSection({
                 }}
               >
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute inset-0 opacity-0 "
                   style={{
                     background: standing.team
                       ? `linear-gradient(90deg, ${standing.team}15 0%, transparent 100%)`
@@ -253,7 +253,7 @@ export default function ConstructorSection({
                         </div>
                         <div>
                           <div className="flex items-center space-x-2">
-                            <div className="font-semibold text-lg text-gray-900 group-hover:text-primary transition-colors duration-300">
+                            <div className="font-semibold text-lg text-gray-900  transition-colors duration-300">
                               {getDriverChampionName(standing.driverCode)}
                             </div>
                           </div>

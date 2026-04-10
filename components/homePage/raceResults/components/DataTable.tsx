@@ -77,7 +77,7 @@ export default function DataTable({
             raceResults.map((result, index) => (
               <tr
                 key={`${result.position}-${index}`}
-                className="border-b border-gray-200 hover:bg-gray-50 transition-all duration-300 group cursor-pointer relative"
+                className="border-b border-gray-200 transition-all duration-300  relative"
                 onMouseEnter={() => setHoveredRow(result.position)}
                 onMouseLeave={() => setHoveredRow(null)}
                 style={{
@@ -122,7 +122,7 @@ export default function DataTable({
                   <div className="flex items-center space-x-3">
                     {result.teamColor && (
                       <div
-                        className="w-1.5 h-12 rounded-full transition-all duration-300 group-hover:shadow-lg"
+                        className="w-1.5 h-12 rounded-full transition-all duration-300 "
                         style={{
                           backgroundColor: result.teamColor,
                           boxShadow:
@@ -133,7 +133,7 @@ export default function DataTable({
                       ></div>
                     )}
                     <div>
-                      <div className="font-semibold text-sm  text-gray-900 group-hover:text-primary transition-colors duration-300">
+                      <div className="font-semibold text-sm  text-gray-900  transition-colors duration-300">
                         {result.driverName}
                       </div>
                       <div className="flex items-center gap-[7px]">

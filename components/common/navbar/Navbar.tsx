@@ -6,11 +6,14 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import Logo from "@/assets/img/logo/MainTitle.png";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -31,6 +34,7 @@ export default function Navbar() {
     // { label: "팀", href: "/teams" },
     // { label: "동영상", href: "/videos" },
   ];
+  const isNewsPage = pathname === "/news";
 
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -41,13 +45,23 @@ export default function Navbar() {
     <nav
       className={`bg-white/95 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50 transition-all duration-300 shadow-sm ${
         scrolled ? "shadow-lg shadow-primary/10" : ""
-      }`}
+      } ${isNewsPage ? "bg-[#f4f1ea] transition-all duration-300" : ""}`}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 ">
         <div className="flex justify-between h-16">
           <div className="flex mr-10">
             <Link href="/">
-              <Image src={Logo} alt="Logo" width={300} height={200} />
+              <Image
+                src={Logo}
+                alt="Logo"
+                width={300}
+                height={200}
+                className={
+                  isNewsPage
+                    ? "grayscale hover:grayscale-0 transition-all duration-300"
+                    : ""
+                }
+              />
             </Link>
           </div>
 
