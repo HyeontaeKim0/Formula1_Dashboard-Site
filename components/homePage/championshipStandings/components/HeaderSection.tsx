@@ -27,7 +27,7 @@ export default function HeaderSection({
           onClick={() => setView("drivers")}
           className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
             view === "drivers"
-              ? "bg-primary text-white shadow-lg shadow-primary/30"
+              ? "bg-primary text-white shadow-lg "
               : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
           }`}
         >
@@ -37,7 +37,7 @@ export default function HeaderSection({
           onClick={() => setView("constructors")}
           className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
             view === "constructors"
-              ? "bg-primary text-white shadow-lg shadow-primary/30"
+              ? "bg-primary text-white shadow-lg "
               : "text-gray-600 hover:text-gray-900 hover:bg-gray-200"
           }`}
         >

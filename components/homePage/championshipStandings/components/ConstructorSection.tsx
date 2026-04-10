@@ -291,17 +291,6 @@ export default function ConstructorSection({
           })}
         </div>
       )}
-
-      <div className="mt-6 pt-5 border-t border-gray-200">
-        <button className="w-full py-3.5 text-sm font-semibold text-gray-700 hover:text-white rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 border border-gray-200 hover:border-primary bg-gradient-to-r from-gray-50 to-white hover:from-primary hover:to-primary-dark group">
-          <span className="flex items-center justify-center space-x-2">
-            <span>전체 순위 보기</span>
-            <span className="transform group-hover:translate-x-1 transition-transform duration-300">
-              →
-            </span>
-          </span>
-        </button>
-      </div>
     </div>
   );
 }
