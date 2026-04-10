@@ -12,7 +12,7 @@ export default function HeaderSection({
   return (
     <div className="mb-6 flex items-center justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
+        <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
           <MedalIcon className="text-primary" size={24} />
         </div>
         <div>

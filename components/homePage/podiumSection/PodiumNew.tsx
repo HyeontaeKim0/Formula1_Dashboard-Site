@@ -21,7 +21,7 @@ import Norris from "@/assets/img/champion/champion_Norris3.jpg";
 import McLaren from "@/assets/img/teamLogo/McLaren.webp";
 
 import { getNextRaces } from "@/lib/api/nextRacesApi/nextRacesApi";
-
+import NotFound from "@/components/common/notFound/NotFound";
 import {
   getCar,
   getDriverName,
@@ -170,7 +170,7 @@ export default function Podium() {
         {/* 헤더 섹션 */}
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
+            <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
             </div>
             <div>
@@ -189,28 +189,7 @@ export default function Podium() {
           <div className="relative z-10 flex min-h-[500px] flex-col items-center justify-center px-20">
             {/* 로딩 스피너 */}
             <div className="relative">
-              {/* 외부 회전 링 */}
-              <div className="h-24 w-24 animate-spin rounded-full border-4 border-primary/20 border-t-primary"></div>
-              {/* 내부 회전 링 */}
-              <div
-                className="absolute inset-0 h-24 w-24 animate-spin rounded-full border-4 border-transparent border-r-secondary"
-                style={{
-                  animationDirection: "reverse",
-                  animationDuration: "1.5s",
-                }}
-              ></div>
-              {/* 중앙 아이콘 */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Trophy className="text-primary" size={32} />
-              </div>
-            </div>
-
-            {/* 로딩 텍스트 */}
-            <div className="mt-8 text-center">
-              <div className="text-2xl font-bold text-gray-400">로딩 중</div>
-              <div className="mt-2 text-sm text-gray-400">
-                잠시만 기다려주세요...
-              </div>
+              <NotFound text="데이터 로딩 중..." type="loading" />
             </div>
           </div>
         </div>
@@ -225,7 +204,7 @@ export default function Podium() {
         {lastestMeeting?.circuit?.country === "United Arab Emirates" &&
         lastestMeeting?.season === new Date().getFullYear() ? (
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
+            <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
             </div>
             <div>
@@ -240,7 +219,7 @@ export default function Podium() {
           </div>
         ) : (
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
+            <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
             </div>
             <div>

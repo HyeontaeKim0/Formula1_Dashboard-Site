@@ -56,7 +56,7 @@ export default function DataTable({
                 <th className="text-left py-4 px-4 text-xs font-extrabold text-gray-400 uppercase tracking-wider">
                   {header}
                 </th>
-              )
+              ),
             )}
           </tr>
         </thead>
@@ -67,7 +67,10 @@ export default function DataTable({
                 colSpan={getTableHeaders()?.length}
                 className="text-center py-4 px-4"
               >
-                <NotFound text="경기가 없거나 경기 전 혹은 데이터 수집 중 입니다....." />
+                <NotFound
+                  text="경기가 없거나 경기 전 혹은 데이터 수집 중 입니다....."
+                  type="notFound"
+                />
               </td>
             </tr>
           ) : (
@@ -85,7 +88,7 @@ export default function DataTable({
                   <div className="flex items-center space-x-2">
                     <span
                       className={`font-bold text-lg ${getPositionColor(
-                        result.position
+                        result.position,
                       )}`}
                     >
                       {(result as any).originalPosition ?? result.position}
@@ -94,7 +97,7 @@ export default function DataTable({
                       typeof (result as any).originalPosition === "number" && (
                         <Trophy
                           className={`${getPositionColor(
-                            result.position
+                            result.position,
                           )} animate-pulse-slow`}
                           size={18}
                         />
@@ -141,7 +144,7 @@ export default function DataTable({
                           <div className="mt-1">
                             <img
                               src={getTeamLogoUrl(
-                                Number(result.driverNumber || "0")
+                                Number(result.driverNumber || "0"),
                               )}
                               alt={`${result.team} 로고`}
                               className="h-[23px] w-[23px] object-contain"

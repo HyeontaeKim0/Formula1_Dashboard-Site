@@ -24,7 +24,7 @@ export default function CircuitSection({
         {/* 헤더 */}
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/20 backdrop-blur-sm">
+            <div className="flex h-10 w-10 items-center justify-center backdrop-blur-sm">
               <CircuitBoard className="text-primary" size={20} />
             </div>
             <div>
