@@ -6,6 +6,7 @@ import type { PodiumDriver } from "@/lib/types/types";
 import { useEffect, useState } from "react";
 import type { LastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 import Norris from "@/assets/img/champion/champion_Norris3.jpg";
+import nullRaceBackground from "@/assets/img/error/Null.png";
 import McLaren from "@/assets/img/teamLogo/McLaren.webp";
 import { KimiAntonelli } from "@/lib/utils/driverUtils";
 
@@ -20,12 +21,23 @@ export default function DriverCardSlider({
 }: DriverCardSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const isRaceCancelledOrExcluded =
+    lastestMeeting != null && lastestMeeting.winner === null;
+
   const isUaeChampionSeason =
+    !isRaceCancelledOrExcluded &&
     lastestMeeting?.circuit?.country === "United Arab Emirates" &&
     lastestMeeting?.season === new Date().getFullYear();
 
   useEffect(() => {
     if (podiumData.length <= 1) return;
+    if (lastestMeeting?.winner === null) return;
+    if (
+      lastestMeeting?.circuit?.country === "United Arab Emirates" &&
+      lastestMeeting?.season === new Date().getFullYear()
+    ) {
+      return;
+    }
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => {
@@ -35,7 +47,7 @@ export default function DriverCardSlider({
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [podiumData.length]);
+  }, [podiumData.length, lastestMeeting]);
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) =>
@@ -59,12 +71,65 @@ export default function DriverCardSlider({
         <div
           className="flex transition-transform duration-700 ease-out"
           style={{
-            transform: isUaeChampionSeason
-              ? "translateX(0%)"
-              : `translateX(-${currentIndex * 100}%)`,
+            transform:
+              isRaceCancelledOrExcluded || isUaeChampionSeason
+                ? "translateX(0%)"
+                : `translateX(-${currentIndex * 100}%)`,
           }}
         >
-          {isUaeChampionSeason ? (
+          {isRaceCancelledOrExcluded ? (
+            <div className="relative min-w-full flex-shrink-0">
+              <div className="relative min-h-[500px] overflow-hidden rounded-3xl border border-white/10">
+                <Image
+                  src={nullRaceBackground}
+                  alt=""
+                  fill
+                  className="object-cover object-center"
+                  sizes="100vw"
+                  unoptimized
+                />
+                <div
+                  className="absolute inset-0 bg-gradient-to-br from-slate-950/92 via-slate-950/78 to-slate-950/90"
+                  aria-hidden
+                />
+                <div className="relative z-10 flex min-h-[700px] flex-col items-center justify-center gap-6 px-6 py-12 text-center sm:px-10">
+                  <div className="max-w-lg space-y-3 drop-shadow-md">
+                    {/* <h4 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
+                      그랑프리가 진행되지 않았습니다
+                    </h4>
+                    <p className="text-base leading-relaxed text-white/80 sm:text-lg">
+                      해당 대회는 일정에서 제외되었거나 취소된 것으로 보입니다.
+                      포디움 결과가 없으며, 공식 캘린더·FIA 발표를 확인해
+                      주세요.
+                    </p> */}
+                    {/* {(lastestMeeting.raceName ||
+                      lastestMeeting.circuit?.country) && (
+                      <p className="pt-2 text-sm font-medium text-white/60">
+                        {lastestMeeting.raceName && (
+                          <span className="block text-white/90">
+                            {lastestMeeting.raceName}
+                          </span>
+                        )}
+                        {lastestMeeting.circuit?.country && (
+                          <span>
+                            {lastestMeeting.circuit.country}
+                            {lastestMeeting.circuit.city
+                              ? ` · ${lastestMeeting.circuit.city}`
+                              : ""}
+                          </span>
+                        )}
+                      </p>
+                    )} */}
+                    <div>
+                      <span className="text-white font-bold text-[55px]">
+                        Coming Soon...
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : isUaeChampionSeason ? (
             <>
               <div className="relative flex min-h-[500px] flex-1 flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-15">
                 <Image
@@ -226,44 +291,48 @@ export default function DriverCardSlider({
         </div>
       </div>
 
-      {podiumData.length > 1 && (
-        <>
-          <button
-            type="button"
-            onClick={goToPrevious}
-            className="absolute left-4 top-1/2 z-30 -translate-y-1/2 rounded-2xl bg-black/40 p-3 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/60"
-            aria-label="이전 드라이버"
-          >
-            <ChevronLeft className="text-white" size={28} />
-          </button>
-          <button
-            type="button"
-            onClick={goToNext}
-            className="absolute right-4 top-1/2 z-30 -translate-y-1/2 rounded-2xl bg-black/40 p-3 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/60"
-            aria-label="다음 드라이버"
-          >
-            <ChevronRight className="text-white" size={28} />
-          </button>
-        </>
-      )}
-
-      {podiumData.length > 1 && (
-        <div className="mt-6 flex justify-center gap-3">
-          {podiumData.map((_, index) => (
+      {podiumData.length > 1 &&
+        !isRaceCancelledOrExcluded &&
+        !isUaeChampionSeason && (
+          <>
             <button
               type="button"
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 ${
-                index === currentIndex
-                  ? "h-2 w-8 rounded-full bg-white"
-                  : "h-2 w-2 rounded-full bg-white/30 hover:bg-white/50"
-              }`}
-              aria-label={`${index + 1}번째 드라이버로 이동`}
-            />
-          ))}
-        </div>
-      )}
+              onClick={goToPrevious}
+              className="absolute left-4 top-1/2 z-30 -translate-y-1/2 rounded-2xl bg-black/40 p-3 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/60"
+              aria-label="이전 드라이버"
+            >
+              <ChevronLeft className="text-white" size={28} />
+            </button>
+            <button
+              type="button"
+              onClick={goToNext}
+              className="absolute right-4 top-1/2 z-30 -translate-y-1/2 rounded-2xl bg-black/40 p-3 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/60"
+              aria-label="다음 드라이버"
+            >
+              <ChevronRight className="text-white" size={28} />
+            </button>
+          </>
+        )}
+
+      {podiumData.length > 1 &&
+        !isRaceCancelledOrExcluded &&
+        !isUaeChampionSeason && (
+          <div className="mt-6 flex justify-center gap-3">
+            {podiumData.map((_, index) => (
+              <button
+                type="button"
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`transition-all duration-300 ${
+                  index === currentIndex
+                    ? "h-2 w-8 rounded-full bg-white"
+                    : "h-2 w-2 rounded-full bg-white/30 hover:bg-white/50"
+                }`}
+                aria-label={`${index + 1}번째 드라이버로 이동`}
+              />
+            ))}
+          </div>
+        )}
     </div>
   );
 }

@@ -67,8 +67,8 @@ interface LastestMeetingRace {
   url: string;
   fast_lap: LastestMeetingFastLap;
   circuit: LastestMeetingCircuit;
-  winner: LastestMeetingDriver;
-  teamWinner: LastestMeetingTeam;
+  winner: LastestMeetingDriver | null;
+  teamWinner: LastestMeetingTeam | null;
 }
 
 interface LastestMeetingChampionship {

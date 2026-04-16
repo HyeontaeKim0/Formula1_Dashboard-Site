@@ -158,8 +158,22 @@ export default function Podium() {
     <div className="relative w-full">
       {/* 헤더 섹션 */}
       <div className="mb-6 flex items-center justify-between">
-        {lastestMeeting?.circuit?.country === "United Arab Emirates" &&
-        lastestMeeting?.season === new Date().getFullYear() ? (
+        {lastestMeeting?.winner === null ? (
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
+              <Trophy className="text-primary" size={24} />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold tracking-tight text-gray-600">
+                최근 레이스
+              </h3>
+              <p className="mt-1 text-sm font-medium text-gray-600">
+                일정 취소 또는 캘린더 제외 — 포디움 데이터 없음
+              </p>
+            </div>
+          </div>
+        ) : lastestMeeting?.circuit?.country === "United Arab Emirates" &&
+          lastestMeeting?.season === new Date().getFullYear() ? (
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
