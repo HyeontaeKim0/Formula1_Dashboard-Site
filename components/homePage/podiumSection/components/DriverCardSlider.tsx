@@ -78,8 +78,8 @@ export default function DriverCardSlider({
           }}
         >
           {isRaceCancelledOrExcluded ? (
-            <div className="relative min-w-full flex-shrink-0">
-              <div className="relative min-h-[500px] overflow-hidden rounded-3xl border border-white/10">
+            <div className="relative min-w-full shrink-0">
+              <div className="relative min-h-[min(55vh,380px)] overflow-hidden rounded-3xl border border-white/10 sm:min-h-[500px]">
                 <Image
                   src={nullRaceBackground}
                   alt=""
@@ -92,8 +92,8 @@ export default function DriverCardSlider({
                   className="absolute inset-0 bg-gradient-to-br from-slate-950/92 via-slate-950/78 to-slate-950/90"
                   aria-hidden
                 />
-                <div className="relative z-10 flex min-h-[700px] flex-col items-center justify-center gap-6 px-6 py-12 text-center sm:px-10">
-                  <div className="max-w-lg space-y-3 drop-shadow-md">
+                <div className="relative z-10 flex min-h-[min(55vh,380px)] flex-col items-center justify-center gap-4 px-4 py-8 text-center sm:min-h-[500px] sm:gap-6 sm:px-10 sm:py-12">
+                  <div className="max-w-lg space-y-3 px-1 drop-shadow-md">
                     {/* <h4 className="text-2xl font-black tracking-tight text-white sm:text-3xl">
                       그랑프리가 진행되지 않았습니다
                     </h4>
@@ -121,7 +121,7 @@ export default function DriverCardSlider({
                       </p>
                     )} */}
                     <div>
-                      <span className="text-white font-bold text-[55px]">
+                      <span className="text-balance text-2xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-[55px]">
                         Coming Soon...
                       </span>
                     </div>
@@ -131,7 +131,7 @@ export default function DriverCardSlider({
             </div>
           ) : isUaeChampionSeason ? (
             <>
-              <div className="relative flex min-h-[500px] flex-1 flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-15">
+              <div className="relative flex min-h-[min(55vh,380px)] flex-1 flex-col justify-center p-4 sm:min-h-[500px] sm:p-6 md:p-8 lg:p-12 xl:p-15">
                 <Image
                   src={Norris}
                   alt="Lando Norris"
@@ -141,14 +141,8 @@ export default function DriverCardSlider({
                   unoptimized
                 />
 
-                <div
-                  className="absolute z-20 flex items-center gap-3"
-                  style={{
-                    left: "74%",
-                    top: "77%",
-                  }}
-                >
-                  <div className="relative h-[50px] w-[50px]">
+                <div className="absolute bottom-4 right-4 z-20 flex max-w-[calc(100%-2rem)] items-center gap-2 sm:bottom-6 sm:right-6 md:bottom-auto md:left-[72%] md:right-auto md:top-[76%] md:max-w-none lg:left-[74%] lg:top-[77%]">
+                  <div className="relative h-10 w-10 shrink-0 sm:h-[50px] sm:w-[50px]">
                     <Image
                       src={McLaren}
                       alt="McLaren Logo"
@@ -158,7 +152,7 @@ export default function DriverCardSlider({
                       unoptimized
                     />
                   </div>
-                  <p className="mb-2 font-bold text-white/90 drop-shadow md:text-[27px]">
+                  <p className="text-sm font-bold text-white/90 drop-shadow sm:text-lg md:text-[27px]">
                     Lando Norris
                   </p>
                 </div>
@@ -179,7 +173,7 @@ export default function DriverCardSlider({
                 return (
                   <div
                     key={driver.position}
-                    className="min-w-full flex-shrink-0"
+                    className="min-w-full shrink-0"
                   >
                     <div
                       className="relative overflow-hidden rounded-3xl p-0 transition-all duration-700"
@@ -187,7 +181,7 @@ export default function DriverCardSlider({
                         backgroundColor: teamColor,
                       }}
                     >
-                      <div className="relative z-10 flex min-h-[500px] flex-col px-4 sm:px-8 md:flex-row md:items-center md:justify-between md:px-16 lg:px-24 xl:px-[200px]">
+                      <div className="relative z-10 flex min-h-[min(52vh,400px)] flex-col px-3 pb-6 pt-4 sm:min-h-[500px] sm:px-8 sm:pb-8 sm:pt-6 md:flex-row md:items-center md:justify-between md:px-16 lg:px-24 xl:px-[200px]">
                         <>
                           <div className="flex flex-1 flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-15">
                             <div className="space-y-4">
@@ -197,7 +191,7 @@ export default function DriverCardSlider({
                                 </div>
                               )}
 
-                              <div className="text-xl font-black leading-none tracking-tight text-white md:text-6xl lg:text-7xl">
+                              <div className="text-2xl font-black leading-[0.95] tracking-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
                                 {lastName}
                               </div>
 
@@ -298,18 +292,18 @@ export default function DriverCardSlider({
             <button
               type="button"
               onClick={goToPrevious}
-              className="absolute left-4 top-1/2 z-30 -translate-y-1/2 rounded-2xl bg-black/40 p-3 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/60"
+              className="absolute left-1 top-1/2 z-30 -translate-y-1/2 rounded-xl bg-black/40 p-2 backdrop-blur-md transition-all duration-300 hover:bg-black/60 sm:left-4 sm:rounded-2xl sm:p-3 md:hover:scale-110"
               aria-label="이전 드라이버"
             >
-              <ChevronLeft className="text-white" size={28} />
+              <ChevronLeft className="text-white" size={22} />
             </button>
             <button
               type="button"
               onClick={goToNext}
-              className="absolute right-4 top-1/2 z-30 -translate-y-1/2 rounded-2xl bg-black/40 p-3 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-black/60"
+              className="absolute right-1 top-1/2 z-30 -translate-y-1/2 rounded-xl bg-black/40 p-2 backdrop-blur-md transition-all duration-300 hover:bg-black/60 sm:right-4 sm:rounded-2xl sm:p-3 md:hover:scale-110"
               aria-label="다음 드라이버"
             >
-              <ChevronRight className="text-white" size={28} />
+              <ChevronRight className="text-white" size={22} />
             </button>
           </>
         )}

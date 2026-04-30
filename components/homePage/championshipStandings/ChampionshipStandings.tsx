@@ -11,7 +11,7 @@ export default function ChampionshipStandings() {
   const [hoveredPosition, setHoveredPosition] = useState<number | null>(null);
 
   return (
-    <div className="relative w-full">
+    <div className="relative min-w-0 w-full">
       {/* 헤더 섹션 */}
       <HeaderSection
         view={view}

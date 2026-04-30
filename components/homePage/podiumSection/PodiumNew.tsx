@@ -125,13 +125,13 @@ export default function Podium() {
     return (
       <div className="relative w-full">
         {/* 헤더 섹션 */}
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="mb-4 flex flex-wrap items-center gap-3 sm:mb-6">
+          <div className="flex min-w-0 items-center gap-3 sm:gap-4">
             <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
               <Trophy className="text-primary" size={24} />
             </div>
             <div>
-              <h3 className="text-xl font-extrabold tracking-tight text-white">
+              <h3 className="text-base font-extrabold tracking-tight text-gray-900 sm:text-xl">
                 최근 레이스
               </h3>
               <p className="mt-1 text-sm font-medium text-gray-400">
@@ -143,7 +143,7 @@ export default function Podium() {
 
         {/* 로딩 컨테이너 */}
         <div className="relative overflow-hidden rounded-3xl p-0">
-          <div className="relative z-10 flex min-h-[500px] flex-col items-center justify-center px-20">
+          <div className="relative z-10 flex min-h-[min(55vh,420px)] flex-col items-center justify-center px-4 sm:min-h-[500px] sm:px-12 md:px-20">
             {/* 로딩 스피너 */}
             <div className="relative">
               <NotFound text="데이터 로딩 중..." type="loading" />
@@ -157,47 +157,47 @@ export default function Podium() {
   return (
     <div className="relative w-full">
       {/* 헤더 섹션 */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-4 min-w-0 sm:mb-6">
         {lastestMeeting?.winner === null ? (
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
+          <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center backdrop-blur-sm sm:h-12 sm:w-12">
               <Trophy className="text-primary" size={24} />
             </div>
-            <div>
-              <h3 className="text-xl font-bold tracking-tight text-gray-600">
+            <div className="min-w-0">
+              <h3 className="text-base font-bold tracking-tight text-gray-600 sm:text-xl">
                 최근 레이스
               </h3>
-              <p className="mt-1 text-sm font-medium text-gray-600">
+              <p className="mt-1 break-words text-xs font-medium text-gray-600 sm:text-sm">
                 일정 취소 또는 캘린더 제외 — 포디움 데이터 없음
               </p>
             </div>
           </div>
         ) : lastestMeeting?.circuit?.country === "United Arab Emirates" &&
           lastestMeeting?.season === new Date().getFullYear() ? (
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
+          <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center backdrop-blur-sm sm:h-12 sm:w-12">
               <Trophy className="text-primary" size={24} />
             </div>
-            <div>
-              <h3 className="text-xl font-bold tracking-tight text-gray-600">
+            <div className="min-w-0">
+              <h3 className="text-base font-bold tracking-tight text-gray-600 sm:text-xl">
                 월드 챔피언 {lastestMeeting?.season}
               </h3>
-              <p className="mt-1 text-sm font-medium text-gray-500">
+              <p className="mt-1 break-words text-xs font-medium text-gray-500 sm:text-sm">
                 {lastestMeeting?.circuit?.country} ·{" "}
                 {lastestMeeting?.circuit?.city}· Final Grand Prix
               </p>
             </div>
           </div>
         ) : (
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center backdrop-blur-sm">
+          <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center backdrop-blur-sm sm:h-12 sm:w-12">
               <Trophy className="text-primary" size={24} />
             </div>
-            <div>
-              <h3 className="text-xl font-bold tracking-tight text-gray-600">
+            <div className="min-w-0">
+              <h3 className="text-base font-bold tracking-tight text-gray-600 sm:text-xl">
                 최근 레이스
               </h3>
-              <p className="mt-1 text-sm font-medium text-gray-500">
+              <p className="mt-1 break-words text-xs font-medium text-gray-500 sm:text-sm">
                 {lastestMeeting?.circuit?.country
                   ? `${lastestMeeting.circuit.country} · ${lastestMeeting.circuit.city} 그랑프리`
                   : "레이스 정보 로딩 중..."}

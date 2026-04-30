@@ -102,7 +102,7 @@ export default function ConstructorSection({
   // console.log("driverStandingData", driverStandingData);
 
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
+    <div className="relative min-w-0 overflow-hidden rounded-2xl border border-gray-200 bg-white p-3 shadow-lg sm:rounded-3xl sm:p-6">
       {view === "constructors" && (
         <div className="space-y-3">
           {constructorStandingData.map((standing, index) => {
@@ -126,9 +126,9 @@ export default function ConstructorSection({
                   }}
                 ></div>
 
-                <div className="relative p-5">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-4 ">
+                <div className="relative p-3 sm:p-5">
+                  <div className="mb-3 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex min-w-0 items-center space-x-3 sm:space-x-4">
                       <div className="flex items-center justify-center w-12 h-12 rounded-lg relative">
                         {standing.position === 1 && (
                           <TrophyIcon
@@ -148,7 +148,7 @@ export default function ConstructorSection({
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center space-x-7">
+                      <div className="flex min-w-0 items-center space-x-3 sm:space-x-5 md:space-x-7">
                         <div className="text-sm text-gray-600">
                           <img
                             src={getConstructorTeamLogoUrl(standing.teamName)}
@@ -180,13 +180,15 @@ export default function ConstructorSection({
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-bold bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
+                    <div className="flex shrink-0 flex-row justify-end sm:block sm:text-right">
+                      <div>
+                        <div className="text-2xl font-bold bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent sm:text-3xl">
                         {standing.points}
                       </div>
-                      <div className="text-xs text-gray-600 mt-1">
+                      <div className="mt-1 text-xs text-gray-600">
                         {standing.wins}승
                       </div>
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -221,9 +223,9 @@ export default function ConstructorSection({
                   }}
                 ></div>
 
-                <div className="relative p-5">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-4 ">
+                <div className="relative p-3 sm:p-5">
+                  <div className="mb-3 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex min-w-0 items-center space-x-3 sm:space-x-4">
                       <div className="flex items-center justify-center w-12 h-12 rounded-lg relative">
                         {standing.position === 1 && (
                           <TrophyIcon
@@ -243,7 +245,7 @@ export default function ConstructorSection({
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center space-x-7">
+                      <div className="flex min-w-0 items-center space-x-3 sm:space-x-5 md:space-x-7">
                         <div className="text-sm text-gray-600">
                           <img
                             src={getConstructorTeamLogoUrl(standing.team)}
@@ -273,13 +275,13 @@ export default function ConstructorSection({
                         </div>
                       </div>
                     </div>
-                    <div className="text-right flex items-center space-x-5">
+                    <div className="flex w-full flex-row items-center justify-end gap-3 sm:w-auto sm:justify-end">
                       {/* <div>{standing.driverCode}</div> */}
-                      <div>
-                        <div className="text-3xl font-bold bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">
+                      <div className="text-right">
+                        <div className="text-2xl font-bold bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent sm:text-3xl">
                           {standing.points}
                         </div>
-                        <div className="text-xs text-gray-600 mt-1">
+                        <div className="mt-1 text-xs text-gray-600">
                           {standing.wins}승
                         </div>
                       </div>

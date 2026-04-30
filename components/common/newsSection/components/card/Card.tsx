@@ -48,14 +48,14 @@ export default function Card({
         ) : null}
         <h3
           className={`font-black uppercase leading-[1.1] tracking-tight text-balance text-neutral-950 ${
-            emphasized ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"
+            emphasized ? "text-lg sm:text-2xl" : "text-base sm:text-xl"
           }`}
         >
           {headlineText(title)}
         </h3>
         <p
-          className={`text-justify text-sm leading-relaxed text-neutral-800 ${
-            emphasized ? "columns-1 gap-0 sm:columns-2 sm:gap-6" : "columns-1"
+          className={`text-justify text-xs leading-relaxed text-neutral-800 sm:text-sm ${
+            emphasized ? "columns-1 gap-0 lg:columns-2 lg:gap-6" : "columns-1"
           }`}
         >
           {description}

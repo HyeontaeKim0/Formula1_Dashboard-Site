@@ -246,17 +246,19 @@ export default function RaceResults() {
   });
 
   return (
-    <div className="relative w-full">
+    <div className="relative min-w-0 w-full">
       {/* 헤더 섹션 */}
-      <div className="mb-6 flex items-center justify-between">
-        <HeaderSection lastRaceResult={lastRaceResult} />
+      <div className="mb-4 flex min-w-0 flex-col gap-4 sm:mb-6 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0 shrink-0">
+          <HeaderSection lastRaceResult={lastRaceResult} />
+        </div>
 
-        <div className=" flex  justify-end">
+        <div className="min-w-0 w-full lg:w-auto lg:max-w-full lg:shrink-0">
           <RacingTypeTabMenu view={view} setView={setView} />
         </div>
       </div>
       {/* 메인 컨텐츠 */}
-      <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
+      <div className="relative min-w-0 overflow-hidden rounded-2xl border border-gray-200 bg-white p-3 shadow-lg sm:rounded-3xl sm:p-6">
         <DataTable
           raceResults={
             view === "race"

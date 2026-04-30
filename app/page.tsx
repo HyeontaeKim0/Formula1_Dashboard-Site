@@ -11,26 +11,27 @@ import UpcomingRacesSection from "@/components/homePage/upcomingRaces/UpcomingRa
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 py-8 animate-fade-in">
+    <div className="container mx-auto min-w-0 px-3 py-4 animate-fade-in sm:px-4 sm:py-8">
       {/* Podium Section */}
-      <div className="mb-8 animate-slide-up">
+      <div className="mb-4 animate-slide-up sm:mb-8">
         {/* <Podium /> */}
         <PodiumNew />
       </div>
 
+     
       {/* 다가오는 레이스 섹션 */}
       <UpcomingRacesSection />
 
       {/* 최근 레이스 결과 섹션 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid min-w-0 grid-cols-1 gap-4 sm:gap-8 lg:grid-cols-2">
         <div
-          className="animate-slide-in-left mt-10"
+          className="animate-slide-in-left mt-6 sm:mt-10"
           style={{ animationDelay: "0.3s" }}
         >
           <RaceResults />
         </div>
         <div
-          className="animate-slide-in-right mt-10"
+          className="animate-slide-in-right mt-6 sm:mt-10"
           style={{ animationDelay: "0.4s" }}
         >
           <ChampionshipStandings />

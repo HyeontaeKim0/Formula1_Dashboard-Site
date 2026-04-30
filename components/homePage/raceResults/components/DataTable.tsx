@@ -42,18 +42,24 @@ export default function DataTable({
   console.log("raceResults", raceResults);
 
   return (
-    <div className="overflow-x-auto -mx-6 px-6">
-      <table className="w-full">
+    <div className="overflow-x-auto -mx-3 px-3 sm:-mx-6 sm:px-6">
+      <table className="w-full min-w-[320px] text-left">
         <thead>
           <tr className="border-b border-gray-200">
             {getTableHeaders()?.map((header) =>
               // "랩","포인트"일때는 text-center
               header === "랩" || header === "포인트" ? (
-                <th className="text-center py-4 px-4 text-xs font-extrabold text-gray-400 uppercase tracking-wider">
+                <th
+                  key={header}
+                  className="whitespace-nowrap px-2 py-2 text-center text-[10px] font-extrabold uppercase tracking-wider text-gray-400 sm:px-4 sm:py-4 sm:text-xs"
+                >
                   {header}
                 </th>
               ) : (
-                <th className="text-left py-4 px-4 text-xs font-extrabold text-gray-400 uppercase tracking-wider">
+                <th
+                  key={header}
+                  className="whitespace-nowrap px-2 py-2 text-left text-[10px] font-extrabold uppercase tracking-wider text-gray-400 sm:px-4 sm:py-4 sm:text-xs"
+                >
                   {header}
                 </th>
               ),
@@ -65,7 +71,7 @@ export default function DataTable({
             <tr>
               <td
                 colSpan={getTableHeaders()?.length}
-                className="text-center py-4 px-4"
+                className="px-4 py-3 text-center text-sm sm:py-4"
               >
                 <NotFound
                   text="경기가 없거나 경기 전 혹은 데이터 수집 중 입니다....."
@@ -84,10 +90,10 @@ export default function DataTable({
                   animationDelay: `${index * 0.05}s`,
                 }}
               >
-                <td className="py-4 px-4">
-                  <div className="flex items-center space-x-2">
+                <td className="py-2 px-2 sm:py-4 sm:px-4">
+                  <div className="flex items-center space-x-1.5 sm:space-x-2">
                     <span
-                      className={`font-bold text-lg ${getPositionColor(
+                      className={`font-bold text-base sm:text-lg ${getPositionColor(
                         result.position,
                       )}`}
                     >
@@ -118,11 +124,11 @@ export default function DataTable({
                       )}
                   </div>
                 </td>
-                <td className="py-4 px-4">
-                  <div className="flex items-center space-x-3">
+                <td className="min-w-0 py-2 px-2 sm:py-4 sm:px-4">
+                  <div className="flex min-w-0 items-center space-x-2 sm:space-x-3">
                     {result.teamColor && (
                       <div
-                        className="w-1.5 h-12 rounded-full transition-all duration-300 "
+                        className="h-10 w-1 shrink-0 rounded-full transition-all duration-300 sm:h-12"
                         style={{
                           backgroundColor: result.teamColor,
                           boxShadow:
@@ -132,12 +138,12 @@ export default function DataTable({
                         }}
                       ></div>
                     )}
-                    <div>
-                      <div className="font-semibold text-sm  text-gray-900  transition-colors duration-300">
+                    <div className="min-w-0">
+                      <div className="truncate text-xs font-semibold text-gray-900 transition-colors duration-300 sm:text-sm">
                         {result.driverName}
                       </div>
-                      <div className="flex items-center gap-[7px]">
-                        <div className="text-sm text-gray-600 font-medium">
+                      <div className="flex min-w-0 flex-wrap items-center gap-1 sm:gap-[7px]">
+                        <div className="truncate text-xs font-medium text-gray-600 sm:text-sm">
                           {result.team}
                         </div>
                         {getTeamLogoUrl(Number(result.driverNumber || "0")) && (
@@ -157,26 +163,26 @@ export default function DataTable({
                 </td>
                 {view === "qualifying" ? (
                   <>
-                    <td className="py-4 px-1">
-                      <div className="flex items-center space-x-1.5">
-                        <Clock size={14} className="text-gray-400" />
-                        <span className="text-sm font-mono font-medium">
+                    <td className="py-2 px-0.5 sm:py-4 sm:px-1">
+                      <div className="flex items-center space-x-1">
+                        <Clock size={14} className="shrink-0 text-gray-400" />
+                        <span className="font-mono text-[11px] font-medium sm:text-sm">
                           {result.time || "-"}
                         </span>
                       </div>
                     </td>
-                    <td className="py-4 px-1">
-                      <div className="flex items-center space-x-1.5">
-                        <Clock size={14} className="text-gray-400" />
-                        <span className="text-sm font-mono font-medium">
+                    <td className="py-2 px-0.5 sm:py-4 sm:px-1">
+                      <div className="flex items-center space-x-1">
+                        <Clock size={14} className="shrink-0 text-gray-400" />
+                        <span className="font-mono text-[11px] font-medium sm:text-sm">
                           {result.time2 || "-"}
                         </span>
                       </div>
                     </td>
-                    <td className="py-4 px-1">
-                      <div className="flex items-center space-x-1.5">
-                        <Clock size={14} className="text-gray-400" />
-                        <span className="text-sm font-mono font-medium">
+                    <td className="py-2 px-0.5 sm:py-4 sm:px-1">
+                      <div className="flex items-center space-x-1">
+                        <Clock size={14} className="shrink-0 text-gray-400" />
+                        <span className="font-mono text-[11px] font-medium sm:text-sm">
                           {result.time3 || "-"}
                         </span>
                       </div>
@@ -186,26 +192,26 @@ export default function DataTable({
                   <>
                     {view === "practice" ? (
                       <>
-                        <td className="py-4 px-1">
-                          <div className="flex items-center space-x-1.5">
-                            <Clock size={14} className="text-gray-400" />
-                            <span className="text-sm font-mono font-medium">
+                        <td className="py-2 px-0.5 sm:py-4 sm:px-1">
+                          <div className="flex items-center space-x-1">
+                            <Clock size={14} className="shrink-0 text-gray-400" />
+                            <span className="font-mono text-[11px] font-medium sm:text-sm">
                               {result.time || "-"}
                             </span>
                           </div>
                         </td>
-                        <td className="py-4 px-1">
-                          <div className="flex items-center space-x-1.5">
-                            <Clock size={14} className="text-gray-400" />
-                            <span className="text-sm font-mono font-medium">
+                        <td className="py-2 px-0.5 sm:py-4 sm:px-1">
+                          <div className="flex items-center space-x-1">
+                            <Clock size={14} className="shrink-0 text-gray-400" />
+                            <span className="font-mono text-[11px] font-medium sm:text-sm">
                               {result.time2 || "-"}
                             </span>
                           </div>
                         </td>
-                        <td className="py-4 px-1">
-                          <div className="flex items-center space-x-1.5">
-                            <Clock size={14} className="text-gray-400" />
-                            <span className="text-sm font-mono font-medium">
+                        <td className="py-2 px-0.5 sm:py-4 sm:px-1">
+                          <div className="flex items-center space-x-1">
+                            <Clock size={14} className="shrink-0 text-gray-400" />
+                            <span className="font-mono text-[11px] font-medium sm:text-sm">
                               {result.time3 || "-"}
                             </span>
                           </div>
@@ -213,20 +219,20 @@ export default function DataTable({
                       </>
                     ) : (
                       <>
-                        <td className="py-4 px-4">
+                        <td className="py-2 px-2 sm:py-4 sm:px-4">
                           <div className="flex items-center space-x-1.5">
                             <Clock size={14} className="text-gray-400" />
-                            <span className="text-sm font-mono font-medium">
+                            <span className="font-mono text-[11px] font-medium sm:text-sm">
                               {result.time || "-"}
                             </span>
                           </div>
                         </td>
-                        <td className="py-4 px-4 text-center text-sm text-gray-700 font-semibold">
+                        <td className="py-2 px-2 text-center text-xs font-semibold text-gray-700 sm:py-4 sm:px-4 sm:text-sm">
                           {result.laps}
                         </td>
-                        <td className="py-4 px-4 text-center">
+                        <td className="py-2 px-2 text-center sm:py-4 sm:px-4">
                           <div className="flex items-center justify-center space-x-2">
-                            <span className="font-bold text-lg text-primary">
+                            <span className="text-base font-bold text-primary sm:text-lg">
                               {result.points}
                             </span>
                           </div>

@@ -47,26 +47,28 @@ export default function Navbar() {
         scrolled ? "shadow-lg shadow-primary/10" : ""
       } ${isNewsPage ? "bg-[#f4f1ea] transition-all duration-300" : ""}`}
     >
-      <div className="container mx-auto px-4 ">
-        <div className="flex justify-between h-16">
-          <div className="flex mr-10">
-            <Link href="/">
+      <div className="container mx-auto min-w-0 px-3 sm:px-4">
+        <div className="flex h-16 min-w-0 items-center justify-between gap-2">
+          <div className="flex min-w-0 shrink">
+            <Link href="/" className="block min-w-0">
               <Image
                 src={Logo}
                 alt="Logo"
                 width={300}
                 height={200}
-                className={
+                sizes="(max-width: 640px) 140px, (max-width: 768px) 180px, 260px"
+                className={`h-8 w-auto max-w-[140px] object-contain object-left sm:h-9 sm:max-w-[180px] md:h-10 md:max-w-[240px] lg:max-w-[280px] ${
                   isNewsPage
-                    ? "grayscale hover:grayscale-0 transition-all duration-300"
+                    ? "grayscale transition-all duration-300 hover:grayscale-0"
                     : ""
-                }
+                }`}
+                priority
               />
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:flex items-center space-x-1">
+          <div className="flex min-w-0 flex-shrink-0 items-center gap-1 sm:gap-3">
+            <div className="hidden items-center space-x-1 md:flex">
               {navItems.map((item, index) => (
                 <Link
                   key={item.href}
@@ -83,18 +85,19 @@ export default function Navbar() {
               ))}
             </div>
 
-            <div className="flex items-center space-x-4">
-              <div className="mt-10">
-                <Link
-                  href="https://github.com/HyeontaeKim0"
-                  className="text-lg flex gap-2  tracking-tight text-gray-900 mb-10"
-                >
-                  <div className="flex items-center justify-center">
-                    <FaGithub className="text-xl" />
-                  </div>
-                  <span className="text-sm font-semibold">HyeontaeKim0</span>
-                </Link>
-              </div>
+            <div className="flex items-center gap-1 sm:gap-2">
+              <Link
+                href="https://github.com/HyeontaeKim0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-xl p-2 text-gray-900 transition-colors hover:bg-gray-100 hover:text-primary sm:gap-2 sm:px-2"
+                aria-label="GitHub 프로필"
+              >
+                <FaGithub className="text-lg sm:text-xl" />
+                <span className="hidden text-sm font-semibold sm:inline">
+                  HyeontaeKim0
+                </span>
+              </Link>
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-xl text-gray-700 hover:text-primary hover:bg-gray-100 transition-all duration-300 hover:rotate-180 hover:scale-110"

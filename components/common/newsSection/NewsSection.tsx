@@ -32,7 +32,7 @@ export default function NewsSection() {
   }, []);
 
   return (
-    <div className="relative w-full font-serif text-neutral-900">
+    <div className="relative w-full min-w-0 max-w-full font-serif text-neutral-900">
       {/* 신문지 배경 + 미세 수직 룰 (CodePen의 newsprint 느낌) */}
       <div
         className="border-[3px] border-double border-neutral-900 shadow-[4px_4px_0_0_rgba(0,0,0,0.08)]"
@@ -56,10 +56,9 @@ export default function NewsSection() {
         <header className="border-b-2 border-neutral-900 px-4 py-6 text-center sm:px-8 sm:py-8">
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-3">
             <div
-              className="flex items-center gap-2 border-y border-neutral-900 py-1.5 font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-neutral-600 sm:text-xs"
+              className="flex items-center gap-2  py-1.5 font-sans text-[10px] font-bold uppercase tracking-[0.35em] text-neutral-600 sm:text-xs"
               aria-hidden
             >
-              <Newspaper className="h-4 w-4 text-neutral-800" />
               포뮬라 완
             </div>
             <h2 className="font-black uppercase leading-none tracking-tight text-neutral-950 sm:tracking-tighter">
@@ -71,7 +70,7 @@ export default function NewsSection() {
               </span>
             </h2>
             <p className="max-w-xl font-sans text-xs font-medium leading-relaxed text-neutral-600 sm:text-sm">
-              - 번역은 알아서 하는걸로 합시다. -
+              | 번역은 알아서 하는걸로 합시다. |
             </p>
           </div>
         </header>
