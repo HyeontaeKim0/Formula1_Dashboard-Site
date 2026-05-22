@@ -11,14 +11,13 @@ import UpcomingRacesSection from "@/components/homePage/upcomingRaces/UpcomingRa
 
 export default function Home() {
   return (
-    <div className="container mx-auto min-w-0 px-3 py-4 animate-fade-in sm:px-4 sm:py-8">
+    <div className="container mx-auto min-w-0 px-3 py-4 animate-fade-in sm:px-4 sm:py-8 md:px-4 md:py-8 lg:px-4 lg:py-12">
       {/* Podium Section */}
       <div className="mb-4 animate-slide-up sm:mb-8">
         {/* <Podium /> */}
         <PodiumNew />
       </div>
 
-     
       {/* 다가오는 레이스 섹션 */}
       <UpcomingRacesSection />
 

@@ -1,9 +1,15 @@
 // 모든 차량 이미지
-import McLarenCar from "@/assets/img/car/McLaren/McLaren_Car.webp";
-import MercedesCar from "@/assets/img/car/Mercedes/Mercedes_Car.webp";
-import RedBullCar from "@/assets/img/car/RedBull/RedBull_Car.webp";
-import WilliamsCar from "@/assets/img/car/Williams/Williams_Car.webp";
-import FerrariCar from "@/assets/img/car/Ferrari/Ferrari_Car.webp";
+import McLarenCar from "@/assets/img/car/McLaren/McLaren_Car.avif";
+import MercedesCar from "@/assets/img/car/Mercedes/Mercedes_Car.avif";
+import RedBullCar from "@/assets/img/car/RedBull/RedBull_Car.avif";
+import WilliamsCar from "@/assets/img/car/Williams/Williams_Car.avif";
+import FerrariCar from "@/assets/img/car/Ferrari/Ferrari_Car.avif";
+import AstonMartinCar from "@/assets/img/car/AstonMartin/AstonMartin_Car.avif";
+import HaasCar from "@/assets/img/car/Haas/Haas_Car.avif";
+import AlpineCar from "@/assets/img/car/Alpine/Alpine_Car.avif";
+import RacingBullsCar from "@/assets/img/car/RacingBulls/RacingBulls_Car.avif";
+import AudiCar from "@/assets/img/car/Audi/Audi_Car.avif";
+import CadillacCar from "@/assets/img/car/Cadillac/Cadillac_Car.avif";
 
 // 모든 팀 로고
 import McLarenLogo from "@/assets/img/teamLogo/McLaren.webp";
@@ -73,6 +79,9 @@ import ShanghaiCircuit from "@/assets/img/circuit/Shanghai_Circuit.avif";
 import SuzukaCircuit from "@/assets/img/circuit/Suzuka_Circuit.avif";
 import BahrainCircuit from "@/assets/img/circuit/Bahrain_Circuit.avif";
 import MiamiCircuit from "@/assets/img/circuit/Miami_Circuit.avif";
+import CanadaCircuit from "@/assets/img/circuit/Canada_Circuit.avif";
+import MonacoCircuit from "@/assets/img/circuit/Monaco_Circuit.avif";
+import CatalunyaCircuit from "@/assets/img/circuit/Barcelona_Circuit.avif";
 
 // 모든 국기 이미지
 import AustraliaFlag from "@/assets/img/flag/Australia.webp";
@@ -81,6 +90,9 @@ import JapanFlag from "@/assets/img/flag/JapanFlag.png";
 import BahrainFlag from "@/assets/img/flag/BahrainFlag.svg";
 import SaudiArabiaFlag from "@/assets/img/flag/Saudi.svg";
 import AmericaFlag from "@/assets/img/flag/America.png";
+import SpainFlag from "@/assets/img/flag/SpainFlag.svg";
+import MonacoFlag from "@/assets/img/flag/MonacoFlag.svg";
+import CanadaFlag from "@/assets/img/flag/CanadaFlag.png";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
@@ -98,6 +110,12 @@ export const getCircuitImageUrl = (circuit_name: string) => {
       return BahrainCircuit.src;
     case "miami":
       return MiamiCircuit.src;
+    case "gilles_villeneuve":
+      return CanadaCircuit.src;
+    case "monaco":
+      return MonacoCircuit.src;
+    case "catalunya":
+      return CatalunyaCircuit.src;
     default:
       return "";
   }
@@ -119,8 +137,12 @@ export const getCircuitName = (circuit_name: string) => {
       return "바레인 서킷";
     case "miami":
       return "마이애미 서킷";
+    case "gilles_villeneuve":
+      return "질 빌뇌브 서킷";
     case "monaco":
       return "모나코 서킷";
+    case "catalunya":
+      return "카탈루냐 서킷";
     case "imola":
       return "이몰라 서킷";
     case "spa":
@@ -157,6 +179,12 @@ export const getCountryFlagUrl = (country_name: string) => {
       return SaudiArabiaFlag.src;
     case "United States":
       return AmericaFlag.src;
+    case "Spain":
+      return SpainFlag.src;
+    case "Monaco":
+      return MonacoFlag.src;
+    case "Canada":
+      return CanadaFlag.src;
   }
 };
 
@@ -183,7 +211,25 @@ export const getCar = (driver_number: number | null | undefined) => {
     case 44:
     case 16:
       return FerrariCar.src;
-
+    case 14:
+    case 18:
+      return AstonMartinCar.src;
+    case 31:
+    case 87:
+      return HaasCar.src;
+    case 5:
+    case 27:
+      return AudiCar.src;
+    case 10:
+    case 43:
+      return AlpineCar.src;
+    case 41:
+    case 36:
+    case 30:
+      return RacingBullsCar.src;
+    case 11:
+    case 77:
+      return CadillacCar.src;
     default:
       return "";
   }

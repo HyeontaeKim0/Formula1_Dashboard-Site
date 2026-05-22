@@ -79,7 +79,7 @@ export default function DriverCardSlider({
         >
           {isRaceCancelledOrExcluded ? (
             <div className="relative min-w-full shrink-0">
-              <div className="relative min-h-[min(55vh,380px)] overflow-hidden rounded-3xl border border-white/10 sm:min-h-[500px]">
+              <div className="relative min-h-[min(55vh,380px)] overflow-hidden rounded-3xl border border-white/10 sm:min-h-[500px] xl:min-h-[600px]">
                 <Image
                   src={nullRaceBackground}
                   alt=""
@@ -171,30 +171,25 @@ export default function DriverCardSlider({
                 const teamColor = driver.teamColor || "#1E293B";
 
                 return (
-                  <div
-                    key={driver.position}
-                    className="min-w-full shrink-0"
-                  >
+                  <div key={driver.position} className="min-w-full shrink-0">
                     <div
                       className="relative overflow-hidden rounded-3xl p-0 transition-all duration-700"
                       style={{
                         backgroundColor: teamColor,
                       }}
                     >
-                      <div className="relative z-10 flex min-h-[min(52vh,400px)] flex-col px-3 pb-6 pt-4 sm:min-h-[500px] sm:px-8 sm:pb-8 sm:pt-6 md:flex-row md:items-center md:justify-between md:px-16 lg:px-24 xl:px-[200px]">
+                      <div className="relative z-10 flex min-h-[min(52vh,400px)] flex-col px-3 pb-6 pt-4 sm:min-h-[500px] sm:px-8 sm:pb-8 sm:pt-6 md:flex-row md:items-center md:justify-between md:px-16 lg:px-24 xl:px-[250px]">
                         <>
                           <div className="flex flex-1 flex-col justify-center p-4 sm:p-6 md:p-8 lg:p-12 xl:p-15">
-                            <div className="space-y-4">
+                            <div className="space-y-2">
                               {firstName && (
-                                <div className="text-2xl font-bold tracking-wide text-white/90 md:text-3xl">
+                                <div className="text-3xl font-bold tracking-wide text-white/90 md:text-4xl lg:text-4xl">
                                   {firstName}
                                 </div>
                               )}
-
-                              <div className="text-2xl font-black leading-[0.95] tracking-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
+                              <div className="text-3xl font-black leading-[0.95] tracking-tight text-white sm:text-4xl md:text-7xl lg:text-7xl mb-2">
                                 {lastName}
                               </div>
-
                               <div className="mt-6 space-y-2">
                                 <div className="flex items-center gap-3">
                                   {driver.teamLogoUrl && (
@@ -203,7 +198,12 @@ export default function DriverCardSlider({
                                         driver.team === "맥라렌"
                                           ? "drop-shadow-[0_0_10px_rgba(0,0,0,0.4)]"
                                           : ""
-                                      }`}
+                                      }
+                                        ${
+                                          driver.team === "메르세데스"
+                                            ? "w-[35px] "
+                                            : ""
+                                        }`}
                                     >
                                       <Image
                                         src={driver.teamLogoUrl}
@@ -224,7 +224,7 @@ export default function DriverCardSlider({
                                   </div>
                                 </div>
                                 {driver.carImageUrl && (
-                                  <div className="relative h-[100px] w-full max-w-[400px] flex-shrink-0 sm:h-[120px] md:h-[150px]">
+                                  <div className="relative h-[100px] w-full max-w-[500px] flex-shrink-0 sm:h-[120px] md:h-[150px]">
                                     <Image
                                       src={driver.carImageUrl}
                                       alt={driver.team}
@@ -241,7 +241,7 @@ export default function DriverCardSlider({
 
                           <div className="relative mt-4 flex w-full items-end justify-end md:mt-0 md:w-2/5">
                             {driver.imageUrl && (
-                              <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-md lg:max-w-lg">
+                              <div className="w-[250px] sm:w-[290px] md:w-[330px] lg:w-[400px]">
                                 <div className="relative p-2 sm:p-4 md:p-6 lg:p-8">
                                   <div
                                     className="relative aspect-[3/4] w-full overflow-hidden"
@@ -259,7 +259,6 @@ export default function DriverCardSlider({
                                           ? "scale-110"
                                           : ""
                                       }`}
-                                      sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, (max-width: 1024px) 448px, 512px"
                                       unoptimized
                                     />
                                     <div className="absolute inset-0 bg-black/20" />

@@ -1,0 +1,227 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+@import "@heroui/styles";
+
+:root {
+  --foreground-rgb: 26, 24, 22;
+  --background-start-rgb: 247, 245, 241;
+  --background-end-rgb: 241, 238, 232;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-start-rgb));
+  background-image: linear-gradient(
+    180deg,
+    rgb(var(--background-start-rgb)) 0%,
+    rgb(var(--background-end-rgb)) 100%
+  );
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* 섹션 제목: 디스플레이 폰트는 과하게 쓰지 않고 제목에만 */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+    letter-spacing: -0.03em;
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* 애니메이션 유틸리티 */
+@utility animate-fade-in {
+  animation: fadeIn 0.35s ease-out;
+}
+
+@utility animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+@utility animate-slide-in-right {
+  animation: slideInRight 0.4s ease-out;
+}
+
+@utility animate-slide-in-left {
+  animation: slideInLeft 0.4s ease-out;
+}
+
+@utility animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@utility animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@utility hover-scale {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 24, 22, 0.08);
+  }
+}
+
+@utility gradient-border {
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(120, 113, 108, 0.2);
+  border-radius: 0.375rem;
+}
+
+@utility card-glow {
+  box-shadow: 0 1px 0 rgba(26, 24, 22, 0.06), 0 8px 24px rgba(26, 24, 22, 0.06);
+  transition: box-shadow 0.2s ease;
+  &:hover {
+    box-shadow: 0 1px 0 rgba(26, 24, 22, 0.08), 0 12px 28px rgba(26, 24, 22, 0.1);
+  }
+}
+
+@utility progress-bar {
+  background: #ff3b30;
+  height: 4px;
+  border-radius: 2px;
+  transition: width 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px rgba(255, 59, 48, 0.5);
+  }
+  to {
+    box-shadow:
+      0 0 20px rgba(255, 59, 48, 0.8),
+      0 0 30px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+}
+
+.shimmer {
+  background: rgba(255, 59, 48, 0.08);
+  animation: shimmer 2s infinite;
+}
+
+.podium-bg-gradient {
+  /* 단색 배경용 클래스 (그라데이션 제거) */
+}
+
+.podium-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.podium-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.podium-sparkle:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.podium-sparkle:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.podium-sparkle:nth-child(3) {
+  animation-delay: 1s;
+}
+
+/* 스크롤바 — 액센트보다 읽기 환경 우선 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 113, 108, 0.35);
+  border-radius: 999px;
+  border: 3px solid rgb(var(--background-start-rgb));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(87, 83, 78, 0.45);
+}
