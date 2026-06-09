@@ -20,7 +20,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.className}>
         <Navbar />
-        <main className="min-h-screen min-w-0 overflow-x-hidden">{children}</main>
+        <main className="min-h-screen min-w-0 overflow-x-hidden">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

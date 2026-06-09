@@ -88,59 +88,53 @@ export default function RaceTypeList({
     // 일정이 없을 때 간소한 UI
     if (!hasDate) {
       return (
-        <div key={raceType.id} className="mt-3">
-          <div className="rounded-xl border border-gray-100 bg-gray-50/50 py-3 px-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 rounded-full bg-gray-300"></div>
-                <span className="text-sm text-gray-500 font-medium">
+        <div key={raceType.id} className="mt-2 sm:mt-3">
+          <div className="rounded-xl border border-gray-100 bg-gray-50/50 px-3 py-2.5 sm:px-4 sm:py-3">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex min-w-0 items-center gap-2">
+                <div className="h-2 w-2 shrink-0 rounded-full bg-gray-300" />
+                <span className="truncate text-sm font-medium text-gray-500">
                   {raceType.title}
                 </span>
               </div>
-              <span className="text-xs text-gray-400">일정 없음</span>
+              <span className="shrink-0 text-xs text-gray-400">일정 없음</span>
             </div>
           </div>
         </div>
       );
     }
 
-    // 일정이 있을 때 기존 UI
     return (
-      <div key={raceType.id} className="space-y-3 mt-5">
-        <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] cursor-pointer shadow-sm hover:shadow-md">
-          <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shimmer"></div>
-
-          <div className="relative p-5 flex items-center justify-between">
-            <div className="flex items-center space-x-4 flex-1">
+      <div key={raceType.id} className="mt-3 space-y-3 sm:mt-5">
+        <div className="group relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-sm transition-all duration-300 sm:rounded-2xl sm:hover:scale-[1.01] sm:hover:border-primary/50 sm:hover:shadow-md">
+          <div className="relative flex items-center justify-between gap-2 p-3 sm:p-5">
+            <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
               <div
-                className="flex flex-col items-center justify-center w-16 h-16 rounded-xl shadow-lg border border-white/10 relative overflow-hidden"
+                className="relative flex h-12 w-12 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg shadow-md sm:h-16 sm:w-16 sm:rounded-xl"
                 style={{
                   backgroundColor: hasDate ? "green" : "red",
                 }}
               >
-                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative z-10 flex flex-col items-center">
-                  <span className="text-xs font-extrabold text-white mb-0.5">
-                    {hasDate
-                      ? `D-${daysUntil === 0 ? "DAY" : daysUntil}`
-                      : "--"}
-                  </span>
-                </div>
+                <span className="text-[10px] font-extrabold text-white sm:text-xs">
+                  {hasDate
+                    ? `D-${daysUntil === 0 ? "DAY" : daysUntil}`
+                    : "--"}
+                </span>
               </div>
-              <div className="flex-1">
-                <div className="flex items-center space-x-2 mb-1">
+              <div className="min-w-0 flex-1">
+                <div className="mb-0.5 flex items-center gap-1.5 sm:mb-1 sm:gap-2">
                   {event && getTypeIcon(event.type as RaceEvent["type"])}
-                  <h3 className="font-semibold text-lg group-hover:text-primary transition-colors duration-300">
+                  <h3 className="truncate text-sm font-semibold text-gray-900 sm:text-lg">
                     {raceType.title}
                   </h3>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="truncate text-xs text-gray-600 sm:text-sm">
                   {event?.date} {event?.time}
                 </p>
               </div>
             </div>
-            <div className="ml-4 opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-300">
-              <GiF1Car size={40} className="text-primary scale-x-[-1]" />
+            <div className="hidden shrink-0 sm:block sm:opacity-0 sm:transition-all sm:duration-300 sm:group-hover:translate-x-0 sm:group-hover:opacity-100">
+              <GiF1Car size={36} className="scale-x-[-1] text-primary" />
             </div>
           </div>
         </div>
@@ -151,7 +145,7 @@ export default function RaceTypeList({
   return (
     <>
       {/* 메인 컨텐츠 */}
-      <div className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-lg border border-gray-200">
+      <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 shadow-lg sm:rounded-3xl sm:p-6">
         {raceTypes
           .filter((raceType) => {
             // 프렉티스 2,3이 있고 스프린트 관련 항목이면 숨김

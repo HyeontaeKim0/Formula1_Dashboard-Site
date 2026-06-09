@@ -27,13 +27,13 @@ import CadillacLogo from "@/assets/img/teamLogo/Cadillac.png";
 // 모든 드라이버 이미지 (포디움)
 import MaxVerstappen_podium from "@/assets/img/podium/Max_Podium.png";
 import YukiTsunoda_podium from "@/assets/img/driverProfile/RedBull/yuki.webp";
-import KimiAntonelli_podium from "@/assets/img/podium/Kimi_Podium.png";
+import KimiAntonelli_podium from "@/assets/img/driverProfile/Mercedes/Kimi_26.webp";
 import GeorgeRussell_podium from "@/assets/img/podium/Russell_Podium.png";
 import LandoNorris_podium from "@/assets/img/podium/Norris_Podium.png";
 import OscarPiastri_podium from "@/assets/img/podium/Oscar_Podium.png";
 import CarlosSainz_podium from "@/assets/img/podium/Saintz_Podium.png";
 import AlexAlbon_podium from "@/assets/img/driverProfile/Williams/albon.webp";
-import LewisHamilton_podium from "@/assets/img/driverProfile/Ferrari/hamilton.webp";
+import LewisHamilton_podium from "@/assets/img/driverProfile/Ferrari/Hamilton_26.webp";
 import CharlesLeclerc_podium from "@/assets/img/podium/Leclerc_Podium.png";
 import FernandoAlonso_podium from "@/assets/img/driverProfile/AstonMartin/fernando.webp";
 import LanceStroll_podium from "@/assets/img/driverProfile/AstonMartin/stroll.webp";
@@ -43,19 +43,19 @@ import GabrielBortoleto_podium from "@/assets/img/driverProfile/KickSauber/gabri
 import NicoHulkenberg_podium from "@/assets/img/driverProfile/KickSauber/niko.webp";
 import PierreGasly_podium from "@/assets/img/driverProfile/Alpine/gasly2.webp";
 import FrancoColapinto_podium from "@/assets/img/driverProfile/Alpine/franco2.webp";
-import IsackHadjar_podium from "@/assets/img/driverProfile/RacingBulls/isack.webp";
+import IsackHadjar_podium from "@/assets/img/driverProfile/RedBull/Isak_26.webp";
 import LiamLawson_podium from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
 
 // 드라이버 프로필 샷
 import MaxVerstappen from "@/assets/img/driverProfile/RedBull/max2.webp";
 import YukiTsunoda from "@/assets/img/driverProfile/RedBull/yuki.webp";
-import KimiAntonelli from "@/assets/img/driverProfile/Mercedes/kimi2.webp";
+import KimiAntonelli from "@/assets/img/driverProfile/Mercedes/Kimi_26.webp";
 import GeorgeRussell from "@/assets/img/driverProfile/Mercedes/george2.webp";
 import LandoNorris from "@/assets/img/driverProfile/McLaren/lando.webp";
 import OscarPiastri from "@/assets/img/driverProfile/McLaren/piastri.webp";
 import CarlosSainz from "@/assets/img/driverProfile/Williams/sainz.webp";
 import AlexAlbon from "@/assets/img/driverProfile/Williams/albon.webp";
-import LewisHamilton from "@/assets/img/driverProfile/Ferrari/hamilton2.webp";
+import LewisHamilton from "@/assets/img/driverProfile/Ferrari/Hamilton_26.webp";
 import CharlesLeclerc from "@/assets/img/driverProfile/Ferrari/leclerc2.webp";
 import FernandoAlonso from "@/assets/img/driverProfile/AstonMartin/fernando.webp";
 import LanceStroll from "@/assets/img/driverProfile/AstonMartin/stroll.webp";
@@ -82,6 +82,8 @@ import MiamiCircuit from "@/assets/img/circuit/Miami_Circuit.avif";
 import CanadaCircuit from "@/assets/img/circuit/Canada_Circuit.avif";
 import MonacoCircuit from "@/assets/img/circuit/Monaco_Circuit.avif";
 import CatalunyaCircuit from "@/assets/img/circuit/Barcelona_Circuit.avif";
+import AustriaCircuit from "@/assets/img/circuit/Austria_Circuit.avif";
+import SilverstoneCircuit from "@/assets/img/circuit/Silverstone_Circuit.avif";
 
 // 모든 국기 이미지
 import AustraliaFlag from "@/assets/img/flag/Australia.webp";
@@ -114,8 +116,12 @@ export const getCircuitImageUrl = (circuit_name: string) => {
       return CanadaCircuit.src;
     case "monaco":
       return MonacoCircuit.src;
-    case "catalunya":
+    case "montmelo":
       return CatalunyaCircuit.src;
+    case "austria":
+      return AustriaCircuit.src;
+    case "silverstone":
+      return SilverstoneCircuit.src;
     default:
       return "";
   }
@@ -141,7 +147,7 @@ export const getCircuitName = (circuit_name: string) => {
       return "질 빌뇌브 서킷";
     case "monaco":
       return "모나코 서킷";
-    case "catalunya":
+    case "montmelo":
       return "카탈루냐 서킷";
     case "imola":
       return "이몰라 서킷";

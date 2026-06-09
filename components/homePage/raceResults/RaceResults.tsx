@@ -1,6 +1,5 @@
 "use client";
 
-import { Trophy, Award, Clock, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { getLastRaceResult } from "@/lib/api/lastResults/lastRaceResultApi/lastRaceResult";
 import { getLastQualifyResult } from "@/lib/api/lastResults/lastQualifyApi/lastQualifyApi";
@@ -15,19 +14,15 @@ import {
   getDriverName,
   getTeamColor,
   getTeamName,
-  getTeamLogoUrl,
 } from "@/lib/utils/driverUtils";
 import RacingTypeTabMenu from "./components/RacingTypeTabMenu";
-
 import HeaderSection from "./components/HeaderSection";
 import DataTable from "./components/DataTable";
 
 export default function RaceResults() {
-  // 마우스 오버 상태
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
-  // 레이스 결과
+  const [isLoading, setIsLoading] = useState(true);
   const [lastRaceResult, setLastRaceResult] = useState<any | null>(null);
-  // 프렉티스 결과
   const [freePractice1Result, setFreePractice1Result] = useState<any | null>(
     null,
   );
@@ -37,95 +32,58 @@ export default function RaceResults() {
   const [freePractice3Result, setFreePractice3Result] = useState<any | null>(
     null,
   );
-  // 스프린트 결과
   const [sprintResult, setSprintResult] = useState<any | null>(null);
-  // 퀄리파이 결과
   const [qualifyingResult, setQualifyingResult] = useState<any | null>(null);
-
-  // 탭메뉴 상태
   const [view, setView] = useState<
     "practice" | "sprint" | "qualifying" | "race"
   >("race");
 
-  console.log("freePractice1Result", freePractice1Result);
-
-  // 레이스
   useEffect(() => {
-    const fetchLastRaceResult = async () => {
-      const lastRaceResult = await getLastRaceResult();
-      setLastRaceResult(lastRaceResult);
+    const fetchAllResults = async () => {
+      setIsLoading(true);
+      try {
+        const [race, practice1, sprint, qualify] = await Promise.all([
+          getLastRaceResult(),
+          getLastPractice1Result(),
+          getLastSprintRaceResult(),
+          getLastQualifyResult(),
+        ]);
+
+        setLastRaceResult(race);
+        setFreePractice1Result(practice1);
+        setSprintResult(sprint);
+        setQualifyingResult(qualify);
+
+        if (!sprint) {
+          const [practice2, practice3] = await Promise.all([
+            getLastPractice2Result(),
+            getLastPractice3Result(),
+          ]);
+          setFreePractice2Result(practice2);
+          setFreePractice3Result(practice3);
+        } else {
+          setFreePractice2Result(null);
+          setFreePractice3Result(null);
+        }
+      } finally {
+        setIsLoading(false);
+      }
     };
-    fetchLastRaceResult();
+
+    fetchAllResults();
   }, []);
 
-  // 프렉티스
-  useEffect(() => {
-    const fetchLastPracticeResult = async () => {
-      const lastPracticeResult = await getLastPractice1Result();
-      setFreePractice1Result(lastPracticeResult);
-    };
-    fetchLastPracticeResult();
-  }, []);
-
-  // 스프린트
-  useEffect(() => {
-    const fetchLastSprintRaceResult = async () => {
-      const lastSprintRaceResult = await getLastSprintRaceResult();
-      setSprintResult(lastSprintRaceResult);
-    };
-    fetchLastSprintRaceResult();
-  }, []);
-
-  // FP2, FP3는 sprintResult가 null일 때만 fetch
-  useEffect(() => {
-    if (sprintResult === null) {
-      const fetchLastPractice2Result = async () => {
-        const lastPractice2Result = await getLastPractice2Result();
-        setFreePractice2Result(lastPractice2Result);
-      };
-      fetchLastPractice2Result();
-    } else {
-      // sprintResult가 있으면 FP2, FP3를 비활성화 (null로 설정)
-      setFreePractice2Result(null);
-      setFreePractice3Result(null);
-    }
-  }, [sprintResult]);
-
-  useEffect(() => {
-    if (sprintResult === null) {
-      const fetchLastPractice3Result = async () => {
-        const lastPractice3Result = await getLastPractice3Result();
-        setFreePractice3Result(lastPractice3Result);
-      };
-      fetchLastPractice3Result();
-    }
-  }, [sprintResult]);
-
-  // 퀄리파이
-  useEffect(() => {
-    const fetchLastQualifyResult = async () => {
-      const lastQualifyResult = await getLastQualifyResult();
-      setQualifyingResult(lastQualifyResult);
-    };
-    fetchLastQualifyResult();
-  }, []);
-
-  // position을 숫자로 변환하는 함수 (문자열은 큰 숫자로 변환하여 맨 뒤로)
   const parsePosition = (position: any, index: number): number => {
     if (typeof position === "number") return position;
     if (typeof position === "string") {
       const num = parseInt(position, 10);
       if (!isNaN(num)) return num;
-      // "NC", "DSQ" 등의 문자열은 9999로 변환하여 맨 뒤로, position
       return 9999;
     }
-    // position이 없는 경우 그냥 1~29으로 순위를 줌 아니 랜덤 말고
-    if (!position) return index + 1; // index는 배열의 인덱스로 1~29까지 순위를 줌
-
+    if (!position) return index + 1;
     return 9999;
   };
 
-  // 각 드라이버별 결과를 배열로 변환 (레이스)
   const raceResults: DriverResult[] =
     lastRaceResult?.races?.results
       ?.map((result: any, index: number) => ({
@@ -138,12 +96,10 @@ export default function RaceResults() {
         laps: result.laps || result.numberOfLaps || lastRaceResult?.laps || 0,
         points: result.points || 0,
         teamColor: getTeamColor(result.driver?.number) || "",
-        // 원본 position 값도 저장 (표시용)
         originalPosition: result.position,
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
-  // 각 드라이버별 결과를 배열로 변환 (퀄리파이)
   const qualifyingResults: DriverResult[] =
     qualifyingResult?.races?.qualyResults
       ?.map((result: any, index: number) => ({
@@ -158,12 +114,10 @@ export default function RaceResults() {
         laps: result.laps || result.numberOfLaps || lastRaceResult?.laps || 0,
         points: result.points || 0,
         teamColor: getTeamColor(result.driver?.number) || "",
-        // 원본 position 값도 저장 (표시용)
         originalPosition: result.position,
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
-  // 각 드라이버별 결과를 배열로 변환 (스프린트)
   const sprintResults: DriverResult[] =
     sprintResult?.races?.sprintRaceResults
       ?.map((result: any, index: number) => ({
@@ -176,12 +130,10 @@ export default function RaceResults() {
         laps: result.laps || result.numberOfLaps || lastRaceResult?.laps || 0,
         points: result.points || 0,
         teamColor: getTeamColor(result.driver?.number) || "",
-        // 원본 position 값도 저장 (표시용)
         originalPosition: result.position,
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
-  // 각 드라이버별 결과를 배열로 변환 (프렉티스)
   const practice1Results: DriverResult[] =
     freePractice1Result?.races?.fp1Results
       ?.map((result: any, index: number) => ({
@@ -194,7 +146,6 @@ export default function RaceResults() {
         laps: result.laps || result.numberOfLaps || lastRaceResult?.laps || 0,
         points: result.points || 0,
         teamColor: getTeamColor(result.driver?.number) || "",
-        // 원본 position 값도 저장 (표시용)
         originalPosition: result.position,
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
@@ -210,6 +161,7 @@ export default function RaceResults() {
         team: getTeamName(result.driver?.number) || "",
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
+
   const practice3Results: DriverResult[] =
     freePractice3Result?.races?.fp3Results
       ?.map((result: any, index: number) => ({
@@ -222,10 +174,7 @@ export default function RaceResults() {
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
-  //  practice1Results, practice2Results, practice3Results의 time만 통합
-  // sprintResult가 null일 때만 FP2, FP3 데이터를 사용
   const practiceResults = practice1Results.map((result) => {
-    // sprintResult가 null일 때만 FP2, FP3 데이터를 찾음
     const practice2Result =
       sprintResult === null
         ? practice2Results.find(
@@ -245,33 +194,32 @@ export default function RaceResults() {
     };
   });
 
-  return (
-    <div className="relative min-w-0 w-full">
-      {/* 헤더 섹션 */}
-      <div className="mb-4 flex min-w-0 flex-col gap-4 sm:mb-6 lg:flex-row lg:items-start lg:justify-between">
-        <div className="min-w-0 shrink-0">
-          <HeaderSection lastRaceResult={lastRaceResult} />
-        </div>
+  const currentResults =
+    view === "race"
+      ? raceResults
+      : view === "practice"
+        ? practiceResults
+        : view === "sprint"
+          ? sprintResults
+          : qualifyingResults;
 
-        <div className="min-w-0 w-full lg:w-auto lg:max-w-full lg:shrink-0">
+  return (
+    <div className="relative min-w-0 w-full scroll-mt-20" id="race-results">
+      <div className="mb-3 flex min-w-0 flex-col gap-2 sm:mb-6 sm:gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="order-1 min-w-0 w-full lg:order-2 lg:w-auto lg:max-w-full lg:shrink-0">
           <RacingTypeTabMenu view={view} setView={setView} />
         </div>
+        <div className="order-2 min-w-0 shrink-0 lg:order-1">
+          <HeaderSection lastRaceResult={lastRaceResult} isLoading={isLoading} />
+        </div>
       </div>
-      {/* 메인 컨텐츠 */}
-      <div className="relative min-w-0 overflow-hidden rounded-2xl border border-gray-200 bg-white p-3 shadow-lg sm:rounded-3xl sm:p-6">
+      <div className="relative min-w-0 overflow-hidden rounded-2xl border border-gray-200 bg-white p-2 shadow-lg sm:rounded-3xl sm:p-4 md:p-6">
         <DataTable
-          raceResults={
-            view === "race"
-              ? raceResults
-              : view === "practice"
-                ? practiceResults
-                : view === "sprint"
-                  ? sprintResults
-                  : qualifyingResults
-          }
+          raceResults={currentResults}
           setHoveredRow={setHoveredRow}
           hoveredRow={hoveredRow}
           view={view}
+          isLoading={isLoading}
         />
       </div>
     </div>

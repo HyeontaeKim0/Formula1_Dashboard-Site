@@ -23,12 +23,10 @@ export default function UpcomingRacesSection() {
     fetchNextRaces();
   }, []);
 
-  console.log("upcomingRacesApi", upcomingRacesApi);
-
   return (
-    <div className="mt-6 md:mt-[60px]">
+    <div>
       <HeaderSection upcomingRacesApi={upcomingRacesApi as NextRacesResponse} />
-      <div className="mb-6 mt-4 grid min-w-0 grid-cols-1 gap-4 sm:gap-6 md:mt-5 lg:grid-cols-3 lg:gap-6">
+      <div className="mb-4 mt-3 grid min-w-0 grid-cols-1 gap-4 sm:mb-6 sm:mt-4 sm:gap-6 lg:grid-cols-3 lg:gap-6">
         <div
           className="lg:col-span-2 animate-slide-up"
           style={{ animationDelay: "0.1s" }}

@@ -8,8 +8,6 @@ export default function HeaderSection({
 }) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  console.log("upcomingRacesApi", upcomingRacesApi);
-
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());

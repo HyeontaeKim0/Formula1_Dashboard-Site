@@ -1,4 +1,3 @@
-import type { DriverStanding } from "@/lib/types/types";
 import { getCurrentConstructorStandings } from "@/lib/api/currentCustrutor/CurrentConstrutor";
 import { getCurrentDriverChampion } from "@/lib/api/currentDriverChampion/CurrentDriverChampion";
 import type { ConstructorsChampionshipResponse } from "@/lib/api/currentCustrutor/CurrentConstrutor";
@@ -10,6 +9,8 @@ import {
   getConstructorTeamLogoUrl,
   getDriverChampionName,
 } from "@/lib/utils/driverUtils";
+import NotFound from "@/components/common/notFound/NotFound";
+
 interface ConstructorSectionProps {
   view: "drivers" | "constructors";
   setView: (view: "drivers" | "constructors") => void;
@@ -18,13 +19,114 @@ interface ConstructorSectionProps {
   MedalIcon: React.ElementType;
   TrophyIcon: React.ElementType;
 }
+
+interface StandingItem {
+  position: number;
+  primaryName: string;
+  team: string;
+  teamKey: string;
+  points: number;
+  wins: number;
+}
+
+function PositionIcon({
+  position,
+  MedalIcon,
+  TrophyIcon,
+}: {
+  position: number;
+  MedalIcon: React.ElementType;
+  TrophyIcon: React.ElementType;
+}) {
+  return (
+    <div className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
+      {position === 1 && (
+        <TrophyIcon className="text-primary animate-pulse-slow" size={24} />
+      )}
+      {position === 2 && (
+        <MedalIcon className="text-gray-400" size={24} />
+      )}
+      {position === 3 && (
+        <MedalIcon className="text-orange-600" size={24} />
+      )}
+      {position > 3 && (
+        <span className="text-xl font-bold text-gray-400 sm:text-2xl">
+          {position}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function StandingCard({
+  standing,
+  MedalIcon,
+  TrophyIcon,
+  onHover,
+}: {
+  standing: StandingItem;
+  MedalIcon: React.ElementType;
+  TrophyIcon: React.ElementType;
+  onHover: (position: number | null) => void;
+}) {
+  const displayTeam =
+    standing.team === "Sauber F1 Team"
+      ? "Audi Revolut F1 Team"
+      : standing.team;
+
+  return (
+    <div
+      className="rounded-xl border border-gray-200 bg-gray-50/40 p-3 sm:rounded-2xl sm:p-4"
+      onMouseEnter={() => onHover(standing.position)}
+      onMouseLeave={() => onHover(null)}
+    >
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+          <PositionIcon
+            position={standing.position}
+            MedalIcon={MedalIcon}
+            TrophyIcon={TrophyIcon}
+          />
+          <img
+            src={getConstructorTeamLogoUrl(standing.teamKey)}
+            alt=""
+            className="h-7 w-7 shrink-0 object-contain sm:h-8 sm:w-8"
+          />
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-sm font-semibold text-gray-900 sm:text-base">
+              {standing.primaryName}
+            </div>
+            <div className="mt-0.5 flex min-w-0 items-center gap-1.5">
+              <div
+                className="h-2 w-2 shrink-0 rounded-full"
+                style={{
+                  backgroundColor: getConstructorTeamColor(standing.teamKey),
+                }}
+              />
+              <span className="truncate text-xs text-gray-500 sm:text-sm">
+                {displayTeam}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="shrink-0 text-right">
+          <div className="text-xl font-bold text-primary sm:text-2xl">
+            {standing.points}
+          </div>
+          <div className="text-[10px] font-medium text-gray-500 sm:text-xs">
+            {standing.wins}승
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ConstructorSection({
   view,
-  setView,
-  setHoveredPosition,
-  hoveredPosition,
   MedalIcon,
-  TrophyIcon: TrophyIcon,
+  TrophyIcon,
+  setHoveredPosition,
 }: ConstructorSectionProps) {
   const [constructorStandings, setConstructorStandings] = useState<
     ConstructorsChampionshipResponse[]
@@ -32,285 +134,73 @@ export default function ConstructorSection({
   const [driverChampion, setDriverChampion] = useState<DriverChampion[] | null>(
     null,
   );
+  const [isLoading, setIsLoading] = useState(true);
 
-  // console.log("driverChampion", driverChampion);
-
-  // 컨스트럭터 순위 데이터
   useEffect(() => {
-    const fetchConstructorStandings = async () => {
-      const constructorStandings = await getCurrentConstructorStandings();
-      if (constructorStandings) {
-        setConstructorStandings(constructorStandings);
+    const fetchStandings = async () => {
+      setIsLoading(true);
+      try {
+        const [constructors, drivers] = await Promise.all([
+          getCurrentConstructorStandings(),
+          getCurrentDriverChampion(),
+        ]);
+        if (constructors) {
+          setConstructorStandings(constructors);
+        }
+        if (drivers) {
+          setDriverChampion(drivers);
+        }
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchConstructorStandings();
+    fetchStandings();
   }, []);
-  interface ConstructorStanding {
-    position: number;
-    teamName: string;
-    team: string;
-    points: number;
-    wins: number;
-  }
 
-  // 컨스트럭터 순위 데이터
-  const constructorStandingData: ConstructorStanding[] = [
-    ...constructorStandings.map((standing) => ({
+  const constructorStandingData: StandingItem[] = constructorStandings.map(
+    (standing) => ({
       position: standing.position,
-      teamName: standing.team.teamName,
+      primaryName: getConstructorTeamName(standing.team.teamName),
       team: standing.team.teamName,
+      teamKey: standing.team.teamName,
       points: standing.points,
       wins: standing.wins,
-    })),
-  ];
+    }),
+  );
 
-  console.log("constructorStandingData", constructorStandingData);
+  const driverStandingData: StandingItem[] = driverChampion
+    ? driverChampion.map((standing) => ({
+        position: standing.position,
+        primaryName: getDriverChampionName(standing.driver.shortName),
+        team: standing.team.teamName,
+        teamKey: standing.team.teamName,
+        points: standing.points,
+        wins: standing.wins,
+      }))
+    : [];
 
-  // 드라이버 챔피언 데이터
-  useEffect(() => {
-    const fetchDriverChampion = async () => {
-      const driverChampion = await getCurrentDriverChampion();
-      if (driverChampion) {
-        setDriverChampion(driverChampion);
-      }
-    };
-    fetchDriverChampion();
-  }, []);
-
-  interface DriverStandingData {
-    position: number;
-    driverName: string;
-    driverCode: string;
-    team: string;
-    points: number;
-    wins: number;
-  }
-
-  const driverStandingData: DriverStandingData[] = [
-    ...(driverChampion
-      ? driverChampion.map((standing) => ({
-          position: standing.position,
-          driverName: standing.driver.name,
-          driverCode: standing.driver.shortName,
-          team: standing.team.teamName,
-          points: standing.points,
-          wins: standing.wins,
-        }))
-      : []),
-  ];
-
-  // console.log("driverStandingData", driverStandingData);
+  const currentData =
+    view === "constructors" ? constructorStandingData : driverStandingData;
 
   return (
-    <div className="relative min-w-0 overflow-hidden rounded-2xl border border-gray-200 bg-white p-3 shadow-lg sm:rounded-3xl sm:p-6">
-      {view === "constructors" && (
-        <div className="space-y-3">
-          {constructorStandingData.map((standing, index) => {
-            // const percentage = (standing.points / maxPoints) * 100;
-            return (
-              <div
-                key={standing.position}
-                className="group relative overflow-hidden rounded-2xl border border-gray-200 "
-                onMouseEnter={() => setHoveredPosition(standing.position)}
-                onMouseLeave={() => setHoveredPosition(null)}
-                style={{
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              >
-                <div
-                  className="absolute inset-0 opacity-0  "
-                  style={{
-                    background: standing.team
-                      ? `linear-gradient(90deg, ${standing.team}15 0%, transparent 100%)`
-                      : "none",
-                  }}
-                ></div>
-
-                <div className="relative p-3 sm:p-5">
-                  <div className="mb-3 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex min-w-0 items-center space-x-3 sm:space-x-4">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-lg relative">
-                        {standing.position === 1 && (
-                          <TrophyIcon
-                            className="text-primary animate-pulse-slow"
-                            size={28}
-                          />
-                        )}
-                        {standing.position === 2 && (
-                          <MedalIcon className="text-gray-400" size={28} />
-                        )}
-                        {standing.position === 3 && (
-                          <MedalIcon className="text-orange-600" size={28} />
-                        )}
-                        {standing.position > 3 && (
-                          <span className="text-2xl font-bold text-gray-400">
-                            {standing.position}
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex min-w-0 items-center space-x-3 sm:space-x-5 md:space-x-7">
-                        <div className="text-sm text-gray-600">
-                          <img
-                            src={getConstructorTeamLogoUrl(standing.teamName)}
-                            alt={standing.teamName}
-                            className="h-[30px] w-[30px] object-contain"
-                          />
-                        </div>
-                        <div>
-                          <div className="flex items-center space-x-2">
-                            <div className="font-semibold text-lg text-gray-900  transition-colors duration-300">
-                              {getConstructorTeamName(standing.teamName)}
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-2 mt-0.5">
-                            <div
-                              className="w-2 h-2 rounded-full"
-                              style={{
-                                backgroundColor: getConstructorTeamColor(
-                                  standing.teamName,
-                                ),
-                              }}
-                            ></div>
-                            <div className="text-sm text-gray-600">
-                              {standing.teamName === "Sauber F1 Team"
-                                ? "Audi Revolut F1 Team"
-                                : standing.teamName}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex shrink-0 flex-row justify-end sm:block sm:text-right">
-                      <div>
-                        <div className="text-2xl font-bold bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent sm:text-3xl">
-                        {standing.points}
-                      </div>
-                      <div className="mt-1 text-xs text-gray-600">
-                        {standing.wins}승
-                      </div>
-                    </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
-      {/* 드라이버 탭 메뉴 */}
-
-      {view === "drivers" && (
-        <div className="space-y-3">
-          {driverStandingData?.map((standing, index) => {
-            // const percentage = (standing.points / maxPoints) * 100;
-            return (
-              <div
-                key={standing.position}
-                className="group relative overflow-hidden rounded-2xl border border-gray-200 "
-                onMouseEnter={() => setHoveredPosition(standing.position)}
-                onMouseLeave={() => setHoveredPosition(null)}
-                style={{
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              >
-                <div
-                  className="absolute inset-0 opacity-0 "
-                  style={{
-                    background: standing.team
-                      ? `linear-gradient(90deg, ${standing.team}15 0%, transparent 100%)`
-                      : "none",
-                  }}
-                ></div>
-
-                <div className="relative p-3 sm:p-5">
-                  <div className="mb-3 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex min-w-0 items-center space-x-3 sm:space-x-4">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-lg relative">
-                        {standing.position === 1 && (
-                          <TrophyIcon
-                            className="text-primary animate-pulse-slow"
-                            size={28}
-                          />
-                        )}
-                        {standing.position === 2 && (
-                          <MedalIcon className="text-gray-400" size={28} />
-                        )}
-                        {standing.position === 3 && (
-                          <MedalIcon className="text-orange-600" size={28} />
-                        )}
-                        {standing.position > 3 && (
-                          <span className="text-2xl font-bold text-gray-400">
-                            {standing.position}
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex min-w-0 items-center space-x-3 sm:space-x-5 md:space-x-7">
-                        <div className="text-sm text-gray-600">
-                          <img
-                            src={getConstructorTeamLogoUrl(standing.team)}
-                            alt={standing.team}
-                            className="h-[30px] w-[30px] object-contain"
-                          />
-                        </div>
-                        <div>
-                          <div className="flex items-center space-x-2">
-                            <div className="font-semibold text-lg text-gray-900  transition-colors duration-300">
-                              {getDriverChampionName(standing.driverCode)}
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-2 mt-0.5">
-                            <div
-                              className="w-2 h-2 rounded-full"
-                              style={{
-                                backgroundColor: getConstructorTeamColor(
-                                  standing.team,
-                                ),
-                              }}
-                            ></div>
-                            <div className="text-sm text-gray-600">
-                              {standing.team}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex w-full flex-row items-center justify-end gap-3 sm:w-auto sm:justify-end">
-                      {/* <div>{standing.driverCode}</div> */}
-                      <div className="text-right">
-                        <div className="text-2xl font-bold bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent sm:text-3xl">
-                          {standing.points}
-                        </div>
-                        <div className="mt-1 text-xs text-gray-600">
-                          {standing.wins}승
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+    <div className="relative min-w-0 overflow-hidden rounded-2xl border border-gray-200 bg-white p-3 shadow-lg sm:rounded-3xl sm:p-5">
+      {isLoading ? (
+        <NotFound text="순위 데이터 로딩 중..." type="loading" />
+      ) : currentData.length === 0 ? (
+        <NotFound text="챔피언십 순위 데이터가 없습니다." type="notFound" />
+      ) : (
+        <div className="space-y-2 sm:space-y-3">
+          {currentData.map((standing) => (
+            <StandingCard
+              key={`${view}-${standing.position}`}
+              standing={standing}
+              MedalIcon={MedalIcon}
+              TrophyIcon={TrophyIcon}
+              onHover={setHoveredPosition}
+            />
+          ))}
         </div>
       )}
     </div>
   );
 }
-
-// <div className="text-center py-16 text-gray-600">
-//   <div className="mb-6">
-//     <div className="relative inline-block">
-//       <div className="h-16 w-16 animate-spin rounded-full border-4 border-primary/20 border-t-primary"></div>
-//       <div
-//         className="absolute inset-0 h-16 w-16 animate-spin rounded-full border-4 border-transparent border-r-secondary"
-//         style={{
-//           animationDirection: "reverse",
-//           animationDuration: "1.5s",
-//         }}
-//       ></div>
-//     </div>
-//   </div>
-//   <p className="text-base font-medium">
-//     드라이버 순위 데이터 로딩 중...
-//   </p>
-// </div>

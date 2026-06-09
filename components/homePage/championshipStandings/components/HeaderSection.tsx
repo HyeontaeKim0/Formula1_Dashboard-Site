@@ -10,7 +10,7 @@ export default function HeaderSection({
   TrophyIcon: React.ElementType;
 }) {
   return (
-    <div className="mb-4 flex min-w-0 flex-col gap-4 sm:mb-6 md:flex-row md:items-center md:justify-between">
+    <div className="mb-4 flex min-w-0 flex-col gap-4 sm:mb-6 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex min-w-0 items-center gap-3 sm:gap-4">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center backdrop-blur-sm sm:h-12 sm:w-12">
           <MedalIcon className="text-primary" size={24} />
@@ -24,22 +24,24 @@ export default function HeaderSection({
           </p>
         </div>
       </div>
-      <div className="flex min-w-0 flex-wrap gap-1 rounded-2xl border border-gray-200 bg-gray-100 p-1 sm:flex-nowrap">
+      <div className="grid w-full min-w-0 grid-cols-2 gap-1 rounded-2xl border border-gray-200 bg-gray-100 p-1 sm:flex sm:w-auto sm:flex-nowrap">
         <button
+          type="button"
           onClick={() => setView("drivers")}
-          className={`min-h-[40px] flex-1 rounded-xl px-3 py-1.5 text-xs font-semibold transition-all duration-300 sm:flex-none sm:px-4 sm:py-2 sm:text-sm ${
+          className={`min-h-[40px] rounded-xl px-3 py-2 text-xs font-semibold transition-all duration-300 sm:flex-none sm:px-4 sm:text-sm ${
             view === "drivers"
-              ? "bg-primary text-white shadow-lg "
+              ? "bg-primary text-white shadow-lg"
               : "text-gray-600 hover:bg-gray-200 hover:text-gray-900"
           }`}
         >
           드라이버
         </button>
         <button
+          type="button"
           onClick={() => setView("constructors")}
-          className={`min-h-[40px] flex-1 rounded-xl px-3 py-1.5 text-xs font-semibold transition-all duration-300 sm:flex-none sm:px-4 sm:py-2 sm:text-sm ${
+          className={`min-h-[40px] rounded-xl px-3 py-2 text-xs font-semibold transition-all duration-300 sm:flex-none sm:px-4 sm:text-sm ${
             view === "constructors"
-              ? "bg-primary text-white shadow-lg "
+              ? "bg-primary text-white shadow-lg"
               : "text-gray-600 hover:bg-gray-200 hover:text-gray-900"
           }`}
         >

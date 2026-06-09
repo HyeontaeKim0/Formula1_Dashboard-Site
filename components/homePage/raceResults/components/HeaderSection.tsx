@@ -2,9 +2,13 @@ import { Trophy } from "lucide-react";
 
 export default function HeaderSection({
   lastRaceResult,
+  isLoading,
 }: {
   lastRaceResult: any;
+  isLoading: boolean;
 }) {
+  const circuitCity = lastRaceResult?.races?.circuit?.city;
+
   return (
     <div className="flex min-w-0 items-center gap-3 sm:gap-4">
       <div className="flex h-10 w-10 shrink-0 items-center justify-center backdrop-blur-sm sm:h-12 sm:w-12">
@@ -15,7 +19,11 @@ export default function HeaderSection({
           최근 레이스 결과
         </h3>
         <p className="mt-1 break-words text-xs font-medium text-gray-600 sm:text-sm">
-          {lastRaceResult?.races?.circuit.city} · 그랑프리
+          {isLoading
+            ? "데이터 로딩 중..."
+            : circuitCity
+              ? `${circuitCity} · 그랑프리`
+              : "레이스 정보 없음"}
         </p>
       </div>
     </div>
