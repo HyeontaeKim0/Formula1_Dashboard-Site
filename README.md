@@ -1,7 +1,8 @@
 ## 개요
 
-- 포뮬러1 레이스 일정, 결과, 순위, 최신뉴스, 드라이버 정보를 한눈에 볼 수 있는 대시보드 웹 애플리케이션입니다.
-- A dashboard web application that provides a quick, at-a-glance view of Formula 1 race schedule, results, rankings, lastest news and driver information.
+- [OpenF1 API](https://openf1.org/) 기반으로 포뮬러1 레이스 일정, 결과, 순위, 드라이버 정보를 한눈에 볼 수 있는 **F1 정보 대시보드** 웹 애플리케이션입니다.
+- F1 공식 서비스가 아닌, 개인 학습 및 포트폴리오 목적으로 제작한 팬 사이트입니다.
+- A fan-made Formula 1 information dashboard built with the OpenF1 API — providing race schedule, results, standings, and driver information at a glance.
 
 <img width="1280" height="320" alt="MainTitle" src="https://github.com/user-attachments/assets/9b8e29fe-6f4e-457d-883b-a6c0157c8bd7" />
 <img width="1921" height="580" alt="image" src="https://github.com/user-attachments/assets/c5392956-11d8-4c4e-9cc6-c3b276232e4e" />
@@ -13,212 +14,146 @@
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **Icons**: Lucide React
+- **Chart**: Recharts
+- **Icons**: Lucide React, React Icons
+- **Data**: OpenF1 API, RSS (rss-parser)
+
+## 시작하기
+
+```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
+
+# 프로덕션 빌드
+npm run build
+npm start
+```
+
+개발 서버 실행 후 [http://localhost:3000](http://localhost:3000)에서 확인할 수 있습니다.
+
+## 페이지 구성
+
+| 경로 | 설명 |
+|------|------|
+| `/` | 홈 — 다가오는 레이스, 포디움, 최근 레이스 결과 |
+| `/schedule` | 시즌 일정 — 다가오는 레이스 및 세션(FP, Qualifying, Sprint, Race) |
+| `/standings` | 챔피언십 순위 — 드라이버 / 컨스트럭터 |
+| `/drivers` | 2026 시즌 드라이버 목록 |
+| `/driverChart` | 드라이버별 시즌 성적 차트 (Recharts) |
+| `/board` | 커뮤니티 게시판 (UI 프로토타입) |
+| `/news` | 홈 `#news` 섹션으로 리다이렉트 |
 
 ## 주요 기능
 
-- 📅 다가오는 레이스 일정 (upcoming race schedule)
-- 🏁 최근 레이스 결과 (the results of the latest race)
-- 📰 최신 뉴스 (the latest news)
-- 🏆 챔피언십 순위 (드라이버/컨스트럭터) [Championship Ranking (Driver/Construtor)]
+### 구현 완료
 
+- 📅 **다가오는 레이스 일정** — 서킷 이미지, 세션별 일정 표시
+- 🏆 **최근 레이스 포디움** — 팀 컬러 기반 포디움 시각화
+- 🏁 **최근 레이스 결과** — Race / Qualifying / Sprint / Practice 탭 전환
+- 📊 **챔피언십 순위** — 드라이버·컨스트럭터 순위 및 프로그레스 바
+- 👤 **드라이버 목록** — OpenF1 API 연동, 한글 이름·팀·국적 표시
+- 📈 **드라이버 성적 차트** — 라운드별 순위·포인트 추이
+- 🌐 **한글화** — 드라이버/팀 이름, 국가 코드 한글 변환
 
-### Comming Soon
+### 개발 중 / Coming Soon
 
-
-- 🌓 다크 모드 지원 (dark mod)
-- 🗣️ 커뮤니티 (cummunity)
+- 📰 **최신 뉴스** — RSS 파싱 및 API(`/api/news`) 구현 완료, 홈 화면 노출은 비활성화 상태
+- 🗣️ **커뮤니티** — `/board` UI 프로토타입 (목업 데이터)
+- 🌓 **다크 모드** — Navbar 토글 UI만 존재, 전역 테마 전환 미완성
 
 ## 프로젝트 구조
 
 ```
 formula1_Dashboard/
-├── app/                          # Next.js App Router
-│   ├── layout.tsx                # 루트 레이아웃
-│   ├── page.tsx                  # 홈 페이지
-│   ├── globals.css               # 전역 스타일
-│   └── drivers/
-│       └── page.tsx              # 드라이버 페이지
-├── components/                   # React 컴포넌트
-│   ├── navbar/
-│   │   ├── Navbar.tsx            # 상단 네비게이션
-│   │   └── components/
-│   ├── footer/
-│   │   ├── Footer.tsx            # 푸터
-│   │   └── components/
-│   ├── podiumSection/
-│   │   ├── Podium.tsx            # 포디움 컴포넌트 (구버전)
-│   │   ├── PodiumNew.tsx         # 포디움 컴포넌트 (신버전)
-│   │   └── components/
-│   ├── upcomingRaces/
-│   │   ├── UpcomingRacesSection.tsx  # 다가오는 레이스 섹션
-│   │   ├── upcomingRacesType/
-│   │   │   └── UpcomingRacesType.tsx
-│   │   └── components/
-│   │       ├── circuit/
-│   │       │   └── CircuitSection.tsx
-│   │       ├── header/
-│   │       │   └── HeaderSection.tsx
-│   │       └── raceType/
-│   │           └── RaceTypeList.tsx
-│   ├── raceResults/
-│   │   ├── RaceResults.tsx       # 레이스 결과 섹션
-│   │   └── components/
-│   │       ├── DataTable.tsx     # 결과 데이터 테이블
-│   │       ├── HeaderSection.tsx # 섹션 헤더
-│   │       └── RacingTypeTabMenu.tsx  # 레이스 타입 탭 메뉴
-│   ├── championshipStandings/
-│   │   ├── ChampionshipStandings.tsx  # 챔피언십 순위 섹션
-│   │   └── components/
-│   │       ├── ConstructorSection.tsx # 컨스트럭터 순위
-│   │       └── HeaderSection.tsx
-│   ├── driverSection/
-│   │   ├── DriversSection.tsx    # 드라이버 섹션
-│   │   └── components/
-│   ├── newsSection/
-│   │   ├── NewsSection.tsx        # 뉴스 섹션
-│   │   └── components/
-│   └── notFound/
-│       └── NotFound.tsx           # 404 에러 페이지
-├── lib/                           # 유틸리티 및 API
-│   ├── api/                       # API 호출 함수들
-│   │   ├── currentCustrutor/
-│   │   │   └── CurrentConstrutor.ts
-│   │   ├── currentDriverChampion/
-│   │   │   └── CurrentDriverChampion.ts
-│   │   ├── lastestMeeting/
-│   │   │   └── lastestMeeting.ts
-│   │   ├── lastResults/
-│   │   │   ├── lastRaceResultApi/
-│   │   │   │   └── lastRaceResult.ts
-│   │   │   ├── lastQualifyApi/
-│   │   │   │   └── lastQualifyApi.ts
-│   │   │   ├── lastSprintApi/
-│   │   │   │   └── LastSprintApi.tsx
-│   │   │   └── lastPracticeApi/
-│   │   │       └── lastPracticeApi.ts
-│   │   ├── nextRacesApi/
-│   │   │   └── nextRacesApi.ts
-│   │   └── sessionResultApi/
-│   │       └── sessionResultApi.ts
-│   ├── openf1.ts                 # OpenF1 API 유틸리티 (한글 변환, 드라이버 매핑)
-│   ├── types/
-│   │   └── types.ts              # TypeScript 타입 정의
-│   └── utils/
-│       └── driverUtils.ts         # 드라이버 관련 유틸리티
-├── assets/                        # 정적 이미지 리소스
-│   └── img/
-│       ├── car/                   # 팀별 레이싱 카 이미지
-│       ├── champion/              # 챔피언 이미지
-│       ├── circuit/               # 서킷 이미지
-│       ├── driverProfile/         # 드라이버 프로필 이미지 (팀별)
-│       ├── error/                 # 에러 이미지
-│       ├── flag/                  # 국기 이미지
-│       ├── logo/                  # 로고 이미지
-│       ├── podium/                # 포디움 이미지
-│       └── teamLogo/              # 팀 로고 이미지
-├── package.json                   # 프로젝트 의존성
-├── tsconfig.json                  # TypeScript 설정
-├── tailwind.config.ts             # Tailwind CSS 설정
-├── next.config.mjs                # Next.js 설정
-└── postcss.config.mjs             # PostCSS 설정
+├── app/
+│   ├── layout.tsx                    # 루트 레이아웃 (Navbar, Footer)
+│   ├── globals.css                   # 전역 스타일
+│   ├── (site)/                       # 페이지 라우트
+│   │   ├── page.tsx                  # 홈
+│   │   ├── schedule/page.tsx         # 일정
+│   │   ├── standings/page.tsx        # 순위
+│   │   ├── drivers/page.tsx          # 드라이버
+│   │   ├── driverChart/              # 드라이버 차트
+│   │   ├── board/page.tsx            # 커뮤니티
+│   │   └── news/page.tsx             # 뉴스 리다이렉트
+│   └── api/
+│       └── news/route.ts             # RSS 뉴스 API
+├── components/
+│   ├── common/                       # 공통 컴포넌트
+│   │   ├── navbar/Navbar.tsx
+│   │   ├── footer/Footer.tsx
+│   │   ├── newsSection/NewsSection.tsx
+│   │   ├── layoutFormat/LayoutFormat.tsx
+│   │   └── notFound/NotFound.tsx
+│   ├── homePage/                     # 홈·일정·순위 관련
+│   │   ├── podiumSection/
+│   │   ├── upcomingRaces/
+│   │   ├── raceResults/
+│   │   ├── championshipStandings/
+│   │   └── driverSection/
+│   ├── driverChart/
+│   │   └── DriverRankChart.tsx
+│   └── boardPage/
+│       └── gridSection/GridSection.tsx
+├── lib/
+│   ├── openf1.ts                     # OpenF1 API 유틸 (한글 변환, 드라이버 매핑)
+│   ├── types/types.ts
+│   ├── utils/driverUtils.ts
+│   └── api/
+│       ├── nextRacesApi/
+│       ├── lastResults/              # Race, Qualifying, Sprint, Practice
+│       ├── currentDriverChampion/
+│       ├── currentCustrutor/
+│       ├── lastestMeeting/
+│       ├── sessionResultApi/
+│       ├── driverResultChartData/
+│       └── newsParser/
+├── assets/img/                       # 정적 이미지 (car, circuit, driverProfile, flag, logo, teamLogo)
+├── package.json
+├── tailwind.config.ts
+└── next.config.mjs
 ```
 
 ## 디자인 특징
 
-- F1 공식 컬러 팔레트 사용 (#E10600)
-- 다크 테마 기반 디자인
-- 카드 기반 레이아웃
-- 호버 효과 및 전환 애니메이션
-- 모바일 반응형 네비게이션
+- F1 레드 액센트 컬러 (`#FF3B30`)
+- 라이트 테마 기반 카드 레이아웃
+- 호버 효과 및 전환 애니메이션 (`animate-fade-in`, `animate-slide-up` 등)
+- 모바일 반응형 네비게이션 (햄버거 메뉴)
+
+## 데이터 소스
+
+- **레이스·드라이버·순위 데이터**: [OpenF1 API](https://api.openf1.org/)
+- **뉴스 데이터**: Formula1.com, Motorsport.com RSS 피드
 
 ## 개발 타임라인
 
-### Phase 1: 프로젝트 초기 설정 및 기반 구축
+### Phase 1–2: 기반 구축 및 API 연동
 
-- Next.js 14 (App Router) 프로젝트 생성
-- TypeScript 설정 및 타입 정의
-- Tailwind CSS 설정 및 전역 스타일 구성
-- 기본 레이아웃 구조 설계 (`app/layout.tsx`, `app/page.tsx`)
+- Next.js 14 (App Router) + TypeScript + Tailwind CSS 프로젝트 설정
+- OpenF1 API 연동 및 TypeScript 타입 정의
+- 드라이버/팀 한글 번역, 국가 코드 변환, 프로필·로고 매핑 (`lib/openf1.ts`)
 
-### Phase 2: OpenF1 API 연동 및 데이터 변환 시스템
+### Phase 3–7: 핵심 UI 및 데이터 섹션
 
-- OpenF1 API 구조 분석 및 연동
-- API 응답 데이터를 위한 TypeScript 타입 정의 (`lib/types/types.ts`)
-- 드라이버/팀 이름 한글 번역 매핑 시스템 구축 (`lib/openf1.ts`)
-- 국가 코드 한글 변환 매핑
-- 드라이버 프로필 이미지 및 팀 로고 매핑 시스템
-- 데이터 변환 유틸리티 함수 구현 (`transformOpenF1Driver`, `translateDriverName` 등)
+- Navbar, Footer, 반응형 네비게이션
+- 포디움, 다가오는 레이스, 레이스 결과, 챔피언십 순위 섹션
+- Race / Qualifying / Sprint / Practice 결과 API 연동
 
-### Phase 3: 기본 UI 컴포넌트 개발
+### Phase 8–10: 페이지 확장 및 최적화
 
-- **Navbar 컴포넌트**: 상단 네비게이션 바 구현
-- **Footer 컴포넌트**: 푸터 섹션 구현
-- 반응형 네비게이션 메뉴 (모바일 햄버거 메뉴)
+- 드라이버 페이지 (`/drivers`)
+- API 타임아웃·에러 처리, ISR 재검증, 이미지 최적화
 
-### Phase 4: 포디움 섹션 구현
+### Phase 11–14: 추가 기능
 
-- 최근 레이스 포디움 시각화 컴포넌트 개발 (`Podium.tsx`, `PodiumNew.tsx`)
-- 3D 효과 및 애니메이션 구현
-- 팀 컬러 기반 시각적 표현
-- 호버 효과 및 인터랙션 추가
-
-### Phase 5: 다가오는 레이스 섹션
-
-- **UpcomingRacesSection 컴포넌트**: 다가오는 레이스 목록 표시
-- **CircuitSection 컴포넌트**: 서킷 정보 및 이미지 표시
-- **RaceTypeList 컴포넌트**: 레이스 타입별 일정 표시 (FP1, FP2, FP3, Qualifying, Sprint, Race)
-- **HeaderSection 컴포넌트**: 섹션 헤더 구현
-- Next Races API 연동 (`lib/api/nextRacesApi/`)
-
-### Phase 6: 레이스 결과 섹션
-
-- **RaceResults 컴포넌트**: 최근 레이스 결과 표시
-- **RacingTypeTabMenu 컴포넌트**: 탭 메뉴 구현 (Race, Qualifying, Sprint, Practice)
-- **DataTable 컴포넌트**: 결과 데이터 테이블 표시
-- **HeaderSection 컴포넌트**: 섹션 헤더
-- 레이스 결과 API 연동 (`lib/api/lastResults/`)
-  - 레이스 결과 (`lastRaceResultApi`)
-  - 퀄리파이 결과 (`lastQualifyApi`)
-  - 스프린트 결과 (`lastSprintApi`)
-  - 프렉티스 결과 (`lastPracticeApi`)
-
-### Phase 7: 챔피언십 순위 섹션
-
-- **ChampionshipStandings 컴포넌트**: 드라이버/컨스트럭터 순위 표시
-- **ConstructorSection 컴포넌트**: 컨스트럭터 순위 섹션
-- **HeaderSection 컴포넌트**: 섹션 헤더 및 탭 전환
-- 드라이버 순위 시각화 (프로그레스 바, 팀 컬러 적용)
-- 컨스트럭터 순위 시각화
-- 챔피언십 데이터 API 연동 (`lib/api/currentDriverChampion/`, `lib/api/currentCustrutor/`)
-
-### Phase 8: 드라이버 페이지
-
-- **DriversSection 컴포넌트**: 드라이버 목록 표시
-- 드라이버 프로필 이미지 통합
-- 드라이버 상세 정보 표시 (`app/drivers/page.tsx`)
-
-### Phase 9: 스타일링 및 애니메이션
-
-- F1 공식 컬러 팔레트 적용
-- 다크 테마 기반 디자인 완성
-- 카드 기반 레이아웃 스타일링
-- 호버 효과 및 전환 애니메이션 추가
-- 반응형 디자인 최적화 (모바일, 태블릿, 데스크톱)
-- CSS 애니메이션 최적화 (`animate-fade-in`, `animate-slide-up` 등)
-
-### Phase 10: 에러 처리 및 최적화
-
-- API 요청 타임아웃 처리
-- 에러 상태 처리 (`NotFound.tsx` 컴포넌트)
-- 데이터 재검증 설정 (ISR)
-- 성능 최적화 (코드 스플리팅, 이미지 최적화)
-
-### Phase 11: 추가 기능 및 개선
-
-- 뉴스 섹션 컴포넌트 준비 (`NewsSection.tsx`)
-- 세션 결과 API 연동 (`lib/api/sessionResultApi/`)
-- 최신 미팅 정보 API 연동 (`lib/api/lastestMeeting/`)
+- 뉴스 RSS 파싱 및 `/api/news` Route Handler (`NewsSection`, `newsParser`)
+- 드라이버 성적 차트 페이지 (`/driverChart`, Recharts)
+- 일정·순위 독립 페이지 분리 (`/schedule`, `/standings`)
+- 커뮤니티 게시판 UI 프로토타입 (`/board`)
 
 ## 참고 사이트
 
