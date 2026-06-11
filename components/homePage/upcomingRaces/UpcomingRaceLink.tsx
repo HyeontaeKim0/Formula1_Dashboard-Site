@@ -112,7 +112,7 @@ export default function UpcomingRaceLink() {
   return (
     <Link
       href="/schedule"
-      className="group relative -mx-3 mb-3 block min-w-0 overflow-hidden border-b  sm:-mx-4 sm:mb-4"
+      className="group relative -mx-3 mb-3 block min-w-0 overflow-hidden border-b sm:-mx-4 sm:mb-4"
     >
       <div className="px-4 py-2 sm:px-5">
         {isLoading ? (

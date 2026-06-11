@@ -15,7 +15,7 @@ export default function HeaderSection({
     return () => clearInterval(timer);
   }, []);
   return (
-    <div className="mb-4 flex min-w-0 flex-col gap-4 sm:mb-6 md:flex-row md:items-center md:justify-between">
+    <div className="mb-4 flex min-w-0 justify-between gap-4 sm:mb-6 md:flex-row md:items-center md:justify-between">
       <div className="flex min-w-0 items-center gap-3 sm:gap-4">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
           <Calendar className="text-primary" size={24} />
@@ -41,15 +41,6 @@ export default function HeaderSection({
         <span className="shrink-0 text-xs font-extrabold rounded-xl border border-primary/30 bg-primary/20 px-2.5 py-1 text-primary sm:px-3 sm:py-1.5">
           {upcomingRacesApi?.round} 라운드
         </span>
-        <div className="flex shrink-0 items-center gap-2 rounded-xl border border-gray-200 bg-gray-100 px-2.5 py-1.5 text-xs text-gray-600 sm:px-3 sm:py-2 sm:text-sm">
-          <Clock size={14} />
-          <span className="font-mono font-semibold">
-            {currentTime.toLocaleTimeString("ko-KR", {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </span>
-        </div>
       </div>
     </div>
   );

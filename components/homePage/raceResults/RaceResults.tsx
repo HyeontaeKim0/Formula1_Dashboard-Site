@@ -205,12 +205,15 @@ export default function RaceResults() {
 
   return (
     <div className="relative min-w-0 w-full scroll-mt-20" id="race-results">
-      <div className="mb-3 flex min-w-0 flex-col gap-2 sm:mb-6 sm:gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="order-1 min-w-0 w-full lg:order-2 lg:w-auto lg:max-w-full lg:shrink-0">
-          <RacingTypeTabMenu view={view} setView={setView} />
+      <div className="mt-10 mb-3 flex min-w-0 flex-col gap-3 sm:mb-6 sm:gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0 shrink-0">
+          <HeaderSection
+            lastRaceResult={lastRaceResult}
+            isLoading={isLoading}
+          />
         </div>
-        <div className="order-2 min-w-0 shrink-0 lg:order-1">
-          <HeaderSection lastRaceResult={lastRaceResult} isLoading={isLoading} />
+        <div className="min-w-0 w-full lg:w-auto lg:max-w-full lg:shrink-0">
+          <RacingTypeTabMenu view={view} setView={setView} />
         </div>
       </div>
       <div className="relative min-w-0 overflow-hidden rounded-2xl border border-gray-200 bg-white p-2 shadow-lg sm:rounded-3xl sm:p-4 md:p-6">

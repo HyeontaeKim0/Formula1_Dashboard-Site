@@ -18,9 +18,7 @@ export default function LayoutFormat({
       </p>
       <p
         className={`mt-1 font-extrabold leading-tight ${
-          type === "head"
-            ? "text-3xl text-gray-800"
-            : "text-sm text-gray-700"
+          type === "head" ? "text-3xl text-gray-800" : "text-sm text-gray-700"
         }`}
       >
         {value}

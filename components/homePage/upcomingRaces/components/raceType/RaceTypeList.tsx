@@ -105,20 +105,18 @@ export default function RaceTypeList({
     }
 
     return (
-      <div key={raceType.id} className="mt-3 space-y-3 sm:mt-5">
+      <div key={raceType.id} className="mt-2 space-y-1 sm:mt-4">
         <div className="group relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-sm transition-all duration-300 sm:rounded-2xl sm:hover:scale-[1.01] sm:hover:border-primary/50 sm:hover:shadow-md">
           <div className="relative flex items-center justify-between gap-2 p-3 sm:p-5">
             <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
               <div
-                className="relative flex h-12 w-12 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg shadow-md sm:h-16 sm:w-16 sm:rounded-xl"
+                className="relative flex h-10 w-10 shrink-0 flex-col items-center justify-center overflow-hidden rounded-lg shadow-md sm:h-16 sm:w-16 sm:rounded-xl"
                 style={{
                   backgroundColor: hasDate ? "green" : "red",
                 }}
               >
                 <span className="text-[10px] font-extrabold text-white sm:text-xs">
-                  {hasDate
-                    ? `D-${daysUntil === 0 ? "DAY" : daysUntil}`
-                    : "--"}
+                  {hasDate ? `D-${daysUntil === 0 ? "DAY" : daysUntil}` : "--"}
                 </span>
               </div>
               <div className="min-w-0 flex-1">
@@ -145,7 +143,7 @@ export default function RaceTypeList({
   return (
     <>
       {/* 메인 컨텐츠 */}
-      <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 shadow-lg sm:rounded-3xl sm:p-6">
+      <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-2 shadow-lg sm:rounded-3xl sm:p-4">
         {raceTypes
           .filter((raceType) => {
             // 프렉티스 2,3이 있고 스프린트 관련 항목이면 숨김

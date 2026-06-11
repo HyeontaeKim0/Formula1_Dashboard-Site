@@ -1,17 +1,10 @@
 "use client";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
-import { usePathname } from "next/navigation";
 
 export default function Footer() {
-  const pathname = usePathname();
-  const isNewsPage = pathname === "/news";
   return (
-    <footer
-      className={`relative bg-gray-50 border-t border-gray-200  ${
-        isNewsPage ? "bg-[#f4f1ea] transition-all duration-300" : ""
-      }`}
-    >
+    <footer className="relative border-t border-gray-200 bg-gray-50">
       <div className="container mx-auto px-4 py-12">
         <div className="flex items-center justify-center">
           <div>

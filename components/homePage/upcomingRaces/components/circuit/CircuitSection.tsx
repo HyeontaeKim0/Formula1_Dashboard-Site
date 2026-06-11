@@ -80,35 +80,46 @@ export default function CircuitSection({
         {/* 통계 */}
         {isAvailable ? (
           <div className="mt-4 border-t border-gray-100 pt-4 sm:mt-6 sm:pt-6">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
-              <div className="shrink-0 sm:border-r sm:border-gray-100 sm:pr-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-6">
+              <div className="shrink-0 rounded-xl bg-gray-50 px-4 py-3 sm:rounded-none sm:border-r sm:border-gray-100 sm:bg-transparent sm:px-0 sm:py-0 sm:pr-6">
                 <LayoutFormat
                   title="First Year"
                   value={circuit.firstParticipationYear.toString()}
                   type="head"
                 />
               </div>
-              <div className="grid flex-1 grid-cols-2 gap-x-4 gap-y-3 sm:gap-x-6 sm:gap-y-4">
-                <LayoutFormat
-                  title="Length"
-                  value={`${circuit.circuitLength.slice(0, 1)}.${circuit.circuitLength.slice(2, 4)} km`}
-                  type="body"
-                />
-                <LayoutFormat
-                  title="Corners"
-                  value={circuit.corners.toString()}
-                  type="body"
-                />
-                <LayoutFormat
-                  title="Fastest Team"
-                  value={circuit.fastestLapTeamId.toString()}
-                  type="body"
-                />
-                <LayoutFormat
-                  title="Lap Record"
-                  value={circuit.lapRecord.toString()}
-                  type="body"
-                />
+              <div className="grid flex-1 grid-cols-2 gap-2 sm:gap-x-6 sm:gap-y-4">
+                {(
+                  [
+                    {
+                      title: "Length",
+                      value: `${circuit.circuitLength.slice(0, 1)}.${circuit.circuitLength.slice(2, 4)} km`,
+                    },
+                    {
+                      title: "Corners",
+                      value: circuit.corners.toString(),
+                    },
+                    {
+                      title: "Fastest Team",
+                      value: circuit.fastestLapTeamId.toString(),
+                    },
+                    {
+                      title: "Lap Record",
+                      value: circuit.lapRecord.toString(),
+                    },
+                  ] as const
+                ).map((stat) => (
+                  <div
+                    key={stat.title}
+                    className="min-w-0 rounded-xl bg-gray-50 px-3 py-2.5 sm:rounded-none sm:bg-transparent sm:px-0 sm:py-0"
+                  >
+                    <LayoutFormat
+                      title={stat.title}
+                      value={stat.value}
+                      type="body"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

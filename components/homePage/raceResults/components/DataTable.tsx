@@ -106,7 +106,9 @@ function DriverInfo({
 function TimeStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg bg-gray-50 px-2 py-1.5 text-center">
-      <div className="text-[10px] font-bold uppercase text-gray-400">{label}</div>
+      <div className="text-[10px] font-bold uppercase text-gray-400">
+        {label}
+      </div>
       <div className="mt-0.5 font-mono text-xs font-medium text-gray-800">
         {value || "-"}
       </div>
@@ -126,18 +128,20 @@ function MobileResultCard({
   };
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-2.5">
+    <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-4">
       <div className="flex items-start justify-between gap-2">
-        <div className="flex min-w-0 flex-1 items-start gap-2">
+        <div className="flex min-w-0 flex-1 items-start gap-3">
           <div className="mt-0.5 shrink-0">
             <PositionBadge result={typedResult} />
           </div>
           <DriverInfo result={result} compact />
         </div>
         {(view === "race" || view === "sprint") && (
-          <div className="shrink-0 text-right">
-            <div className="text-lg font-bold text-primary">{result.points}</div>
-            <div className="text-[10px] font-medium text-gray-400">PTS</div>
+          <div className="shrink-0 flex items-center gap-1">
+            <div className="text-lg font-bold text-primary">
+              {result.points}
+            </div>
+            <div className="text-[14px] font-medium text-gray-400">P</div>
           </div>
         )}
       </div>
@@ -225,8 +229,7 @@ export default function DataTable({
   const mobileResults = showAllMobile
     ? raceResults
     : raceResults.slice(0, MOBILE_PREVIEW_LIMIT);
-  const hasMoreMobile =
-    !isLoading && raceResults.length > MOBILE_PREVIEW_LIMIT;
+  const hasMoreMobile = !isLoading && raceResults.length > MOBILE_PREVIEW_LIMIT;
 
   return (
     <>
@@ -236,14 +239,7 @@ export default function DataTable({
           <EmptyOrLoading isLoading={isLoading} mobile />
         ) : (
           <>
-            <div className="mb-2 flex items-center justify-between px-0.5">
-              <span className="text-xs font-semibold text-gray-500">
-                {showAllMobile
-                  ? `전체 ${raceResults.length}명`
-                  : `상위 ${Math.min(MOBILE_PREVIEW_LIMIT, raceResults.length)}명`}
-              </span>
-            </div>
-            <div className="space-y-2">
+            <div className="space-y-3">
               {mobileResults.map((result, index) => (
                 <MobileResultCard
                   key={`mobile-${result.position}-${index}`}
@@ -297,10 +293,7 @@ export default function DataTable({
           </thead>
           <tbody>
             {isLoading || raceResults.length === 0 ? (
-              <EmptyOrLoading
-                isLoading={isLoading}
-                colSpan={headers.length}
-              />
+              <EmptyOrLoading isLoading={isLoading} colSpan={headers.length} />
             ) : (
               raceResults.map((result, index) => {
                 const typedResult = result as DriverResult & {
@@ -358,7 +351,10 @@ export default function DataTable({
                       <>
                         <td className="px-2 py-4">
                           <div className="flex items-center gap-1">
-                            <Clock size={14} className="shrink-0 text-gray-400" />
+                            <Clock
+                              size={14}
+                              className="shrink-0 text-gray-400"
+                            />
                             <span className="font-mono text-sm">
                               {result.time || "-"}
                             </span>
@@ -366,7 +362,10 @@ export default function DataTable({
                         </td>
                         <td className="px-2 py-4">
                           <div className="flex items-center gap-1">
-                            <Clock size={14} className="shrink-0 text-gray-400" />
+                            <Clock
+                              size={14}
+                              className="shrink-0 text-gray-400"
+                            />
                             <span className="font-mono text-sm">
                               {result.time2 || "-"}
                             </span>
@@ -374,7 +373,10 @@ export default function DataTable({
                         </td>
                         <td className="px-2 py-4">
                           <div className="flex items-center gap-1">
-                            <Clock size={14} className="shrink-0 text-gray-400" />
+                            <Clock
+                              size={14}
+                              className="shrink-0 text-gray-400"
+                            />
                             <span className="font-mono text-sm">
                               {result.time3 || "-"}
                             </span>
