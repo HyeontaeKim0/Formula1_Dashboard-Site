@@ -114,9 +114,9 @@ export interface RaceResultTeam {
   teamId: string;
   teamName: string;
   nationality: string;
-  firstAppareance: number;
-  constructorsChampionships: number;
-  driversChampionships: number;
+  firstAppareance?: number;
+  constructorsChampionships?: number;
+  driversChampionships?: number;
   url: string;
 }
 

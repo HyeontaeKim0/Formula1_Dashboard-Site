@@ -15,7 +15,10 @@ import {
 import DriverCardSlider from "@/components/homePage/podiumSection/components/DriverCardSlider";
 import PodiumHeader from "@/components/homePage/podiumSection/components/PodiumHeader";
 
-function resolveDriverName(driver: any, driverNumber: number | string | undefined): string {
+function resolveDriverName(
+  driver: any,
+  driverNumber: number | string | undefined,
+): string {
   const apiDriver = driver.driver;
   const fullName = [apiDriver?.name, apiDriver?.surname]
     .filter(Boolean)

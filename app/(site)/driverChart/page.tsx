@@ -139,8 +139,6 @@ export default async function DriverChartPage(props: {
   const teamColor = getTeamColor(driverNumber);
   const teamLogoUrl = getTeamLogoUrl(driverNumber);
 
-  console.log("driverNumber", driverNumber);
-
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-100">
       <div className="max-w-6xl mx-auto space-y-6">

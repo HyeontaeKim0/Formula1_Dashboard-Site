@@ -12,6 +12,8 @@ const navItems = [
   { label: "홈", href: "/" },
   { label: "일정", href: "/schedule" },
   { label: "순위", href: "/standings" },
+  // { label: "게시판", href: "/board" },
+  // { label: "드라이버", href: "/drivers" },
 ];
 
 function isNavItemActive(
