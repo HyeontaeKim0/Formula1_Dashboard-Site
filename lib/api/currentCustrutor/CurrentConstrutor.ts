@@ -1,3 +1,9 @@
+import {
+  fetchJolpica,
+  toLegacyTeamName,
+  type JolpicaConstructor,
+} from "@/lib/jolpica";
+
 export interface Team {
   teamName: string;
   country: string;
@@ -16,39 +22,50 @@ export interface ConstructorsChampionshipResponse {
   team: Team;
 }
 
-export interface ConstructorsChampionshipApiResponse {
-  api: string;
-  url: string;
-  limit: number;
-  offset: number;
-  total: number;
-  season: number;
-  championshipId: string;
-  constructors_championship: ConstructorsChampionshipResponse[];
+interface JolpicaConstructorStandings {
+  StandingsTable: {
+    StandingsLists: {
+      ConstructorStandings: {
+        position: string;
+        points: string;
+        wins: string;
+        Constructor: JolpicaConstructor;
+      }[];
+    }[];
+  };
 }
 
 export const getCurrentConstructorStandings = async (): Promise<
   ConstructorsChampionshipResponse[] | null
 > => {
   try {
-    const response = await fetch(
-      `https://f1api.dev/api/current/constructors-championship`
+    const data = await fetchJolpica<JolpicaConstructorStandings>(
+      "current/constructorstandings.json"
     );
-
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch constructors championship: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const data: ConstructorsChampionshipApiResponse = await response.json();
-
-    if (!data?.constructors_championship?.length) {
+    const standings =
+      data.StandingsTable.StandingsLists[0]?.ConstructorStandings;
+    if (!standings?.length) {
       console.warn("No constructors championship data available.");
       return null;
     }
-
-    return data.constructors_championship;
+    return standings.map((s) => ({
+      classificationId: Number(s.position),
+      teamId: s.Constructor.constructorId,
+      points: Number(s.points),
+      position: Number(s.position),
+      wins: Number(s.wins),
+      team: {
+        teamName: toLegacyTeamName(
+          s.Constructor.constructorId,
+          s.Constructor.name
+        ),
+        country: s.Constructor.nationality,
+        firstAppareance: 0,
+        constructorsChampionships: null,
+        driversChampionships: null,
+        url: s.Constructor.url,
+      },
+    }));
   } catch (error) {
     console.error("Error fetching constructors championship:", error);
     return null;
