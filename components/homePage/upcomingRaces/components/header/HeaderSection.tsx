@@ -27,7 +27,7 @@ export default function HeaderSection({
           {/* 데이터가 없을 경우 */}
           {upcomingRacesApi === undefined ? (
             <p className="mt-1 text-xs font-medium text-gray-600 sm:text-sm">
-              레이스 일정 데이터가 없습니다.
+              레이스 일정을 불러오지 못했거나 아직 없어요.
             </p>
           ) : (
             <p className="mt-1 break-words text-xs font-medium text-gray-600 sm:text-sm">

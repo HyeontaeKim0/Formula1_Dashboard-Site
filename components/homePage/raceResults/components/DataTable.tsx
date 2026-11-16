@@ -190,7 +190,7 @@ function EmptyOrLoading({
   const content = isLoading ? (
     <NotFound text="결과 데이터 로딩 중..." type="loading" />
   ) : (
-    <NotFound text="경기가 없거나 경기 전입니다." type="notFound" />
+    <NotFound text="경기 전이거나 없는 세션이에요. 데이터가 계속 안 보이면 잠시 후 다시 시도해주세요." type="notFound" />
   );
 
   if (mobile) {

@@ -187,7 +187,7 @@ export default function ConstructorSection({
       {isLoading ? (
         <NotFound text="순위 데이터 로딩 중..." type="loading" />
       ) : currentData.length === 0 ? (
-        <NotFound text="챔피언십 순위 데이터가 없습니다." type="notFound" />
+        <NotFound text="순위 데이터를 불러오지 못했거나 아직 없어요. 잠시 후 다시 시도해주세요." type="notFound" />
       ) : (
         <div className="space-y-2 sm:space-y-3">
           {currentData.map((standing) => (

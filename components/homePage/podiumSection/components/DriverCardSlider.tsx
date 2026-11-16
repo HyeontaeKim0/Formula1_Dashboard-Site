@@ -236,7 +236,7 @@ export default function DriverCardSlider({
     return (
       <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg sm:rounded-3xl">
         <div className="flex min-h-[240px] items-center justify-center px-4 py-8 sm:min-h-[320px]">
-          <NotFound text="포디움 결과가 아직 없습니다." type="notFound" />
+          <NotFound text="포디움 결과를 불러오지 못했거나 아직 없어요. 잠시 후 다시 시도해주세요." type="notFound" />
         </div>
       </div>
     );
