@@ -49,3 +49,41 @@ export async function fetchJolpica<T>(path: string): Promise<T> {
   const data = await response.json();
   return data.MRData as T;
 }
+
+export interface JolpicaCircuit {
+  circuitId: string;
+  circuitName: string;
+  Location: { locality: string; country: string };
+}
+
+// Jolpica 드라이버/팀/서킷 → 기존 UI(f1api.dev 형태)가 읽는 모양
+export function toLegacyDriver(d: JolpicaDriver) {
+  return {
+    driverId: d.driverId,
+    name: d.givenName,
+    surname: d.familyName,
+    nationality: d.nationality,
+    number: Number(d.permanentNumber ?? 0),
+    shortName: d.code ?? d.driverId,
+    birthday: d.dateOfBirth,
+    url: d.url,
+  };
+}
+
+export function toLegacyTeam(c: JolpicaConstructor) {
+  return {
+    teamId: c.constructorId,
+    teamName: toLegacyTeamName(c.constructorId, c.name),
+    nationality: c.nationality,
+    url: c.url,
+  };
+}
+
+export function toLegacyCircuit(c: JolpicaCircuit) {
+  return {
+    circuitId: c.circuitId,
+    circuitName: c.circuitName,
+    city: c.Location.locality,
+    country: c.Location.country,
+  };
+}
