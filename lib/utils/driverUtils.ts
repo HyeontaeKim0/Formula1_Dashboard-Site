@@ -206,7 +206,6 @@ export const getCar = (driver_number: number | null | undefined) => {
     case 63:
     case 12:
       return MercedesCar.src;
-    case 1:
     case 33:
     case 3:
     case 6:
@@ -366,6 +365,8 @@ export const getTeamName = (driver_number: number | null | undefined) => {
   }
   switch (driver_number) {
     case 1:
+      return "맥라렌";
+    case 3:
       return "레드불";
     case 33:
       return "레드불";
@@ -423,7 +424,7 @@ export const getTeamColor = (driver_number: number | null | undefined) => {
   }
   switch (driver_number) {
     // Red Bull
-    case 1:
+    case 3:
     case 6:
     case 33:
     case 22:
@@ -433,6 +434,7 @@ export const getTeamColor = (driver_number: number | null | undefined) => {
     case 63:
       return "#00D2BE";
     // McLaren
+    case 1:
     case 4:
     case 81:
       return "#FF8000";
@@ -503,7 +505,7 @@ export const getTeamLogoUrl = (driver_number: number | null | undefined) => {
     return "";
   }
   switch (driver_number) {
-    case 1:
+    case 3:
     case 22:
     case 33:
     case 6:
@@ -511,6 +513,7 @@ export const getTeamLogoUrl = (driver_number: number | null | undefined) => {
     case 12:
     case 63:
       return MercedesLogo.src;
+    case 1:
     case 4:
     case 81:
       return McLarenLogo.src;
@@ -665,7 +668,7 @@ export const getDriverImageUrl = (driver_number: number | null | undefined) => {
     return "";
   }
   switch (driver_number) {
-    case 1:
+    case 3:
     case 33:
       return MaxVerstappen_podium.src;
     case 22:
@@ -674,6 +677,7 @@ export const getDriverImageUrl = (driver_number: number | null | undefined) => {
       return KimiAntonelli_podium.src;
     case 63:
       return GeorgeRussell_podium.src;
+    case 1:
     case 4:
       return LandoNorris_podium.src;
     case 81:
