@@ -17,6 +17,10 @@ export default function CircuitSection({
 }) {
   const circuit = upcomingRacesApi?.race[0]?.circuit;
   const isAvailable = circuit?.circuitId !== undefined;
+  // 이미지가 없는 서킷은 빈 src로 <Image>가 에러나지 않게 대체 박스를 보여줌
+  const circuitImageUrl = isAvailable
+    ? getCircuitImageUrl(circuit.circuitId)
+    : "";
   // 서킷 상세는 API가 제공하지 않을 수 있어 모두 있을 때만 통계를 보여줌
   const stats =
     circuit?.firstParticipationYear !== undefined &&
@@ -46,7 +50,7 @@ export default function CircuitSection({
               {isAvailable ? (
                 <>
                   <p className="truncate text-base font-bold leading-tight sm:text-lg">
-                    {getCircuitName(circuit.circuitId)}
+                    {getCircuitName(circuit.circuitId) || circuit.circuitName}
                   </p>
                   <p className="truncate text-xs font-medium text-gray-500">
                     {circuit.circuitName}
@@ -74,10 +78,10 @@ export default function CircuitSection({
         </div>
 
         {/* 서킷 이미지 */}
-        {isAvailable ? (
+        {isAvailable && circuitImageUrl ? (
           <div className="mt-4 flex items-center justify-center rounded-xl bg-gray-50/80 p-3 sm:mt-6 sm:rounded-2xl sm:p-6">
             <Image
-              src={getCircuitImageUrl(circuit.circuitId)}
+              src={circuitImageUrl}
               alt={circuit.circuitName}
               width={360}
               height={360}

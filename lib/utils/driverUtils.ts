@@ -99,6 +99,7 @@ import CanadaFlag from "@/assets/img/flag/CanadaFlag.png";
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
     case "lusail":
+    case "losail":
       return LusailCircuit.src;
     case "yas_marina":
       return YasMarinaCircuit.src;
@@ -113,12 +114,15 @@ export const getCircuitImageUrl = (circuit_name: string) => {
     case "miami":
       return MiamiCircuit.src;
     case "gilles_villeneuve":
+    case "villeneuve":
       return CanadaCircuit.src;
     case "monaco":
       return MonacoCircuit.src;
     case "montmelo":
+    case "catalunya":
       return CatalunyaCircuit.src;
     case "austria":
+    case "red_bull_ring":
       return AustriaCircuit.src;
     case "silverstone":
       return SilverstoneCircuit.src;
@@ -130,6 +134,7 @@ export const getCircuitImageUrl = (circuit_name: string) => {
 export const getCircuitName = (circuit_name: string) => {
   switch (circuit_name) {
     case "lusail":
+    case "losail":
       return "루살 서킷";
     case "yas_marina":
       return "야스 마리나 서킷";
@@ -144,10 +149,12 @@ export const getCircuitName = (circuit_name: string) => {
     case "miami":
       return "마이애미 서킷";
     case "gilles_villeneuve":
+    case "villeneuve":
       return "질 빌뇌브 서킷";
     case "monaco":
       return "모나코 서킷";
     case "montmelo":
+    case "catalunya":
       return "카탈루냐 서킷";
     case "imola":
       return "이몰라 서킷";
@@ -165,6 +172,22 @@ export const getCircuitName = (circuit_name: string) => {
       return "바쿠 서킷";
     case "jeddah":
       return "제다 코니시 서킷";
+    case "red_bull_ring":
+      return "레드불 링";
+    case "madring":
+      return "마드링 서킷";
+    case "sepang":
+      return "세팡 서킷";
+    case "marina_bay":
+      return "마리나 베이 서킷";
+    case "americas":
+      return "서킷 오브 디 아메리카스";
+    case "rodriguez":
+      return "에르마노스 로드리게스 서킷";
+    case "interlagos":
+      return "인터라고스 서킷";
+    case "vegas":
+      return "라스베이거스 스트리트 서킷";
 
     default:
       return "";
