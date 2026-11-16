@@ -79,11 +79,18 @@ export function toLegacyTeam(c: JolpicaConstructor) {
   };
 }
 
+// Ergast식 국가 약칭 → 기존 UI가 비교하는 전체 이름
+const COUNTRY_NAME: Record<string, string> = {
+  UAE: "United Arab Emirates",
+  USA: "United States",
+  UK: "United Kingdom",
+};
+
 export function toLegacyCircuit(c: JolpicaCircuit) {
   return {
     circuitId: c.circuitId,
     circuitName: c.circuitName,
     city: c.Location.locality,
-    country: c.Location.country,
+    country: COUNTRY_NAME[c.Location.country] ?? c.Location.country,
   };
 }

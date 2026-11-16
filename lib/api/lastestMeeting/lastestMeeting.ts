@@ -1,123 +1,66 @@
-const LASTEST_MEETING_API_URL = "https://f1api.dev/api/current/last";
+import {
+  fetchJolpica,
+  toLegacyCircuit,
+  toLegacyDriver,
+  toLegacyTeam,
+  type JolpicaCircuit,
+  type JolpicaConstructor,
+  type JolpicaDriver,
+} from "@/lib/jolpica";
 
-interface LastestMeetingScheduleItem {
-  date: string | null;
-  time: string | null;
+interface JolpicaLastRace {
+  RaceTable: {
+    Races: {
+      season: string;
+      round: string;
+      raceName: string;
+      Circuit: JolpicaCircuit;
+      Results?: {
+        position: string;
+        laps: string;
+        Driver: JolpicaDriver;
+        Constructor: JolpicaConstructor;
+      }[];
+    }[];
+  };
 }
 
-interface LastestMeetingSchedule {
-  race: LastestMeetingScheduleItem;
-  qualy: LastestMeetingScheduleItem;
-  fp1: LastestMeetingScheduleItem;
-  fp2: LastestMeetingScheduleItem;
-  fp3: LastestMeetingScheduleItem;
-  sprintQualy: LastestMeetingScheduleItem;
-  sprintRace: LastestMeetingScheduleItem;
-}
-
-interface LastestMeetingFastLap {
-  fast_lap: string;
-  fast_lap_driver_id: string;
-  fast_lap_team_id: string;
-}
-
-interface LastestMeetingCircuit {
-  circuitId: string;
-  circuitName: string;
-  country: string;
-  city: string;
-  circuitLength: string;
-  lapRecord: string;
-  firstParticipationYear: number;
-  corners: number;
-  fastestLapDriverId: string;
-  fastestLapTeamId: string;
-  fastestLapYear: number;
-  url: string;
-}
-
-interface LastestMeetingDriver {
-  driverId: string;
-  name: string;
-  surname: string;
-  country: string;
-  birthday: string;
-  number: number;
-  shortName: string;
-  url: string;
-}
-
-interface LastestMeetingTeam {
-  teamId: string;
-  teamName: string;
-  country: string;
-  firstAppearance: number;
-  constructorsChampionships: number;
-  driversChampionships: number;
-  url: string;
-}
-
-interface LastestMeetingRace {
+// 서킷 상세(랩 기록·코너 수 등)는 Jolpica에 없어 제외 — 별도 작업 예정
+export interface LastestMeeting {
+  season: number;
+  round: number;
   raceId: string;
-  championshipId: string;
   raceName: string;
-  schedule: LastestMeetingSchedule;
   laps: number;
-  round: number;
-  url: string;
-  fast_lap: LastestMeetingFastLap;
-  circuit: LastestMeetingCircuit;
-  winner: LastestMeetingDriver | null;
-  teamWinner: LastestMeetingTeam | null;
-}
-
-interface LastestMeetingChampionship {
-  championshipId: string;
-  championshipName: string;
-  url: string;
-  year: number;
-}
-
-interface LastestMeetingResponse {
-  api: string;
-  url: string;
-  total: number;
-  season: number;
-  round: number;
-  championship: LastestMeetingChampionship;
-  race: LastestMeetingRace[];
-}
-
-export interface LastestMeeting extends LastestMeetingRace {
-  season: number;
-  championship: LastestMeetingChampionship;
+  circuit: ReturnType<typeof toLegacyCircuit>;
+  winner: ReturnType<typeof toLegacyDriver> | null;
+  teamWinner: ReturnType<typeof toLegacyTeam> | null;
 }
 
 export async function getLastestMeeting(): Promise<LastestMeeting | null> {
   try {
-    const response = await fetch(LASTEST_MEETING_API_URL, {
-      next: { revalidate: 3600 },
-    });
+    const data = await fetchJolpica<JolpicaLastRace>(
+      "current/last/results.json"
+    );
+    const race = data.RaceTable.Races[0];
 
-    if (!response.ok) {
-      throw new Error(
-        `Failed to fetch lastest meeting: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const data: LastestMeetingResponse = await response.json();
-
-    if (!data?.race?.length) {
+    if (!race) {
       console.warn("No lastest meeting data available.");
       return null;
     }
 
-    const [race] = data.race;
+    // 우승자가 없으면 winner: null → UI가 취소/캘린더 제외로 처리
+    const winnerResult = race.Results?.find((r) => r.position === "1");
 
     return {
-      season: data.season,
-      championship: data.championship,
-      ...race,
+      season: Number(race.season),
+      round: Number(race.round),
+      raceId: race.round,
+      raceName: race.raceName,
+      laps: winnerResult ? Number(winnerResult.laps) : 0,
+      circuit: toLegacyCircuit(race.Circuit),
+      winner: winnerResult ? toLegacyDriver(winnerResult.Driver) : null,
+      teamWinner: winnerResult ? toLegacyTeam(winnerResult.Constructor) : null,
     };
   } catch (error) {
     console.error("Error fetching lastest meeting:", error);
