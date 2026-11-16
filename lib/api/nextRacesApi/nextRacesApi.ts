@@ -3,6 +3,7 @@ import {
   toLegacyCircuit,
   type JolpicaCircuit,
 } from "@/lib/jolpica";
+import { CIRCUIT_DETAILS } from "@/lib/utils/circuitDetails";
 
 interface ScheduleItem {
   date: string;
@@ -86,7 +87,9 @@ export async function getNextRaces(): Promise<NextRacesResponse> {
       throw new Error("No upcoming race available.");
     }
 
-    const circuit = toLegacyCircuit(race.Circuit);
+    const base = toLegacyCircuit(race.Circuit);
+    // Jolpica에 없는 서킷 상세는 직접 관리하는 데이터에서 보충
+    const circuit: Circuit = { ...base, ...CIRCUIT_DETAILS[base.circuitId] };
 
     return {
       season: Number(race.season),

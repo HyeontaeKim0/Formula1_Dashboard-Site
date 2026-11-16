@@ -112,7 +112,7 @@ export default function CircuitSection({
                   [
                     {
                       title: "Length",
-                      value: `${stats.circuitLength.slice(0, 1)}.${stats.circuitLength.slice(2, 4)} km`,
+                      value: `${stats.circuitLength} km`,
                     },
                     {
                       title: "Corners",
