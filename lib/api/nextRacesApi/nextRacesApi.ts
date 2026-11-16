@@ -1,4 +1,8 @@
-const NEXT_RACES_API_URL = "https://f1api.dev/api/current/next";
+import {
+  fetchJolpica,
+  toLegacyCircuit,
+  type JolpicaCircuit,
+} from "@/lib/jolpica";
 
 interface ScheduleItem {
   date: string;
@@ -6,12 +10,28 @@ interface ScheduleItem {
 }
 
 export interface Schedule {
-  qualy: string;
-  fp1: ScheduleItem;
-  fp2: string;
-  fp3: string;
-  sprintQualy: string;
-  sprintRace: string;
+  qualy: ScheduleItem | null;
+  fp1: ScheduleItem | null;
+  fp2: ScheduleItem | null;
+  fp3: ScheduleItem | null;
+  sprintQualy: ScheduleItem | null;
+  sprintRace: ScheduleItem | null;
+  race: ScheduleItem | null;
+}
+
+// 서킷 상세(길이·코너·랩 기록 등)는 Jolpica에 없어 optional — 별도 작업 예정
+export interface Circuit {
+  circuitId: string;
+  circuitName: string;
+  city: string;
+  country: string;
+  circuitLength?: string;
+  lapRecord?: string;
+  firstParticipationYear?: number;
+  corners?: number;
+  fastestLapDriverId?: string;
+  fastestLapYear?: number;
+  fastestLapTeamId?: string;
 }
 
 export interface NextRaceItem {
@@ -22,44 +42,75 @@ export interface NextRaceItem {
   schedule?: Schedule;
 }
 
-export interface Circuit {
-  country: string;
-  city: string;
-  circuitId: string;
-  circuitName: string;
-  circuitLength: string;
-  lapRecord: string;
-  firstParticipationYear: number;
-  corners: number;
-  fastestLapDriverId: string;
-  fastestLapYear: number;
-  fastestLapTeamId: string;
-}
-
 export interface NextRacesResponse {
-  api: string;
-  url: string;
-  total: number;
   season: number;
   round: number;
-
   race: NextRaceItem[];
-  championship: {
-    championshipId: string;
-    championshipName: string;
-    url: string;
+}
+
+interface JolpicaSession {
+  date: string;
+  time?: string;
+}
+
+interface JolpicaNextRace {
+  RaceTable: {
+    Races: {
+      season: string;
+      round: string;
+      raceName: string;
+      Circuit: JolpicaCircuit;
+      date: string;
+      time?: string;
+      FirstPractice?: JolpicaSession;
+      SecondPractice?: JolpicaSession;
+      ThirdPractice?: JolpicaSession;
+      Qualifying?: JolpicaSession;
+      Sprint?: JolpicaSession;
+      SprintQualifying?: JolpicaSession;
+      SprintShootout?: JolpicaSession;
+    }[];
   };
 }
 
+const toScheduleItem = (s?: JolpicaSession): ScheduleItem | null =>
+  s ? { date: s.date, time: s.time ?? "" } : null;
+
 export async function getNextRaces(): Promise<NextRacesResponse> {
   try {
-    const response = await fetch(NEXT_RACES_API_URL);
+    const data = await fetchJolpica<JolpicaNextRace>("current/next.json");
+    const race = data.RaceTable.Races[0];
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch next races: ${response.statusText}`);
+    // 시즌 종료 등으로 다음 레이스가 없으면 호출한 쪽이 "데이터 없음"으로 처리
+    if (!race) {
+      throw new Error("No upcoming race available.");
     }
-    const data: NextRacesResponse = await response.json();
-    return data;
+
+    const circuit = toLegacyCircuit(race.Circuit);
+
+    return {
+      season: Number(race.season),
+      round: Number(race.round),
+      race: [
+        {
+          raceId: race.round,
+          raceName: race.raceName,
+          circuit,
+          country: circuit.country,
+          schedule: {
+            fp1: toScheduleItem(race.FirstPractice),
+            fp2: toScheduleItem(race.SecondPractice),
+            fp3: toScheduleItem(race.ThirdPractice),
+            qualy: toScheduleItem(race.Qualifying),
+            sprintQualy: toScheduleItem(
+              race.SprintQualifying ?? race.SprintShootout
+            ),
+            sprintRace: toScheduleItem(race.Sprint),
+            race: toScheduleItem({ date: race.date, time: race.time }),
+          },
+        },
+      ],
+    };
   } catch (error) {
     console.error("Error fetching next races:", error);
     throw error;

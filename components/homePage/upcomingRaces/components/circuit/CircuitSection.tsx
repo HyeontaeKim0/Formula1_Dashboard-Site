@@ -17,6 +17,21 @@ export default function CircuitSection({
 }) {
   const circuit = upcomingRacesApi?.race[0]?.circuit;
   const isAvailable = circuit?.circuitId !== undefined;
+  // 서킷 상세는 API가 제공하지 않을 수 있어 모두 있을 때만 통계를 보여줌
+  const stats =
+    circuit?.firstParticipationYear !== undefined &&
+    circuit.circuitLength !== undefined &&
+    circuit.corners !== undefined &&
+    circuit.fastestLapTeamId !== undefined &&
+    circuit.lapRecord !== undefined
+      ? {
+          firstParticipationYear: circuit.firstParticipationYear,
+          circuitLength: circuit.circuitLength,
+          corners: circuit.corners,
+          fastestLapTeamId: circuit.fastestLapTeamId,
+          lapRecord: circuit.lapRecord,
+        }
+      : null;
 
   return (
     <div className="relative w-full">
@@ -78,13 +93,13 @@ export default function CircuitSection({
         )}
 
         {/* 통계 */}
-        {isAvailable ? (
+        {stats ? (
           <div className="mt-4 border-t border-gray-100 pt-4 sm:mt-6 sm:pt-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-6">
               <div className="shrink-0 rounded-xl bg-gray-50 px-4 py-3 sm:rounded-none sm:border-r sm:border-gray-100 sm:bg-transparent sm:px-0 sm:py-0 sm:pr-6">
                 <LayoutFormat
                   title="First Year"
-                  value={circuit.firstParticipationYear.toString()}
+                  value={stats.firstParticipationYear.toString()}
                   type="head"
                 />
               </div>
@@ -93,19 +108,19 @@ export default function CircuitSection({
                   [
                     {
                       title: "Length",
-                      value: `${circuit.circuitLength.slice(0, 1)}.${circuit.circuitLength.slice(2, 4)} km`,
+                      value: `${stats.circuitLength.slice(0, 1)}.${stats.circuitLength.slice(2, 4)} km`,
                     },
                     {
                       title: "Corners",
-                      value: circuit.corners.toString(),
+                      value: stats.corners.toString(),
                     },
                     {
                       title: "Fastest Team",
-                      value: circuit.fastestLapTeamId.toString(),
+                      value: stats.fastestLapTeamId.toString(),
                     },
                     {
                       title: "Lap Record",
-                      value: circuit.lapRecord.toString(),
+                      value: stats.lapRecord.toString(),
                     },
                   ] as const
                 ).map((stat) => (
