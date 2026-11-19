@@ -282,28 +282,3 @@ export function transformOpenF1Driver(
     countryCode: driver.country_code,
   };
 }
-
-// 세션 키 가져오기 (최신 세션)
-export async function getLatestSessionKey(): Promise<string | null> {
-  try {
-    const response = await fetch(
-      "https://api.openf1.org/v1/sessions?session_key=latest",
-      {
-        next: { revalidate: 3600 }, // 1시간마다 재검증
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch session: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    if (data && data.length > 0) {
-      return data[0].session_key?.toString() || "latest";
-    }
-    return "latest";
-  } catch (error) {
-    console.error("Error fetching latest session:", error);
-    return "latest";
-  }
-}

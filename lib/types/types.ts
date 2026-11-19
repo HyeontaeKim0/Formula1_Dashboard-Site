@@ -9,11 +9,6 @@ export interface PodiumDriver {
   carImageUrl?: string;
 }
 
-export interface DriverStandingPodium {
-  position: number;
-  driver_number: number;
-}
-
 export interface DriverStanding {
   position: number;
   driverName: string;
@@ -46,23 +41,6 @@ export interface DriversSectionProps {
 }
 
 export type RaceEventType = "practice" | "qualifying" | "sprint" | "race";
-
-export interface Sessions {
-  circuit_key: number;
-  circuit_short_name: string;
-  country_code: string;
-  country_key: number;
-  country_name: string;
-  date_end: string;
-  date_start: string;
-  gmt_offset: string;
-  location: string;
-  meeting_key: number;
-  session_key: number;
-  session_name: string;
-  session_type: string;
-  year: number;
-}
 
 export interface RaceEvent {
   name: string;
@@ -142,19 +120,6 @@ export type RaceResultResponse =
         results?: RaceResultItem[];
       };
     };
-
-export interface SessionResult {
-  dnf: boolean;
-  dns: boolean;
-  dsq: boolean;
-  driver_number: number;
-  duration: number;
-  gap_to_leader: number;
-  number_of_laps: number;
-  meeting_key: number;
-  position: number;
-  session_key: number;
-}
 
 export interface Meeting {
   circuit_key: number;
