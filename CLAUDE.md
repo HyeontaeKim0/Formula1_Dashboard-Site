@@ -6,9 +6,9 @@
 
 - OpenF1 API 기반 F1 정보 대시보드 (개인 포트폴리오 프로젝트, 1인 개발)
 - Next.js 14 App Router, TypeScript, Tailwind CSS, Recharts
-- 주요 페이지: `/` 홈, `/schedule`, `/standings`, `/drivers`, `/driverChart`, `/board`(UI 프로토타입)
+- 주요 페이지: `/` 홈, `/schedule`, `/standings`, `/driverChart`, `/board`(UI 프로토타입)
 - 데이터 조회는 `lib/api/*`에 있고, 서버 컴포넌트에서 `fetch(..., { next: { revalidate: 3600 } })`로 캐싱
-- 드라이버·팀 한글명/색상/로고 매핑은 `lib/openf1.ts`, `lib/utils/driverUtils.ts`
+- 드라이버·팀 한글명/색상/로고 매핑은 `lib/utils/driverUtils.ts`
 
 ## 이 프로젝트의 목표 (취업용 고도화, 2주)
 
