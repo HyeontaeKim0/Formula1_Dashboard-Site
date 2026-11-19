@@ -1,4 +1,4 @@
-import { MessageCircle, Trophy } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Eye, Heart } from "lucide-react";
 export default function GridSection({}) {
   // 게시판 데이터

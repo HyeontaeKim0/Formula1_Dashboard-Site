@@ -1,27 +1,12 @@
 "use client";
 
-import { Calendar, Clock, Flag, Play } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Calendar, Flag, Play } from "lucide-react";
 
 import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 
 import RaceTypeList from "../components/raceType/RaceTypeList";
 
 import type { RaceEvent } from "@/lib/types/types";
-import HeaderSection from "../components/header/HeaderSection";
-
-const getTypeColor = (type: RaceEvent["type"]) => {
-  switch (type) {
-    case "race":
-      return "bg-primary";
-    case "qualifying":
-      return "bg-secondary";
-    case "sprint":
-      return "bg-primary";
-    default:
-      return "bg-gray-600";
-  }
-};
 
 const getTypeIcon = (type: RaceEvent["type"]) => {
   switch (type) {

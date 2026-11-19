@@ -37,7 +37,6 @@ import AlpineLogo from "../assets/img/teamLogo/Alpine.png";
 // audi
 import Niko from "../assets/img/driverProfile/KickSauber/niko2.webp";
 import Gabriel from "../assets/img/driverProfile/KickSauber/gabriel2.webp";
-import KickSauberLogo from "../assets/img/teamLogo/Audi.webp";
 import AudiLogo from "../assets/img/teamLogo/Audi.webp";
 
 // Racing bulls

@@ -3,7 +3,6 @@
 import { Trophy, Medal, Users } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import NetherlandsFlag from "@/assets/img/flag/netherland.svg";
 import type { Driver, DriversSectionProps } from "@/lib/types/types";
 import { useRouter } from "next/navigation";
 

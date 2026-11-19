@@ -1,19 +1,10 @@
-import { Calendar, Clock } from "lucide-react";
+import { Calendar } from "lucide-react";
 import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
-import { useState, useEffect } from "react";
 export default function HeaderSection({
   upcomingRacesApi,
 }: {
   upcomingRacesApi: NextRacesResponse;
 }) {
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
   return (
     <div className="mb-4 flex min-w-0 justify-between gap-4 sm:mb-6 md:flex-row md:items-center md:justify-between">
       <div className="flex min-w-0 items-center gap-3 sm:gap-4">

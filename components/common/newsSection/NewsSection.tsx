@@ -1,6 +1,5 @@
 "use client";
 
-import { Newspaper, TrendingUp } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import type { NewsItem } from "@/lib/types/types";
 import Card from "./components/card/Card";
