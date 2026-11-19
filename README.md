@@ -41,7 +41,6 @@ npm start
 | `/` | 홈 — 다가오는 레이스, 포디움, 최근 레이스 결과 |
 | `/schedule` | 시즌 일정 — 다가오는 레이스 및 세션(FP, Qualifying, Sprint, Race) |
 | `/standings` | 챔피언십 순위 — 드라이버 / 컨스트럭터 |
-| `/drivers` | 2026 시즌 드라이버 목록 |
 | `/driverChart` | 드라이버별 시즌 성적 차트 (Recharts) |
 | `/board` | 커뮤니티 게시판 (UI 프로토타입) |
 | `/news` | 홈 `#news` 섹션으로 리다이렉트 |
@@ -75,7 +74,6 @@ formula1_Dashboard/
 │   │   ├── page.tsx                  # 홈
 │   │   ├── schedule/page.tsx         # 일정
 │   │   ├── standings/page.tsx        # 순위
-│   │   ├── drivers/page.tsx          # 드라이버
 │   │   ├── driverChart/              # 드라이버 차트
 │   │   ├── board/page.tsx            # 커뮤니티
 │   │   └── news/page.tsx             # 뉴스 리다이렉트
@@ -92,16 +90,14 @@ formula1_Dashboard/
 │   │   ├── podiumSection/
 │   │   ├── upcomingRaces/
 │   │   ├── raceResults/
-│   │   ├── championshipStandings/
-│   │   └── driverSection/
+│   │   └── championshipStandings/
 │   ├── driverChart/
 │   │   └── DriverRankChart.tsx
 │   └── boardPage/
 │       └── gridSection/GridSection.tsx
 ├── lib/
-│   ├── openf1.ts                     # OpenF1 API 유틸 (한글 변환, 드라이버 매핑)
 │   ├── types/types.ts
-│   ├── utils/driverUtils.ts
+│   ├── utils/driverUtils.ts          # 드라이버·팀 한글명, 로고 매핑
 │   └── api/
 │       ├── nextRacesApi/
 │       ├── lastResults/              # Race, Qualifying, Sprint, Practice
@@ -135,7 +131,7 @@ formula1_Dashboard/
 
 - Next.js 14 (App Router) + TypeScript + Tailwind CSS 프로젝트 설정
 - OpenF1 API 연동 및 TypeScript 타입 정의
-- 드라이버/팀 한글 번역, 국가 코드 변환, 프로필·로고 매핑 (`lib/openf1.ts`)
+- 드라이버/팀 한글 번역, 국가 코드 변환, 프로필·로고 매핑 (`lib/utils/driverUtils.ts`)
 
 ### Phase 3–7: 핵심 UI 및 데이터 섹션
 
@@ -145,7 +141,6 @@ formula1_Dashboard/
 
 ### Phase 8–10: 페이지 확장 및 최적화
 
-- 드라이버 페이지 (`/drivers`)
 - API 타임아웃·에러 처리, ISR 재검증, 이미지 최적화
 
 ### Phase 11–14: 추가 기능
