@@ -20,26 +20,6 @@ export interface DriverStanding {
   teamColor?: string;
 }
 
-export interface Driver {
-  driverName: string;
-  driverCode: string;
-  team: string;
-  teamColor: string;
-  teamLogoUrl: string;
-  driverImageUrl: string;
-  points: number;
-  wins: number;
-  podiums: number;
-  position: number;
-  nationality: string;
-  driverNumber?: number;
-  countryCode?: string;
-}
-
-export interface DriversSectionProps {
-  drivers?: Driver[];
-}
-
 export type RaceEventType = "practice" | "qualifying" | "sprint" | "race";
 
 export interface RaceEvent {
@@ -136,17 +116,3 @@ export interface Meeting {
   year: number;
 }
 
-export interface OpenF1Driver {
-  broadcast_name: string;
-  country_code: string;
-  driver_number: number;
-  first_name: string;
-  full_name: string;
-  headshot_url: string;
-  last_name: string;
-  meeting_key: number;
-  name_acronym: string;
-  session_key: number;
-  team_colour: string;
-  team_name: string;
-}
