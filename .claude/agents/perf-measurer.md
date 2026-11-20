@@ -31,7 +31,11 @@ model: sonnet
 
 ### 3. Lighthouse (프로덕션 서버, 홈 `/` 위주)
 - `npx lighthouse http://localhost:3000/ --only-categories=performance --chrome-flags="--headless" --output=json --quiet`
-- 3회 실행해서 중앙값을 기록: Performance 점수, FCP, LCP, TBT, CLS, Speed Index. 개별 3회 값도 같이 적는다.
+- 5회 실행해서 중앙값을 기록: Performance 점수, FCP, LCP, TBT, CLS, Speed Index. 개별 5회 값도 같이 적는다. (기존 baseline은 3회였다. 횟수가 다르면 표에 명시하고 직접 비교하지 않는다.)
+- 결과 JSON에서 다음을 같이 기록한다 (실행마다 값이 달라지면 실행별로 적는다):
+  - `largest-contentful-paint-element` audit: LCP 요소(태그, 선택자 또는 스니펫)
+  - `network-requests` audit: 페이지 로드 중 브라우저가 보낸 요청 수 전체, 그리고 외부 API 호스트(`api.openf1.org`, `api.jolpi.ca`) 요청 수와 각각의 소요 시간. 실제 호스트명은 요청 목록에서 확인해서 적는다.
+  - `formFactor`(mobile/desktop)와 throttling 설정. 지정하지 않으면 Lighthouse 기본값(mobile 에뮬레이션)이다. 사용한 값을 그대로 적는다.
 - 전역 설치나 devDependency 추가는 하지 않는다 (`npx`만 사용).
 - `/driverChart`는 Lighthouse를 돌리지 않는다 (TTFB만 측정).
 - 결과 JSON 등 임시 파일은 프로젝트 밖(스크래치 디렉터리나 시스템 임시 경로)에 둔다.
@@ -39,7 +43,7 @@ model: sonnet
 
 ## 기록 형식 (`docs/perf-baseline.md`)
 - 라벨(`baseline` / `after`)별 섹션을 유지한다. 같은 라벨의 이전 섹션이 있으면 덮어쓰지 말고 날짜를 붙여 아래에 추가한다.
-- 섹션 구성: 측정 조건 → 빌드 크기 표 → TTFB 표(cold / warm min·median·max) → Lighthouse 표(3회 + 중앙값) → 주석.
+- 섹션 구성: 측정 조건 → 빌드 크기 표 → TTFB 표(cold / warm min·median·max) → Lighthouse 표(실행별 값 + 중앙값, LCP 요소와 외부 API 요청 수 포함) → 주석.
 - `baseline`과 `after`가 둘 다 있으면 맨 아래에 전후 비교 표를 만든다. 변화율은 두 측정값에서 계산한 값만 적는다.
 
 ## 최종 보고
