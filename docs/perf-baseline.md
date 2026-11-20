@@ -61,7 +61,7 @@ warm 개별 값: `/` = 0.004, 0.002, 0.002, 0.002, 0.002 / `/driverChart` = 0.01
 ### 측정 조건
 - 날짜: 2026-11-20
 - 커밋: `2de5263`
-- 작업 트리 변경: 있음 (`git status --short`: ` M app/(site)/page.tsx`). 즉 커밋 `2de5263` 그대로가 아니라 `page.tsx`의 미커밋 수정이 포함된 상태의 측정값이다.
+- 작업 트리 변경: 측정 당시 `app/(site)/page.tsx`의 미커밋 수정(최상단 `"use client"`와 `NewsSection` import 제거, 7줄)이 포함되어 있었다. 이 수정은 이후 커밋 `08cab79`에 그대로 들어갔고(변경 통계가 같다), 따라서 **이 측정값은 커밋 `08cab79` 상태의 값으로 본다.** 하위 섹션(`PodiumNew`, `RaceResults`, `UpcomingRaceLink`)은 여전히 `"use client"`이다. 서버 컴포넌트 전환 작업의 출발점은 이 상태다. 순수한 개선 전 상태는 이전 baseline(`0475ec0`)이다.
 - 빌드 모드: 프로덕션 (`npm run build` + `npx next start -p 3100`). 포트 3000에 기존 `next-server`(PID 14782, 이 프로젝트 디렉터리)가 떠 있어 종료하지 않고 3100으로 측정했다.
 - 캐시 상태: cold = `.next/cache/fetch-cache` 삭제 후 서버 새로 기동 / warm = cold 직후 연속 5회
 - 반복 횟수: TTFB warm 5회, Lighthouse 5회

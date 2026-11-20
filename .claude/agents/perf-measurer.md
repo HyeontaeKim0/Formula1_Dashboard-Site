@@ -33,7 +33,7 @@ model: sonnet
 - `npx lighthouse http://localhost:3000/ --only-categories=performance --chrome-flags="--headless" --output=json --quiet`
 - 5회 실행해서 중앙값을 기록: Performance 점수, FCP, LCP, TBT, CLS, Speed Index. 개별 5회 값도 같이 적는다. (기존 baseline은 3회였다. 횟수가 다르면 표에 명시하고 직접 비교하지 않는다.)
 - 결과 JSON에서 다음을 같이 기록한다 (실행마다 값이 달라지면 실행별로 적는다):
-  - `largest-contentful-paint-element` audit: LCP 요소(태그, 선택자 또는 스니펫)
+  - LCP 요소(태그, 선택자 또는 스니펫): `largest-contentful-paint-element` audit이 있으면 그것을, 없으면(Lighthouse 13.x) `lcp-breakdown-insight` audit에서 읽는다. 어느 audit에서 읽었는지 적는다. 또한 요소에 `loading="lazy"` 같은 속성이 있으면 함께 적는다.
   - `network-requests` audit: 페이지 로드 중 브라우저가 보낸 요청 수 전체, 그리고 외부 API 호스트(`api.openf1.org`, `api.jolpi.ca`) 요청 수와 각각의 소요 시간. 실제 호스트명은 요청 목록에서 확인해서 적는다.
   - `formFactor`(mobile/desktop)와 throttling 설정. 지정하지 않으면 Lighthouse 기본값(mobile 에뮬레이션)이다. 사용한 값을 그대로 적는다.
 - 전역 설치나 devDependency 추가는 하지 않는다 (`npx`만 사용).
