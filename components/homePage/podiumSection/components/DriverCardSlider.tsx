@@ -35,7 +35,13 @@ function getDriverDisplayName(driver: PodiumDriver): string {
   return driverCode || "Driver";
 }
 
-function DriverImage({ driver }: { driver: PodiumDriver }) {
+function DriverImage({
+  driver,
+  priority = false,
+}: {
+  driver: PodiumDriver;
+  priority?: boolean;
+}) {
   if (!driver.imageUrl) return null;
 
   return (
@@ -56,6 +62,7 @@ function DriverImage({ driver }: { driver: PodiumDriver }) {
               : ""
           }`}
           sizes="(max-width: 640px) 68vw, 300px"
+          priority={priority}
           unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
@@ -76,7 +83,13 @@ function DriverImage({ driver }: { driver: PodiumDriver }) {
   );
 }
 
-function PodiumDriverCard({ driver }: { driver: PodiumDriver }) {
+function PodiumDriverCard({
+  driver,
+  priority = false,
+}: {
+  driver: PodiumDriver;
+  priority?: boolean;
+}) {
   const displayName = getDriverDisplayName(driver);
   const nameParts = displayName.split(/\s+/);
   const firstName = nameParts.length > 1 ? nameParts[0] : "";
@@ -117,7 +130,7 @@ function PodiumDriverCard({ driver }: { driver: PodiumDriver }) {
           </div>
 
           <div className="absolute inset-0 z-20 flex items-end justify-center pb-8 sm:pb-10 md:items-center md:pb-0">
-            <DriverImage driver={driver} />
+            <DriverImage driver={driver} priority={priority} />
           </div>
         </div>
       </div>
@@ -258,8 +271,13 @@ export default function DriverCardSlider({
           ) : isChampionSeason ? (
             <ChampionSlide />
           ) : (
-            podiumData.map((driver) => (
-              <PodiumDriverCard key={driver.position} driver={driver} />
+            podiumData.map((driver, index) => (
+              <PodiumDriverCard
+                key={driver.position}
+                driver={driver}
+                // 처음 화면에 보이는 첫 카드만 우선 로드 (LCP 이미지)
+                priority={index === 0}
+              />
             ))
           )}
         </div>
