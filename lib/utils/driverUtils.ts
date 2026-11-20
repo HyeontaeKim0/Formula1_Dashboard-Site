@@ -297,6 +297,9 @@ export const getDriverName = (driver_number: number | null | undefined) => {
     case 77:
       return "발테리 보타스";
 
+    case 51:
+      return "라파엘 카마라";
+
     default:
       return driver_number.toString();
   }
@@ -397,8 +400,9 @@ export const getTeamName = (driver_number: number | null | undefined) => {
       return "애스턴 마틴";
     case 87:
       return "하스";
-    case 31:
+    case 51:
       return "하스";
+
     case 5:
       return "아우디";
     case 27:
@@ -455,7 +459,7 @@ export const getTeamColor = (driver_number: number | null | undefined) => {
     case 18:
       return "#006F62";
     // Haas
-    case 31:
+    case 51:
     case 87:
       return "gray";
     // Kick Sauber
@@ -530,7 +534,7 @@ export const getTeamLogoUrl = (driver_number: number | null | undefined) => {
     case 14:
     case 18:
       return AstonMartinLogo.src;
-    case 31:
+    case 51:
     case 87:
       return HaasLogo.src;
     case 5:
