@@ -31,7 +31,7 @@ function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
     return {
       position: driver.position,
       driverName: driver.driver?.surname || "",
-      driverCode: driver.driver?.code || driverNumber?.toString() || "",
+      driverCode: driver.driver?.shortName || driverNumber?.toString() || "",
       team: driver.team?.teamName || "",
       teamColor: getTeamColor(driverNumber),
       imageUrl: getDriverImageUrl(driverNumber),
