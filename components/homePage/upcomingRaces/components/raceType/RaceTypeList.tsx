@@ -1,5 +1,6 @@
 import { GiF1Car } from "react-icons/gi";
 import type { RaceEvent } from "@/lib/types/types";
+import { formatKst } from "@/lib/utils/dateUtils";
 
 export default function RaceTypeList({
   freePractice1,
@@ -127,7 +128,7 @@ export default function RaceTypeList({
                   </h3>
                 </div>
                 <p className="truncate text-xs text-gray-600 sm:text-sm">
-                  {event?.date} {event?.time}
+                  {formatKst(event?.date, event?.time)}
                 </p>
               </div>
             </div>
