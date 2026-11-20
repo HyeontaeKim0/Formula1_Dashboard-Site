@@ -37,31 +37,38 @@ export interface LastestMeeting {
   teamWinner: ReturnType<typeof toLegacyTeam> | null;
 }
 
+// 에러를 던지는 버전: 정적 페이지(ISR)가 실패한 결과를 저장하지 않도록 서버 컴포넌트에서 사용
+// 마지막 레이스가 아직 없는 경우(Races가 빈 배열)는 에러가 아니라 null
+export async function fetchLastestMeeting(): Promise<LastestMeeting | null> {
+  const data = await fetchJolpica<JolpicaLastRace>(
+    "current/last/results.json"
+  );
+  const race = data.RaceTable.Races[0];
+
+  if (!race) {
+    console.warn("No lastest meeting data available.");
+    return null;
+  }
+
+  // 우승자가 없으면 winner: null → UI가 취소/캘린더 제외로 처리
+  const winnerResult = race.Results?.find((r) => r.position === "1");
+
+  return {
+    season: Number(race.season),
+    round: Number(race.round),
+    raceId: race.round,
+    raceName: race.raceName,
+    laps: winnerResult ? Number(winnerResult.laps) : 0,
+    circuit: toLegacyCircuit(race.Circuit),
+    winner: winnerResult ? toLegacyDriver(winnerResult.Driver) : null,
+    teamWinner: winnerResult ? toLegacyTeam(winnerResult.Constructor) : null,
+  };
+}
+
+// 에러를 null로 바꾸는 안전판: driverChart 등 기존 호출처용
 export async function getLastestMeeting(): Promise<LastestMeeting | null> {
   try {
-    const data = await fetchJolpica<JolpicaLastRace>(
-      "current/last/results.json"
-    );
-    const race = data.RaceTable.Races[0];
-
-    if (!race) {
-      console.warn("No lastest meeting data available.");
-      return null;
-    }
-
-    // 우승자가 없으면 winner: null → UI가 취소/캘린더 제외로 처리
-    const winnerResult = race.Results?.find((r) => r.position === "1");
-
-    return {
-      season: Number(race.season),
-      round: Number(race.round),
-      raceId: race.round,
-      raceName: race.raceName,
-      laps: winnerResult ? Number(winnerResult.laps) : 0,
-      circuit: toLegacyCircuit(race.Circuit),
-      winner: winnerResult ? toLegacyDriver(winnerResult.Driver) : null,
-      teamWinner: winnerResult ? toLegacyTeam(winnerResult.Constructor) : null,
-    };
+    return await fetchLastestMeeting();
   } catch (error) {
     console.error("Error fetching lastest meeting:", error);
     return null;

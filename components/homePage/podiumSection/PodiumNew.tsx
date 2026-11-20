@@ -1,7 +1,7 @@
 import type { PodiumDriver } from "@/lib/types/types";
-import { getLastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
+import { fetchLastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 import type { LastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
-import { getLastRaceResult } from "@/lib/api/lastResults/lastRaceResultApi/lastRaceResult";
+import { fetchLastRaceResult } from "@/lib/api/lastResults/lastRaceResultApi/lastRaceResult";
 
 import {
   getCar,
@@ -43,8 +43,8 @@ function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
 
 export default async function PodiumNew() {
   const [meeting, raceResult] = await Promise.all([
-    getLastestMeeting(),
-    getLastRaceResult(),
+    fetchLastestMeeting(),
+    fetchLastRaceResult(),
   ]);
   const podiumData = buildPodiumData(raceResult);
   return (
