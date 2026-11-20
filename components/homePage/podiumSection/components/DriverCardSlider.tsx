@@ -63,7 +63,6 @@ function DriverImage({
           }`}
           sizes="(max-width: 640px) 68vw, 300px"
           priority={priority}
-          unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
       </div>
