@@ -411,6 +411,7 @@ export const getTeamName = (driver_number: number | null | undefined) => {
       return "레드불";
     case 30:
     case 36:
+    case 41:
       return "레이싱 불스";
     case 11:
     case 77:
