@@ -49,19 +49,30 @@ import LiamLawson_podium from "@/assets/img/driverProfile/RacingBulls/lowson.web
 // 드라이버 프로필 샷
 import KimiAntonelli from "@/assets/img/driverProfile/Mercedes/Kimi_26.webp";
 
-// 모든 서킷 이미지
-import LusailCircuit from "@/assets/img/circuit/Qatar_Circuit.avif";
-import YasMarinaCircuit from "@/assets/img/circuit/Abu_Dhabi_Circuit.avif";
-import AlbertParkCircuit from "@/assets/img/circuit/Australia_Circuit.avif";
-import ShanghaiCircuit from "@/assets/img/circuit/Shanghai_Circuit.avif";
-import SuzukaCircuit from "@/assets/img/circuit/Suzuka_Circuit.avif";
-import BahrainCircuit from "@/assets/img/circuit/Bahrain_Circuit.avif";
-import MiamiCircuit from "@/assets/img/circuit/Miami_Circuit.avif";
-import CanadaCircuit from "@/assets/img/circuit/Canada_Circuit.avif";
-import MonacoCircuit from "@/assets/img/circuit/Monaco_Circuit.avif";
-import CatalunyaCircuit from "@/assets/img/circuit/Barcelona_Circuit.avif";
-import AustriaCircuit from "@/assets/img/circuit/Austria_Circuit.avif";
-import SilverstoneCircuit from "@/assets/img/circuit/Silverstone_Circuit.avif";
+// 모든 서킷 이미지 (OpenF1 위치 데이터로 만든 윤곽 SVG, 2026 시즌 23곡)
+import AlbertParkCircuit from "@/assets/img/circuit/albert_park.svg";
+import ShanghaiCircuit from "@/assets/img/circuit/shanghai.svg";
+import SuzukaCircuit from "@/assets/img/circuit/suzuka.svg";
+import MiamiCircuit from "@/assets/img/circuit/miami.svg";
+import VilleneuveCircuit from "@/assets/img/circuit/villeneuve.svg";
+import MonacoCircuit from "@/assets/img/circuit/monaco.svg";
+import CatalunyaCircuit from "@/assets/img/circuit/catalunya.svg";
+import RedBullRingCircuit from "@/assets/img/circuit/red_bull_ring.svg";
+import SilverstoneCircuit from "@/assets/img/circuit/silverstone.svg";
+import SpaCircuit from "@/assets/img/circuit/spa.svg";
+import HungaroringCircuit from "@/assets/img/circuit/hungaroring.svg";
+import ZandvoortCircuit from "@/assets/img/circuit/zandvoort.svg";
+import MonzaCircuit from "@/assets/img/circuit/monza.svg";
+import MadringCircuit from "@/assets/img/circuit/madring.svg";
+import BakuCircuit from "@/assets/img/circuit/baku.svg";
+import SepangCircuit from "@/assets/img/circuit/sepang.svg";
+import MarinaBayCircuit from "@/assets/img/circuit/marina_bay.svg";
+import AmericasCircuit from "@/assets/img/circuit/americas.svg";
+import RodriguezCircuit from "@/assets/img/circuit/rodriguez.svg";
+import InterlagosCircuit from "@/assets/img/circuit/interlagos.svg";
+import VegasCircuit from "@/assets/img/circuit/vegas.svg";
+import LosailCircuit from "@/assets/img/circuit/losail.svg";
+import YasMarinaCircuit from "@/assets/img/circuit/yas_marina.svg";
 
 // 모든 국기 이미지
 import AustraliaFlag from "@/assets/img/flag/Australia.webp";
@@ -76,24 +87,17 @@ import CanadaFlag from "@/assets/img/flag/CanadaFlag.png";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
-    case "lusail":
-    case "losail":
-      return LusailCircuit.src;
-    case "yas_marina":
-      return YasMarinaCircuit.src;
     case "albert_park":
       return AlbertParkCircuit.src;
     case "shanghai":
       return ShanghaiCircuit.src;
     case "suzuka":
       return SuzukaCircuit.src;
-    case "bahrain":
-      return BahrainCircuit.src;
     case "miami":
       return MiamiCircuit.src;
     case "gilles_villeneuve":
     case "villeneuve":
-      return CanadaCircuit.src;
+      return VilleneuveCircuit.src;
     case "monaco":
       return MonacoCircuit.src;
     case "montmelo":
@@ -101,9 +105,38 @@ export const getCircuitImageUrl = (circuit_name: string) => {
       return CatalunyaCircuit.src;
     case "austria":
     case "red_bull_ring":
-      return AustriaCircuit.src;
+      return RedBullRingCircuit.src;
     case "silverstone":
       return SilverstoneCircuit.src;
+    case "spa":
+      return SpaCircuit.src;
+    case "hungaroring":
+      return HungaroringCircuit.src;
+    case "zandvoort":
+      return ZandvoortCircuit.src;
+    case "monza":
+      return MonzaCircuit.src;
+    case "madring":
+      return MadringCircuit.src;
+    case "baku":
+      return BakuCircuit.src;
+    case "sepang":
+      return SepangCircuit.src;
+    case "marina_bay":
+      return MarinaBayCircuit.src;
+    case "americas":
+      return AmericasCircuit.src;
+    case "rodriguez":
+      return RodriguezCircuit.src;
+    case "interlagos":
+      return InterlagosCircuit.src;
+    case "vegas":
+      return VegasCircuit.src;
+    case "lusail":
+    case "losail":
+      return LosailCircuit.src;
+    case "yas_marina":
+      return YasMarinaCircuit.src;
     default:
       return "";
   }
