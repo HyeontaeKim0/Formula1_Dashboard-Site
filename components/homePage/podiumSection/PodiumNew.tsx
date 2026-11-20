@@ -1,11 +1,8 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import type { PodiumDriver } from "@/lib/types/types";
 import { getLastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 import type { LastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
 import { getLastRaceResult } from "@/lib/api/lastResults/lastRaceResultApi/lastRaceResult";
-import NotFound from "@/components/common/notFound/NotFound";
+
 import {
   getCar,
   getTeamColor,
@@ -15,28 +12,13 @@ import {
 import DriverCardSlider from "@/components/homePage/podiumSection/components/DriverCardSlider";
 import PodiumHeader from "@/components/homePage/podiumSection/components/PodiumHeader";
 
-function resolveDriverName(
-  driver: any,
-  driverNumber: number | string | undefined,
-): string {
-  const apiDriver = driver.driver;
-  const fullName = [apiDriver?.name, apiDriver?.surname]
-    .filter(Boolean)
-    .join(" ")
-    .trim();
-
-  if (fullName) return fullName;
-  if (apiDriver?.shortName) return apiDriver.shortName;
-  if (driverNumber != null) return String(driverNumber);
-  return "";
-}
-
 function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
   const podiumDrivers =
     lastRaceResult?.races?.results?.slice(0, 3) ||
     lastRaceResult?.slice(0, 3) ||
     [];
 
+  // 포디엄 드라이버 순서 정렬 (1위, 2위, 3위) 내림차순 정렬
   const orderedDrivers = podiumDrivers
     .slice()
     .sort((a: any, b: any) => (a.position || 0) - (b.position || 0))
@@ -48,8 +30,8 @@ function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
 
     return {
       position: driver.position,
-      driverName: resolveDriverName(driver, driverNumber),
-      driverCode: driver.driver?.shortName || driverNumber?.toString() || "",
+      driverName: driver.driver?.surname || "",
+      driverCode: driver.driver?.code || driverNumber?.toString() || "",
       team: driver.team?.teamName || "",
       teamColor: getTeamColor(driverNumber),
       imageUrl: getDriverImageUrl(driverNumber),
@@ -59,53 +41,16 @@ function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
   });
 }
 
-export default function PodiumNew() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [lastRaceResult, setLastRaceResult] = useState<any | null>(null);
-  const [lastestMeeting, setLastestMeeting] = useState<LastestMeeting | null>(
-    null,
-  );
-
-  useEffect(() => {
-    const fetchPodiumData = async () => {
-      setIsLoading(true);
-      try {
-        const [meeting, raceResult] = await Promise.all([
-          getLastestMeeting(),
-          getLastRaceResult(),
-        ]);
-        setLastestMeeting(meeting);
-        setLastRaceResult(raceResult);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPodiumData();
-  }, []);
-
-  const podiumData = buildPodiumData(lastRaceResult);
-
-  if (isLoading) {
-    return (
-      <div className="relative w-full">
-        <PodiumHeader lastestMeeting={null} isLoading />
-        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg sm:rounded-3xl">
-          <div className="flex min-h-[280px] items-center justify-center px-4 py-8 sm:min-h-[360px]">
-            <NotFound text="포디움 데이터 로딩 중..." type="loading" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+export default async function PodiumNew() {
+  const [meeting, raceResult] = await Promise.all([
+    getLastestMeeting(),
+    getLastRaceResult(),
+  ]);
+  const podiumData = buildPodiumData(raceResult);
   return (
     <div className="relative w-full">
-      <PodiumHeader lastestMeeting={lastestMeeting} isLoading={false} />
-      <DriverCardSlider
-        lastestMeeting={lastestMeeting}
-        podiumData={podiumData}
-      />
+      <PodiumHeader lastestMeeting={meeting} isLoading={false} />
+      <DriverCardSlider lastestMeeting={meeting} podiumData={podiumData} />
     </div>
   );
 }

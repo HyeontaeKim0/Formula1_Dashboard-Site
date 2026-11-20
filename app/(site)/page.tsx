@@ -1,6 +1,7 @@
 import RaceResults from "@/components/homePage/raceResults/RaceResults";
 import PodiumNew from "@/components/homePage/podiumSection/PodiumNew";
 import UpcomingRaceLink from "@/components/homePage/upcomingRaces/UpcomingRaceLink";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -8,7 +9,9 @@ export default function Home() {
       <UpcomingRaceLink />
 
       <div className="animate-slide-up mt-[40px] sm:mb-8">
-        <PodiumNew />
+        <Suspense fallback={<div>Loading...</div>}>
+          <PodiumNew />
+        </Suspense>
       </div>
 
       <div className="mt-[80px] min-w-0 animate-slide-in-left">
