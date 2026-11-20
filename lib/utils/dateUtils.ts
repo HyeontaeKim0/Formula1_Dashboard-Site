@@ -1,13 +1,13 @@
-// Jolpica 일정은 UTC(예: date "2026-11-20", time "00:30:00Z")로 내려온다.
-// 한국 시간(KST)으로 바꿔서 "2026-11-20 09:30 KST" 형태로 보여준다.
+// Jolpica 일정은 UTC(예: date "2026-03-06", time "01:30:00Z")로 내려온다.
+// 한국 시간으로 바꿔서 "3월 6일 (금) - 오전 10:30" 형태로 보여준다.
 const kstFormatter = new Intl.DateTimeFormat("ko-KR", {
   timeZone: "Asia/Seoul",
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-  hour: "2-digit",
+  month: "numeric",
+  day: "numeric",
+  weekday: "short",
+  hour: "numeric",
   minute: "2-digit",
-  hourCycle: "h23",
+  hourCycle: "h12",
 });
 
 export function formatKst(date?: string | null, time?: string | null): string {
@@ -22,5 +22,5 @@ export function formatKst(date?: string | null, time?: string | null): string {
   const parts = Object.fromEntries(
     kstFormatter.formatToParts(parsed).map((p) => [p.type, p.value]),
   );
-  return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute} KST`;
+  return `${parts.month}월 ${parts.day}일 (${parts.weekday}) - ${parts.dayPeriod} ${parts.hour}:${parts.minute}`;
 }

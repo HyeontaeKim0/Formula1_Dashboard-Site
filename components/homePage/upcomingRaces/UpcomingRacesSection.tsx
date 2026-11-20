@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { getNextRaces } from "@/lib/api/nextRacesApi/nextRacesApi";
 import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 import UpcomingRacesType from "./upcomingRacesType/UpcomingRacesType";
-import CircuitSection from "./components/circuit/CircuitSection";
 import HeaderSection from "./components/header/HeaderSection";
 export default function UpcomingRacesSection() {
   const [upcomingRacesApi, setUpcomingRacesApi] = useState<
@@ -32,14 +31,6 @@ export default function UpcomingRacesSection() {
           style={{ animationDelay: "0.1s" }}
         >
           <UpcomingRacesType
-            upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
-          />
-        </div>
-        <div
-          className="animate-slide-in-right"
-          style={{ animationDelay: "0.2s" }}
-        >
-          <CircuitSection
             upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
           />
         </div>

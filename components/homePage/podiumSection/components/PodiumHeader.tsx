@@ -1,5 +1,5 @@
-import { Trophy } from "lucide-react";
 import type { LastestMeeting } from "@/lib/api/lastestMeeting/lastestMeeting";
+import { getCountryFlagUrl } from "@/lib/utils/driverUtils";
 
 function isUaeChampionSeason(meeting: LastestMeeting | null) {
   return (
@@ -46,9 +46,6 @@ export default function PodiumHeader({
 }) {
   return (
     <div className="mb-3 flex min-w-0 items-center gap-3 sm:mb-5 sm:gap-4">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
-        <Trophy className="text-primary" size={24} />
-      </div>
       <div className="min-w-0">
         <h3 className="text-base font-extrabold tracking-tight text-gray-900 sm:text-xl">
           {getTitle(lastestMeeting, isLoading)}

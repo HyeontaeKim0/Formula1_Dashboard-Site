@@ -1,6 +1,6 @@
 import type { DriverResult } from "@/lib/types/types";
 import { getTeamLogoUrl } from "@/lib/utils/driverUtils";
-import { Trophy, Award, Clock, ChevronDown, ChevronUp } from "lucide-react";
+import { Clock, ChevronDown, ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import NotFound from "../../../common/notFound/NotFound";
 
@@ -49,18 +49,6 @@ function PositionBadge({
       >
         {displayPosition}
       </span>
-      {result.position === 1 && isNumericPosition && (
-        <Trophy
-          className={`${getPositionColor(result.position)} animate-pulse-slow`}
-          size={16}
-        />
-      )}
-      {result.position === 2 && isNumericPosition && (
-        <Award className={getPositionColor(result.position)} size={16} />
-      )}
-      {result.position === 3 && isNumericPosition && (
-        <Award className={getPositionColor(result.position)} size={16} />
-      )}
     </div>
   );
 }
@@ -190,7 +178,10 @@ function EmptyOrLoading({
   const content = isLoading ? (
     <NotFound text="결과 데이터 로딩 중..." type="loading" />
   ) : (
-    <NotFound text="경기 전이거나 없는 세션이에요. 데이터가 계속 안 보이면 잠시 후 다시 시도해주세요." type="notFound" />
+    <NotFound
+      text="경기 전이거나 없는 세션이에요. 데이터가 계속 안 보이면 잠시 후 다시 시도해주세요."
+      type="notFound"
+    />
   );
 
   if (mobile) {

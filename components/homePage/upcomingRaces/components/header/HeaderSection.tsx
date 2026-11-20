@@ -1,16 +1,14 @@
-import { Calendar } from "lucide-react";
 import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 export default function HeaderSection({
   upcomingRacesApi,
 }: {
   upcomingRacesApi: NextRacesResponse;
 }) {
+  console.log(upcomingRacesApi);
+
   return (
     <div className="mb-4 flex min-w-0 justify-between gap-4 sm:mb-6 md:flex-row md:items-center md:justify-between">
       <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
-          <Calendar className="text-primary" size={24} />
-        </div>
         <div className="min-w-0">
           <h3 className="text-base font-extrabold tracking-tight text-gray-900 sm:text-xl">
             다가오는 레이스
@@ -27,11 +25,6 @@ export default function HeaderSection({
             </p>
           )}
         </div>
-      </div>
-      <div className="flex min-w-0 flex-wrap items-center gap-2 sm:justify-end">
-        <span className="shrink-0 text-xs font-extrabold rounded-xl border border-primary/30 bg-primary/20 px-2.5 py-1 text-primary sm:px-3 sm:py-1.5">
-          {upcomingRacesApi?.round} 라운드
-        </span>
       </div>
     </div>
   );

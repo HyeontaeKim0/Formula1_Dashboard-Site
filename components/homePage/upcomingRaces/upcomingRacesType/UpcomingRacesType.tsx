@@ -5,6 +5,7 @@ import { Calendar, Flag, Play } from "lucide-react";
 import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 
 import RaceTypeList from "../components/raceType/RaceTypeList";
+import CircuitSection from "../components/circuit/CircuitSection";
 
 import type { RaceEvent } from "@/lib/types/types";
 
@@ -94,8 +95,8 @@ export default function UpcomingRacesType({
 
       <div className="relative w-full">
         {/* 헤더 섹션 */}
-
-        <RaceTypeList
+        <CircuitSection
+          upcomingRacesApi={upcomingRacesApi}
           freePractice1={freePractice1 || ([] as RaceEvent[])}
           freePractice2={freePractice2 || ([] as RaceEvent[])}
           freePractice3={freePractice3 || ([] as RaceEvent[])}

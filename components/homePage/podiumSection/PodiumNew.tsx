@@ -49,7 +49,7 @@ export default async function PodiumNew() {
   const podiumData = buildPodiumData(raceResult);
   return (
     <div className="relative w-full">
-      <PodiumHeader lastestMeeting={meeting} isLoading={false} />
+      {/* <PodiumHeader lastestMeeting={meeting} isLoading={false} /> */}
       <DriverCardSlider lastestMeeting={meeting} podiumData={podiumData} />
     </div>
   );
