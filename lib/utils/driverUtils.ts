@@ -354,6 +354,8 @@ export const getDriverChampionName = (driver_code: string) => {
       return "세르히오 페레즈";
     case "BOT":
       return "발테리 보타스";
+    case "CAM":
+      return "라파엘 카마라";
 
     default:
       return "";
