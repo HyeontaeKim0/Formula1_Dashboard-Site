@@ -1,20 +1,28 @@
 "use client";
 import { useState, useEffect } from "react";
 import { getNextRaces } from "@/lib/api/nextRacesApi/nextRacesApi";
-import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
+import type {
+  NextRacesResponse,
+  SeasonScheduleResponse,
+} from "@/lib/api/nextRacesApi/nextRacesApi";
 import UpcomingRacesType from "./upcomingRacesType/UpcomingRacesType";
 import HeaderSection from "./components/header/HeaderSection";
+import { getSeasonSchedule } from "@/lib/api/nextRacesApi/nextRacesApi";
+import AllSeasonSchedules from "@/components/schedulePage/allSeason/AllSeasonSchedules";
 export default function UpcomingRacesSection() {
   const [upcomingRacesApi, setUpcomingRacesApi] = useState<
     NextRacesResponse | undefined
   >(undefined);
-
+  const [seasonSchedule, setSeasonSchedule] = useState<
+    SeasonScheduleResponse | undefined
+  >(undefined);
   useEffect(() => {
     const fetchNextRaces = async () => {
       try {
         const nextRaces = await getNextRaces();
-
+        const seasonSchedule = await getSeasonSchedule();
         setUpcomingRacesApi(nextRaces);
+        setSeasonSchedule(seasonSchedule);
       } catch (error) {
         console.error("Failed to fetch next races:", error);
       }
@@ -34,6 +42,11 @@ export default function UpcomingRacesSection() {
             upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
           />
         </div>
+      </div>
+      <div className="mt-8">
+        {seasonSchedule && (
+          <AllSeasonSchedules seasonSchedule={seasonSchedule} />
+        )}
       </div>
     </div>
   );

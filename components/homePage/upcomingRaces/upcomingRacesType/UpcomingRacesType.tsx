@@ -4,7 +4,6 @@ import { Calendar, Flag, Play } from "lucide-react";
 
 import type { NextRacesResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 
-import RaceTypeList from "../components/raceType/RaceTypeList";
 import CircuitSection from "../components/circuit/CircuitSection";
 
 import type { RaceEvent } from "@/lib/types/types";

@@ -116,3 +116,9 @@ export interface Meeting {
   year: number;
 }
 
+export interface AllSeasonSchedule {
+  raceName: string;
+  circuitName: string;
+  date: string;
+  time: string;
+}

@@ -54,28 +54,53 @@ interface JolpicaSession {
   time?: string;
 }
 
+interface JolpicaRaceEntry {
+  season: string;
+  round: string;
+  raceName: string;
+  Circuit: JolpicaCircuit;
+  date: string;
+  time?: string;
+  FirstPractice?: JolpicaSession;
+  SecondPractice?: JolpicaSession;
+  ThirdPractice?: JolpicaSession;
+  Qualifying?: JolpicaSession;
+  Sprint?: JolpicaSession;
+  SprintQualifying?: JolpicaSession;
+  SprintShootout?: JolpicaSession;
+}
+
 interface JolpicaNextRace {
   RaceTable: {
-    Races: {
-      season: string;
-      round: string;
-      raceName: string;
-      Circuit: JolpicaCircuit;
-      date: string;
-      time?: string;
-      FirstPractice?: JolpicaSession;
-      SecondPractice?: JolpicaSession;
-      ThirdPractice?: JolpicaSession;
-      Qualifying?: JolpicaSession;
-      Sprint?: JolpicaSession;
-      SprintQualifying?: JolpicaSession;
-      SprintShootout?: JolpicaSession;
-    }[];
+    Races: JolpicaRaceEntry[];
   };
 }
 
 const toScheduleItem = (s?: JolpicaSession): ScheduleItem | null =>
   s ? { date: s.date, time: s.time ?? "" } : null;
+
+// Jolpica 레이스 한 건 → NextRaceItem (다음 레이스와 시즌 전체 일정이 같이 사용)
+function toNextRaceItem(race: JolpicaRaceEntry): NextRaceItem {
+  const base = toLegacyCircuit(race.Circuit);
+  // Jolpica에 없는 서킷 상세는 직접 관리하는 데이터에서 보충
+  const circuit: Circuit = { ...base, ...CIRCUIT_DETAILS[base.circuitId] };
+
+  return {
+    raceId: race.round,
+    raceName: race.raceName,
+    circuit,
+    country: circuit.country,
+    schedule: {
+      fp1: toScheduleItem(race.FirstPractice),
+      fp2: toScheduleItem(race.SecondPractice),
+      fp3: toScheduleItem(race.ThirdPractice),
+      qualy: toScheduleItem(race.Qualifying),
+      sprintQualy: toScheduleItem(race.SprintQualifying ?? race.SprintShootout),
+      sprintRace: toScheduleItem(race.Sprint),
+      race: toScheduleItem({ date: race.date, time: race.time }),
+    },
+  };
+}
 
 export async function getNextRaces(): Promise<NextRacesResponse> {
   try {
@@ -87,37 +112,35 @@ export async function getNextRaces(): Promise<NextRacesResponse> {
       throw new Error("No upcoming race available.");
     }
 
-    const base = toLegacyCircuit(race.Circuit);
-    // Jolpica에 없는 서킷 상세는 직접 관리하는 데이터에서 보충
-    const circuit: Circuit = { ...base, ...CIRCUIT_DETAILS[base.circuitId] };
-
     return {
       season: Number(race.season),
       round: Number(race.round),
-      race: [
-        {
-          raceId: race.round,
-          raceName: race.raceName,
-          circuit,
-          country: circuit.country,
-          schedule: {
-            fp1: toScheduleItem(race.FirstPractice),
-            fp2: toScheduleItem(race.SecondPractice),
-            fp3: toScheduleItem(race.ThirdPractice),
-            qualy: toScheduleItem(race.Qualifying),
-            sprintQualy: toScheduleItem(
-              race.SprintQualifying ?? race.SprintShootout
-            ),
-            sprintRace: toScheduleItem(race.Sprint),
-            race: toScheduleItem({ date: race.date, time: race.time }),
-          },
-        },
-      ],
+      race: [toNextRaceItem(race)],
     };
   } catch (error) {
     console.error("Error fetching next races:", error);
     throw error;
   }
+}
+
+export interface SeasonScheduleResponse {
+  season: number;
+  races: NextRaceItem[];
+}
+
+// 시즌 전체 일정 (라운드 순서). 요청 1회, 오류는 던진다(서버 컴포넌트에서 error.tsx가 처리)
+export async function getSeasonSchedule(): Promise<SeasonScheduleResponse> {
+  const data = await fetchJolpica<JolpicaNextRace>("current.json");
+  const races = data.RaceTable.Races;
+
+  if (races.length === 0) {
+    throw new Error("No season schedule available.");
+  }
+
+  return {
+    season: Number(races[0].season),
+    races: races.map(toNextRaceItem),
+  };
 }
 
 // 이전 타입과의 호환성을 위한 export

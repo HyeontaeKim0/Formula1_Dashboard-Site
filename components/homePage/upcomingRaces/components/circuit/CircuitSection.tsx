@@ -8,7 +8,7 @@ import {
   getCountryFlagUrl,
 } from "@/lib/utils/driverUtils";
 import Image from "next/image";
-import LayoutFormat from "@/components/common/layoutFormat/LayoutFormat";
+
 import RaceTypeList from "../raceType/RaceTypeList";
 
 export default function CircuitSection({
