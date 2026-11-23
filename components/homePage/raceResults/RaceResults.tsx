@@ -134,6 +134,7 @@ export default function RaceResults() {
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
+  // FP1 결과
   const practice1Results: DriverResult[] =
     freePractice1Result?.races?.fp1Results
       ?.map((result: any, index: number) => ({
@@ -150,6 +151,7 @@ export default function RaceResults() {
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
+  // FP2 결과
   const practice2Results: DriverResult[] =
     freePractice2Result?.races?.fp2Results
       ?.map((result: any, index: number) => ({
@@ -162,6 +164,7 @@ export default function RaceResults() {
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
+  // FP3 결과
   const practice3Results: DriverResult[] =
     freePractice3Result?.races?.fp3Results
       ?.map((result: any, index: number) => ({
@@ -174,25 +177,36 @@ export default function RaceResults() {
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
-  const practiceResults = practice1Results.map((result) => {
-    const practice2Result =
-      sprintResult === null
-        ? practice2Results.find(
-            (r) => r.driverNumber === result.driverNumber && r.time !== "",
-          )
-        : undefined;
-    const practice3Result =
-      sprintResult === null
-        ? practice3Results.find(
-            (r) => r.driverNumber === result.driverNumber && r.time !== "",
-          )
-        : undefined;
-    return {
-      ...result,
-      time2: practice2Result?.time,
-      time3: practice3Result?.time,
-    };
+  // FP1이 비어 있어도 FP2·FP3 드라이버가 빠지지 않게, 세 세션을 번호로 합친다.
+  // 해당 세션 기록이 없으면 칸은 "-"다.
+  const practiceByNumber = new Map<string, DriverResult>();
+  (
+    [
+      [practice1Results, "time"],
+      [practice2Results, "time2"],
+      [practice3Results, "time3"],
+    ] as const
+  ).forEach(([session, field]) => {
+    for (const result of session) {
+      const key = String(result.driverNumber);
+      if (!key) continue;
+
+      const current = practiceByNumber.get(key) ?? {
+        ...result,
+        driverNumber: key,
+        time: "-",
+        time2: "-",
+        time3: "-",
+        laps: result.laps ?? 0,
+        points: result.points ?? 0,
+        teamColor: result.teamColor || getTeamColor(Number(key)) || "",
+      };
+      current[field] = result.time || "-";
+      practiceByNumber.set(key, current);
+    }
   });
+
+  const practiceResults = [...practiceByNumber.values()];
 
   const currentResults =
     view === "race"

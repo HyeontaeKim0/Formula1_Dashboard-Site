@@ -84,6 +84,7 @@ import AmericaFlag from "@/assets/img/flag/America.png";
 import SpainFlag from "@/assets/img/flag/SpainFlag.svg";
 import MonacoFlag from "@/assets/img/flag/MonacoFlag.svg";
 import CanadaFlag from "@/assets/img/flag/CanadaFlag.png";
+import QatarFlag from "@/assets/img/flag/QatarFlag.svg";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
@@ -225,6 +226,8 @@ export const getCountryFlagUrl = (country_name: string) => {
       return MonacoFlag.src;
     case "Canada":
       return CanadaFlag.src;
+    case "Qatar":
+      return QatarFlag.src;
   }
 };
 
@@ -334,7 +337,7 @@ export const getDriverName = (driver_number: number | null | undefined) => {
       return "라파엘 카마라";
 
     default:
-      return driver_number.toString();
+      return "테스트 드라이버";
   }
 };
 
