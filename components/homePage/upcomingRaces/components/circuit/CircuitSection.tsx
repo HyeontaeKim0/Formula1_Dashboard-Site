@@ -97,7 +97,7 @@ export default function CircuitSection({
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-3 ">
+        <div className="flex items-center">
           <RaceTypeList
             freePractice1={freePractice1 || ([] as RaceEvent[])}
             freePractice2={freePractice2 || ([] as RaceEvent[])}

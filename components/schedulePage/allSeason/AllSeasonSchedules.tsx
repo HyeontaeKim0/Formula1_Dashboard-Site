@@ -20,7 +20,7 @@ export default function AllSeasonSchedules({
             key={race.raceId}
             className="border p-5 rounded-md flex flex-col items-center justify-between"
           >
-            <div className="w-full h-full">
+            <div className="w-full h-full flex items-center justify-center">
               <img
                 src={getCircuitImageUrl(race.circuit.circuitId)}
                 alt={race.circuit.circuitName}
@@ -29,15 +29,18 @@ export default function AllSeasonSchedules({
               />
             </div>
             <div className="w-full h-full mt-3">
-              <div>{race.raceName}</div>
-              <div> {getCircuitName(race.circuit.circuitId)}</div>
+              <div className="text-xl font-bold text-gray-500">
+                {race.raceName}
+              </div>
+              <div className="text-sm font-bold">
+                {getCircuitName(race.circuit.circuitId)}
+              </div>
               <div>
                 {formatKst(
                   race.schedule?.race?.date,
                   race.schedule?.race?.time,
                 )}
               </div>
-              <div>{race.schedule?.race?.time}</div>
             </div>
           </div>
         ))}

@@ -42,6 +42,12 @@ export default function UpcomingRacesSection() {
             upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
           />
         </div>
+        <div
+          className="lg:col-span-1 animate-slide-up"
+          style={{ animationDelay: "0.1s" }}
+        >
+          <div>임시 그리드</div>
+        </div>
       </div>
       <div className="mt-8">
         {seasonSchedule && (
