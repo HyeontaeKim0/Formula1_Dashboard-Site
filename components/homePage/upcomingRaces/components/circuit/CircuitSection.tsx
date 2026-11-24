@@ -84,7 +84,7 @@ export default function CircuitSection({
                   alt={circuit.circuitName}
                   width={100}
                   height={100}
-                  className="h-auto w-full max-w-[100px] object-contain drop-shadow-sm sm:max-w-[100px]"
+                  className="h-auto w-full max-w-[60px] object-contain drop-shadow-sm sm:max-w-[60px]"
                 />
               </div>
             ) : (

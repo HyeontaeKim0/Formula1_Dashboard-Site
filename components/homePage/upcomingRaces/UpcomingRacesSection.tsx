@@ -33,7 +33,7 @@ export default function UpcomingRacesSection() {
   return (
     <div>
       <HeaderSection upcomingRacesApi={upcomingRacesApi as NextRacesResponse} />
-      <div className="mb-4 mt-3 grid min-w-0 grid-cols-1 gap-4 sm:mb-6 sm:mt-4 sm:gap-6 lg:grid-cols-3 lg:gap-6">
+      <div className="grid min-w-0 grid-cols-1 gap-4 sm:mb-6 sm:mt-4 sm:gap-6 lg:grid-cols-3 lg:gap-6">
         <div
           className="lg:col-span-2 animate-slide-up"
           style={{ animationDelay: "0.1s" }}
@@ -42,11 +42,14 @@ export default function UpcomingRacesSection() {
             upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
           />
         </div>
+        {/* 다음다음레이스 섹션 */}
         <div
           className="lg:col-span-1 animate-slide-up"
           style={{ animationDelay: "0.1s" }}
         >
-          <div>임시 그리드</div>
+          <UpcomingRacesType
+            upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
+          />
         </div>
       </div>
       <div className="mt-8">
