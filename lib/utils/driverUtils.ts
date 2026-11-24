@@ -85,7 +85,7 @@ import SpainFlag from "@/assets/img/flag/SpainFlag.svg";
 import MonacoFlag from "@/assets/img/flag/MonacoFlag.svg";
 import CanadaFlag from "@/assets/img/flag/CanadaFlag.png";
 import QatarFlag from "@/assets/img/flag/QatarFlag.svg";
-import AbuDhabiFlag from "@/assets/img/flag/AbuDhabiFlag.png";
+import AbuDhabiFlag from "@/assets/img/flag/AbuDhabiFlag.svg";
 import AustriaFlag from "@/assets/img/flag/AustriaFlag.png";
 import ItalyFlag from "@/assets/img/flag/ItalyFlag.webp";
 import NetherlandsFlag from "@/assets/img/flag/NetherlandsFlag.webp";
