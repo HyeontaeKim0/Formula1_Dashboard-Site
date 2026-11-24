@@ -1,49 +1,10 @@
-import type {
-  NextRaceItem,
-  SeasonScheduleResponse,
-} from "@/lib/api/nextRacesApi/nextRacesApi";
+import type { SeasonScheduleResponse } from "@/lib/api/nextRacesApi/nextRacesApi";
 
-import { getCircuitImageUrl, getCircuitName } from "@/lib/utils/driverUtils";
-import { formatKst } from "@/lib/utils/dateUtils";
-
+import AllSeasonSchedulesCard from "./components/AllSeasonSchedulesCard";
 export default function AllSeasonSchedules({
   seasonSchedule,
 }: {
   seasonSchedule: SeasonScheduleResponse;
 }) {
-  return (
-    <div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {seasonSchedule.races.map((race: NextRaceItem) => (
-          <div
-            key={race.raceId}
-            className="border p-5 rounded-md flex flex-col items-center justify-between"
-          >
-            <div className="w-full h-full flex items-center justify-center">
-              <img
-                src={getCircuitImageUrl(race.circuit.circuitId)}
-                alt={race.circuit.circuitName}
-                width={100}
-                height={100}
-              />
-            </div>
-            <div className="w-full h-full mt-3">
-              <div className="text-xl font-bold text-gray-500">
-                {race.raceName}
-              </div>
-              <div className="text-sm font-bold">
-                {getCircuitName(race.circuit.circuitId)}
-              </div>
-              <div>
-                {formatKst(
-                  race.schedule?.race?.date,
-                  race.schedule?.race?.time,
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <AllSeasonSchedulesCard seasonSchedule={seasonSchedule} />;
 }

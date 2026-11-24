@@ -10,16 +10,20 @@ import { getSeasonSchedule } from "@/lib/api/nextRacesApi/nextRacesApi";
 import { findNextRace } from "@/lib/utils/scheduleUtils";
 import AllSeasonSchedules from "@/components/schedulePage/allSeason/AllSeasonSchedules";
 import NextNextRace from "./components/nextNextRace/NextNextRace";
+import ScheduleSkeleton from "@/components/schedulePage/ScheduleSkeleton";
 export default function UpcomingRacesSection() {
   const [seasonSchedule, setSeasonSchedule] = useState<
     SeasonScheduleResponse | undefined
   >(undefined);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchNextRaces = async () => {
       try {
         setSeasonSchedule(await getSeasonSchedule());
       } catch (error) {
         console.error("Failed to fetch next races:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchNextRaces();
@@ -35,6 +39,8 @@ export default function UpcomingRacesSection() {
           race: [nextRace],
         }
       : undefined;
+
+  if (isLoading) return <ScheduleSkeleton />;
 
   return (
     <div>

@@ -11,7 +11,7 @@ export default function ScheduleSkeleton() {
         <div className={`mt-2 h-4 w-52 ${bar}`} />
       </div>
 
-      <div className="mb-4 mt-3 grid min-w-0 grid-cols-1 gap-4 sm:mb-6 sm:mt-4 sm:gap-6 lg:grid-cols-3">
+      <div className="grid min-w-0 grid-cols-1 gap-4 sm:mb-6 sm:mt-4 sm:gap-6 lg:grid-cols-3">
         {/* 다음 레이스 카드 */}
         <div className="lg:col-span-2">
           <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-lg sm:rounded-3xl">
