@@ -20,8 +20,6 @@ export default function NextNextRace({
     (race) => race.raceId === nextRound,
   );
 
-  console.log("nextRace", nextRace);
-
   return (
     <div className="relative w-full h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg sm:rounded-3xl">
       {/* 백그라운드를 이미지로 채우기 위에 전체 투명도 50% 검은 배경 씌우기 */}
