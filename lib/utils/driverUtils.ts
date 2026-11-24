@@ -86,6 +86,17 @@ import MonacoFlag from "@/assets/img/flag/MonacoFlag.svg";
 import CanadaFlag from "@/assets/img/flag/CanadaFlag.png";
 import QatarFlag from "@/assets/img/flag/QatarFlag.svg";
 import AbuDhabiFlag from "@/assets/img/flag/AbuDhabiFlag.png";
+import AustriaFlag from "@/assets/img/flag/AustriaFlag.png";
+import ItalyFlag from "@/assets/img/flag/ItalyFlag.webp";
+import NetherlandsFlag from "@/assets/img/flag/NetherlandsFlag.webp";
+import SingaporeFlag from "@/assets/img/flag/SingaporeFlag.webp";
+import BelgiumFlag from "@/assets/img/flag/BelgiumFlag.jpg";
+import HungaryFlag from "@/assets/img/flag/HungaryFlag.webp";
+import MalaysiaFlag from "@/assets/img/flag/MalaysiaFlag.png";
+import MexicoFlag from "@/assets/img/flag/MexicoFlag.png";
+import AzerbaijanFlag from "@/assets/img/flag/AzerbaijanFlag.svg";
+import BrazilFlag from "@/assets/img/flag/BrazilFlag.webp";
+import UkFlag from "@/assets/img/flag/UKFlag.webp";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
@@ -230,6 +241,34 @@ export const getCountryFlagUrl = (country_name: string) => {
     case "Qatar":
       return QatarFlag.src;
     case "Abu Dhabi":
+      return AbuDhabiFlag.src;
+    case "Austria":
+      return AustriaFlag.src;
+    case "Italy":
+      return ItalyFlag.src;
+    case "Netherlands":
+      return NetherlandsFlag.src;
+    case "Singapore":
+      return SingaporeFlag.src;
+
+    case "Hungary":
+      return HungaryFlag.src;
+    case "Belgium":
+      return BelgiumFlag.src;
+    case "Japan":
+      return JapanFlag.src;
+
+    case "Malaysia":
+      return MalaysiaFlag.src;
+    case "Mexico":
+      return MexicoFlag.src;
+    case "Azerbaijan":
+      return AzerbaijanFlag.src;
+    case "Brazil":
+      return BrazilFlag.src;
+    case "United Kingdom":
+      return UkFlag.src;
+    case "United Arab Emirates":
       return AbuDhabiFlag.src;
   }
 };
