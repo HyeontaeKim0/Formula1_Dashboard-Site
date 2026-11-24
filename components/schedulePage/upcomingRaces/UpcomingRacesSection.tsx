@@ -9,6 +9,7 @@ import UpcomingRacesType from "./upcomingRacesType/UpcomingRacesType";
 import HeaderSection from "./components/header/HeaderSection";
 import { getSeasonSchedule } from "@/lib/api/nextRacesApi/nextRacesApi";
 import AllSeasonSchedules from "@/components/schedulePage/allSeason/AllSeasonSchedules";
+import NextNextRace from "./components/nextNextRace/NextNextRace";
 export default function UpcomingRacesSection() {
   const [upcomingRacesApi, setUpcomingRacesApi] = useState<
     NextRacesResponse | undefined
@@ -47,7 +48,8 @@ export default function UpcomingRacesSection() {
           className="lg:col-span-1 animate-slide-up"
           style={{ animationDelay: "0.1s" }}
         >
-          <UpcomingRacesType
+          <NextNextRace
+            seasonSchedule={seasonSchedule as SeasonScheduleResponse}
             upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
           />
         </div>

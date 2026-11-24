@@ -85,6 +85,7 @@ import SpainFlag from "@/assets/img/flag/SpainFlag.svg";
 import MonacoFlag from "@/assets/img/flag/MonacoFlag.svg";
 import CanadaFlag from "@/assets/img/flag/CanadaFlag.png";
 import QatarFlag from "@/assets/img/flag/QatarFlag.svg";
+import AbuDhabiFlag from "@/assets/img/flag/AbuDhabiFlag.png";
 
 export const getCircuitImageUrl = (circuit_name: string) => {
   switch (circuit_name) {
@@ -228,6 +229,8 @@ export const getCountryFlagUrl = (country_name: string) => {
       return CanadaFlag.src;
     case "Qatar":
       return QatarFlag.src;
+    case "Abu Dhabi":
+      return AbuDhabiFlag.src;
   }
 };
 

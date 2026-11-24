@@ -1,4 +1,4 @@
-import UpcomingRacesSection from "@/components/homePage/upcomingRaces/UpcomingRacesSection";
+import UpcomingRacesSection from "@/components/schedulePage/upcomingRaces/UpcomingRacesSection";
 
 export default function SchedulePage() {
   return (

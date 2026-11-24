@@ -107,8 +107,8 @@ export default function RaceTypeList({
 
     return (
       <div key={raceType.id} className="col-span-2 contents">
-        <span className="text-sm font-medium">{raceType.title}</span>
-        <span className="min-w-0 truncate text-xs text-gray-600 sm:text-sm">
+        <span className="text-sm font-medium text-white">{raceType.title}</span>
+        <span className="min-w-0 truncate text-xs text-white sm:text-sm">
           {formatKst(event?.date, event?.time)}
         </span>
       </div>

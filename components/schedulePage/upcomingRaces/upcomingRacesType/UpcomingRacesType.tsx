@@ -88,6 +88,8 @@ export default function UpcomingRacesType({
       type: "sprintQualy",
     })) || [];
 
+  console.log("upcomingRacesApi", upcomingRacesApi);
+
   return (
     <div>
       {/* 데이터가 없을 경우 */}
