@@ -2,7 +2,10 @@ import type {
   NextRacesResponse,
   SeasonScheduleResponse,
 } from "@/lib/api/nextRacesApi/nextRacesApi";
-import { getNextNextRaceImageUrl } from "@/lib/utils/scheduleUtils";
+import {
+  getDDayLabel,
+  getNextNextRaceImageUrl,
+} from "@/lib/utils/scheduleUtils";
 import { getCircuitName, getCountryFlagUrl } from "@/lib/utils/driverUtils";
 
 export default function NextNextRace({
@@ -49,7 +52,12 @@ export default function NextNextRace({
         </div>
         {/* 위치는 오른쪽 아래로 */}
         <div className="absolute bottom-6 right-6">
-          <div className="text-xl font-bold text-white">Next Race</div>
+          <div className="text-right text-3xl font-extrabold text-white">
+            {getDDayLabel(
+              nextRace?.schedule?.race?.date,
+              nextRace?.schedule?.race?.time,
+            )}
+          </div>
         </div>
       </div>
     </div>

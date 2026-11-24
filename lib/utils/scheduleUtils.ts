@@ -21,6 +21,26 @@ export function findNextRace(
   });
 }
 
+// 한국 날짜(KST) 기준 "YYYY-MM-DD"를 UTC 자정 시각(ms)으로 바꿔 날짜 차이를 정수로 계산하게 한다
+const kstDateFormatter = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Seoul",
+});
+const kstDayMs = (d: Date) => Date.parse(kstDateFormatter.format(d));
+
+// 화면에 보이는 한국 날짜 기준 D-day 라벨. 당일 "D-Day", 이전 "D-N", 이후 "D+N". 날짜가 없으면 "".
+export function getDDayLabel(
+  date?: string | null,
+  time?: string | null,
+  now: Date = new Date(),
+): string {
+  if (!date) return "";
+  const target = parseUtc(date, time ?? "00:00:00Z");
+  if (!target) return "";
+  const diff = Math.round((kstDayMs(target) - kstDayMs(now)) / 86_400_000);
+  if (diff === 0) return "D-Day";
+  return diff > 0 ? `D-${diff}` : `D+${-diff}`;
+}
+
 export function getNextNextRaceImageUrl(circuit_name: string) {
   switch (circuit_name) {
     case "yas_marina":
