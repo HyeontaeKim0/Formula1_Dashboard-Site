@@ -4,7 +4,6 @@ export default function HeaderSection({
 }: {
   upcomingRacesApi: NextRacesResponse;
 }) {
-  console.log(upcomingRacesApi);
 
   return (
     <div className="mb-4 flex min-w-0 justify-between gap-4 sm:mb-6 md:flex-row md:items-center md:justify-between">
