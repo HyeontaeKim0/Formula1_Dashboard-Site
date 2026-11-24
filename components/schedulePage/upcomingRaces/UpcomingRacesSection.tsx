@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { getNextRaces } from "@/lib/api/nextRacesApi/nextRacesApi";
 import type {
   NextRacesResponse,
   SeasonScheduleResponse,
@@ -8,28 +7,34 @@ import type {
 import UpcomingRacesType from "./upcomingRacesType/UpcomingRacesType";
 import HeaderSection from "./components/header/HeaderSection";
 import { getSeasonSchedule } from "@/lib/api/nextRacesApi/nextRacesApi";
+import { findNextRace } from "@/lib/utils/scheduleUtils";
 import AllSeasonSchedules from "@/components/schedulePage/allSeason/AllSeasonSchedules";
 import NextNextRace from "./components/nextNextRace/NextNextRace";
 export default function UpcomingRacesSection() {
-  const [upcomingRacesApi, setUpcomingRacesApi] = useState<
-    NextRacesResponse | undefined
-  >(undefined);
   const [seasonSchedule, setSeasonSchedule] = useState<
     SeasonScheduleResponse | undefined
   >(undefined);
   useEffect(() => {
     const fetchNextRaces = async () => {
       try {
-        const nextRaces = await getNextRaces();
-        const seasonSchedule = await getSeasonSchedule();
-        setUpcomingRacesApi(nextRaces);
-        setSeasonSchedule(seasonSchedule);
+        setSeasonSchedule(await getSeasonSchedule());
       } catch (error) {
         console.error("Failed to fetch next races:", error);
       }
     };
     fetchNextRaces();
   }, []);
+
+  // 다음 레이스는 시즌 전체 목록에서 고른다 (API를 따로 부르지 않음)
+  const nextRace = seasonSchedule && findNextRace(seasonSchedule.races);
+  const upcomingRacesApi: NextRacesResponse | undefined =
+    seasonSchedule && nextRace
+      ? {
+          season: seasonSchedule.season,
+          round: Number(nextRace.raceId),
+          race: [nextRace],
+        }
+      : undefined;
 
   return (
     <div>
