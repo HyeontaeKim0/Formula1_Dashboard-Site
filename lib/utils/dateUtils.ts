@@ -10,14 +10,20 @@ const kstFormatter = new Intl.DateTimeFormat("ko-KR", {
   hourCycle: "h12",
 });
 
+// Jolpica의 date·time을 Date로 바꾼다. 시간대 표기가 없으면 UTC로 간주한다
+// (없는 채로 파싱하면 실행 환경의 로컬 시간으로 해석됨). 잘못된 값이면 null.
+export function parseUtc(date: string, time: string): Date | null {
+  const iso = /(Z|[+-]\d{2}:?\d{2})$/.test(time) ? time : `${time}Z`;
+  const parsed = new Date(`${date}T${iso}`);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
 export function formatKst(date?: string | null, time?: string | null): string {
   if (!date) return "";
   if (!time) return date;
 
-  // 시간대 표기가 없으면 UTC로 간주한다 (없는 채로 파싱하면 실행 환경의 로컬 시간으로 해석됨)
-  const iso = /(Z|[+-]\d{2}:?\d{2})$/.test(time) ? time : `${time}Z`;
-  const parsed = new Date(`${date}T${iso}`);
-  if (Number.isNaN(parsed.getTime())) return `${date} ${time}`;
+  const parsed = parseUtc(date, time);
+  if (!parsed) return `${date} ${time}`;
 
   const parts = Object.fromEntries(
     kstFormatter.formatToParts(parsed).map((p) => [p.type, p.value]),
