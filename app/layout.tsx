@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Sans_KR, Archivo } from "next/font/google";
 import "@/app/globals.css";
 import Navbar from "@/components/common/navbar/Navbar";
 import Footer from "@/components/common/footer/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const plex = IBM_Plex_Sans_KR({
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false, // 한글은 글자 범위별로 나뉘어 내려오므로 선로딩하지 않는다
+  variable: "--font-sans",
+});
+// wdth 축이 있는 가변 글꼴: 숫자를 넓게(expanded) 보여줄 때 font-stretch를 쓴다
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  display: "swap",
+  variable: "--font-display",
+});
 
 export const metadata: Metadata = {
   title: "F1 Dashboard",
@@ -18,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={inter.className}>
+      <body className={`${plex.variable} ${archivo.variable} font-sans`}>
         <Navbar />
         <main className="min-h-screen min-w-0 overflow-x-hidden">
           {children}

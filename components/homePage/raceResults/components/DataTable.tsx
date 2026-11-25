@@ -1,6 +1,6 @@
 import type { DriverResult } from "@/lib/types/types";
 import { getDriverHeadshotUrl, getTeamLogoUrl } from "@/lib/utils/driverUtils";
-import { Clock, ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import NotFound from "../../../common/notFound/NotFound";
 
@@ -9,16 +9,7 @@ type ViewType = "practice" | "sprint" | "qualifying" | "race";
 const MOBILE_PREVIEW_LIMIT = 10;
 
 function getPositionColor(position: number) {
-  switch (position) {
-    case 1:
-      return "text-yellow-600";
-    case 2:
-      return "text-gray-600";
-    case 3:
-      return "text-orange-600";
-    default:
-      return "text-gray-600";
-  }
+  return position <= 3 ? "text-asphalt" : "text-muted";
 }
 
 function getTableHeaders(view: ViewType) {
@@ -45,7 +36,7 @@ function PositionBadge({
   return (
     <div className="flex items-center gap-1">
       <span
-        className={`text-sm font-bold sm:text-lg ${getPositionColor(result.position)}`}
+        className={`font-display text-2xl font-bold leading-none [font-stretch:125%] sm:text-3xl ${getPositionColor(result.position)}`}
       >
         {displayPosition}
       </span>
@@ -68,18 +59,18 @@ function DriverInfo({
     <div className="flex min-w-0 items-center gap-2">
       {result.teamColor && (
         <div
-          className={`w-1 shrink-0 rounded-full ${compact ? "h-8" : "h-10 sm:h-12"}`}
+          className={`w-1 shrink-0 rounded-none ${compact ? "h-8" : "h-10 sm:h-12"}`}
           style={{ backgroundColor: result.teamColor }}
         />
       )}
       <div className="min-w-0 flex-1">
         <div
-          className={`truncate font-semibold text-gray-900 ${compact ? "text-sm" : "text-xs sm:text-sm"}`}
+          className={`truncate font-semibold text-asphalt ${compact ? "text-sm" : "text-xs sm:text-sm"}`}
         >
           {result.driverName}
         </div>
         <div className="flex min-w-0 items-center gap-1.5">
-          <span className="truncate text-xs text-gray-500">{result.team}</span>
+          <span className="truncate text-xs text-muted">{result.team}</span>
           {logoUrl && (
             <img
               src={logoUrl}
@@ -95,11 +86,11 @@ function DriverInfo({
 
 function TimeStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg bg-gray-50 px-2 py-1.5 text-center">
-      <div className="text-[10px] font-bold uppercase text-gray-400">
+    <div className="px-1 py-1">
+      <div className="text-[10px] font-bold uppercase text-muted">
         {label}
       </div>
-      <div className="mt-0.5 font-mono text-xs font-medium text-gray-800">
+      <div className="mt-0.5 font-mono text-xs font-medium text-asphalt">
         {value || "-"}
       </div>
     </div>
@@ -119,7 +110,7 @@ function MobileResultCard({
   const driverImage = getDriverHeadshotUrl(result.driverCode || "");
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-4">
+    <div className="border-t border-rule py-4">
       <div className="flex items-start justify-between gap-2">
         <div className="flex min-w-0 flex-1 items-start gap-3">
           <div className="mt-0.5 shrink-0">
@@ -130,7 +121,7 @@ function MobileResultCard({
               <img
                 src={driverImage}
                 alt=""
-                className="h-8 w-8 shrink-0 object-contain rounded-full"
+                className="h-8 w-8 shrink-0 object-contain rounded-none"
               />
             </div>
           )}
@@ -141,16 +132,16 @@ function MobileResultCard({
             <img
               src={driverImage}
               alt=""
-              className="h-8 w-8 shrink-0 object-contain rounded-full"
+              className="h-8 w-8 shrink-0 object-contain rounded-none"
             />
           </div>
         )}
         {(view === "race" || view === "sprint") && (
           <div className="shrink-0 flex items-center gap-1">
-            <div className="text-lg font-bold text-primary">
+            <div className="font-display text-2xl font-bold [font-stretch:125%]">
               {result.points}
             </div>
-            <div className="text-[14px] font-medium text-gray-400">P</div>
+            <div className="text-[14px] font-medium text-muted">P</div>
           </div>
         )}
       </div>
@@ -174,12 +165,11 @@ function MobileResultCard({
       )}
 
       {(view === "race" || view === "sprint") && (
-        <div className="mt-3 flex items-center justify-between rounded-lg bg-white px-3 py-2">
-          <div className="flex items-center gap-1.5 text-xs text-gray-600">
-            <Clock size={13} className="text-gray-400" />
+        <div className="mt-2 flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-xs text-muted">
             <span className="font-mono font-medium">{result.time || "-"}</span>
           </div>
-          <span className="text-xs font-semibold text-gray-500">
+          <span className="text-xs font-semibold text-muted">
             {result.laps}랩
           </span>
         </div>
@@ -252,7 +242,7 @@ export default function DataTable({
           <EmptyOrLoading isLoading={isLoading} mobile />
         ) : (
           <>
-            <div className="space-y-3">
+            <div>
               {mobileResults.map((result, index) => (
                 <MobileResultCard
                   key={`mobile-${result.position}-${index}`}
@@ -265,7 +255,7 @@ export default function DataTable({
               <button
                 type="button"
                 onClick={() => setShowAllMobile((prev) => !prev)}
-                className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-white py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:border-primary/40 hover:text-primary"
+                className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-none border border-rule bg-white py-2.5 text-sm font-semibold text-muted transition-colors hover:border-asphalt hover:text-asphalt"
               >
                 {showAllMobile ? (
                   <>
@@ -289,11 +279,11 @@ export default function DataTable({
       <div className="hidden overflow-x-auto md:block md:-mx-6 md:px-6">
         <table className="w-full min-w-[480px] text-left">
           <thead>
-            <tr className="border-b border-gray-200">
+            <tr className="border-b border-rule">
               {headers.map((header) => (
                 <th
                   key={header}
-                  className={`whitespace-nowrap px-4 py-4 text-xs font-extrabold uppercase tracking-wider text-gray-400 ${
+                  className={`whitespace-nowrap px-4 py-4 text-xs font-semibold text-muted ${
                     header === "랩" || header === "포인트"
                       ? "text-center"
                       : "text-left"
@@ -318,7 +308,7 @@ export default function DataTable({
                 return (
                   <tr
                     key={`${result.position}-${index}`}
-                    className="relative border-b border-gray-200 transition-all duration-300"
+                    className="relative border-b border-rule transition-colors duration-200"
                     onMouseEnter={() => setHoveredRow(result.position)}
                     onMouseLeave={() => setHoveredRow(null)}
                   >
@@ -331,28 +321,24 @@ export default function DataTable({
                           <img
                             src={driverImage}
                             alt=""
-                            className="h-11 w-11 shrink-0 object-contain rounded-full"
+                            className="h-11 w-11 shrink-0 object-contain rounded-none"
                           />
                         </div>
                         <div className="flex min-w-0 items-center space-x-3">
                           {result.teamColor && (
                             <div
-                              className="h-12 w-1 shrink-0 rounded-full transition-all duration-300"
+                              className="h-12 w-1 shrink-0 rounded-none transition-colors duration-200"
                               style={{
                                 backgroundColor: result.teamColor,
-                                boxShadow:
-                                  hoveredRow === result.position
-                                    ? `0 0 15px ${result.teamColor}80`
-                                    : "none",
-                              }}
+                                }}
                             />
                           )}
                           <div className="min-w-0">
-                            <div className="truncate text-sm font-semibold text-gray-900">
+                            <div className="truncate text-sm font-semibold text-asphalt">
                               {result.driverName}
                             </div>
                             <div className="flex min-w-0 items-center gap-2">
-                              <span className="truncate text-sm text-gray-600">
+                              <span className="truncate text-sm text-muted">
                                 {result.team}
                               </span>
                               {getTeamLogoUrl(
@@ -375,10 +361,6 @@ export default function DataTable({
                       <>
                         <td className="px-2 py-4">
                           <div className="flex items-center gap-1">
-                            <Clock
-                              size={14}
-                              className="shrink-0 text-gray-400"
-                            />
                             <span className="font-mono text-sm">
                               {result.time || "-"}
                             </span>
@@ -386,10 +368,6 @@ export default function DataTable({
                         </td>
                         <td className="px-2 py-4">
                           <div className="flex items-center gap-1">
-                            <Clock
-                              size={14}
-                              className="shrink-0 text-gray-400"
-                            />
                             <span className="font-mono text-sm">
                               {result.time2 || "-"}
                             </span>
@@ -397,10 +375,6 @@ export default function DataTable({
                         </td>
                         <td className="px-2 py-4">
                           <div className="flex items-center gap-1">
-                            <Clock
-                              size={14}
-                              className="shrink-0 text-gray-400"
-                            />
                             <span className="font-mono text-sm">
                               {result.time3 || "-"}
                             </span>
@@ -411,17 +385,16 @@ export default function DataTable({
                       <>
                         <td className="px-4 py-4">
                           <div className="flex items-center gap-1.5">
-                            <Clock size={14} className="text-gray-400" />
                             <span className="font-mono text-sm">
                               {result.time || "-"}
                             </span>
                           </div>
                         </td>
-                        <td className="px-4 py-4 text-center text-sm font-semibold text-gray-700">
+                        <td className="px-4 py-4 text-center text-sm font-semibold text-muted">
                           {result.laps}
                         </td>
                         <td className="px-4 py-4 text-center">
-                          <span className="text-lg font-bold text-primary">
+                          <span className="font-display text-2xl font-bold [font-stretch:125%]">
                             {result.points}
                           </span>
                         </td>

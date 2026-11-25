@@ -9,7 +9,17 @@ const config: Config = {
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        // 한글 본문(IBM Plex Sans KR)과 숫자·영문 제목(Archivo). app/layout.tsx에서 불러옴
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
+      },
       colors: {
+        // 홈 디자인 시험용: 포인트색 없이 무채색 + 팀 색만 쓴다
+        paper: "#F7F7F5", // 페이지 배경
+        asphalt: "#202328", // 글자, 시상대 받침
+        rule: "#DADBDD", // 얇은 구분선
+        muted: "#6B6F76", // 보조 글자
         // 메인 액센트 색상 (F1 레드)
         primary: {
           DEFAULT: "#FF3B30",

@@ -230,7 +230,7 @@ export default function RaceResults() {
           <RacingTypeTabMenu view={view} setView={setView} />
         </div>
       </div>
-      <div className="relative min-w-0 overflow-hidden rounded-2xl p-2  sm:rounded-3xl sm:p-4 md:p-6">
+      <div className="relative min-w-0 overflow-hidden py-2 sm:py-4">
         <DataTable
           raceResults={currentResults}
           setHoveredRow={setHoveredRow}

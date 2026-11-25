@@ -807,7 +807,7 @@ export const getDriverImageUrl = (driver_number: number | null | undefined) => {
   switch (driver_number) {
     case 3:
     case 33:
-      return MaxVerstappen_podium.src;
+      return MaxVerstappen.src;
     case 22:
       return YukiTsunoda_podium.src;
     case 12:
@@ -816,9 +816,9 @@ export const getDriverImageUrl = (driver_number: number | null | undefined) => {
       return GeorgeRussell_podium.src;
     case 1:
     case 4:
-      return LandoNorris_podium.src;
+      return LandoNorris.src;
     case 81:
-      return OscarPiastri_podium.src;
+      return OscarPiastri.src;
     case 55:
       return CarlosSainz_podium.src;
     case 23:

@@ -10,7 +10,7 @@ import {
   getDriverImageUrl,
 } from "@/lib/utils/driverUtils";
 import DriverCardSlider from "@/components/homePage/podiumSection/components/DriverCardSlider";
-import PodiumHeader from "@/components/homePage/podiumSection/components/PodiumHeader";
+import PodiumStage from "@/components/homePage/podiumSection/components/PodiumStage";
 
 function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
   const podiumDrivers =
@@ -32,6 +32,7 @@ function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
       position: driver.position,
       driverName: driver.driver?.surname || "",
       driverCode: driver.driver?.shortName || driverNumber?.toString() || "",
+      driverNumber,
       team: driver.team?.teamName || "",
       teamColor: getTeamColor(driverNumber),
       imageUrl: getDriverImageUrl(driverNumber),
@@ -41,12 +42,28 @@ function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
   });
 }
 
+function isUaeChampionSeason(meeting: LastestMeeting | null) {
+  return (
+    meeting?.winner !== null &&
+    meeting?.circuit?.country === "United Arab Emirates" &&
+    meeting?.season === new Date().getFullYear()
+  );
+}
+
 export default async function PodiumNew() {
   const [meeting, raceResult] = await Promise.all([
     fetchLastestMeeting(),
     fetchLastRaceResult(),
   ]);
   const podiumData = buildPodiumData(raceResult);
+  // 일정 취소·챔피언 시즌·데이터 없음은 기존 슬라이더 컴포넌트가 안내 화면을 맡는다
+  const isNormal =
+    podiumData.length > 0 &&
+    !(meeting != null && meeting.winner === null) &&
+    !isUaeChampionSeason(meeting);
+  if (isNormal) {
+    return <PodiumStage podiumData={podiumData} />;
+  }
   return (
     <div className="relative w-full">
       {/* <PodiumHeader lastestMeeting={meeting} isLoading={false} /> */}

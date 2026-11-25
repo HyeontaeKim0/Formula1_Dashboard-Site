@@ -23,7 +23,7 @@ export default function RacingTypeTabMenu({
           value={view}
           onChange={(e) => setView(e.target.value as ViewType)}
           aria-label="결과 유형"
-          className="w-full appearance-none rounded-2xl border border-gray-200 bg-white px-4 py-3 pr-10 text-sm font-semibold text-gray-900 shadow-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+          className="w-full appearance-none border border-rule bg-white px-4 py-3 pr-10 text-sm font-semibold text-asphalt focus:border-asphalt focus:outline-none"
         >
           {tabs.map((tab) => (
             <option key={tab.id} value={tab.id}>
@@ -32,7 +32,7 @@ export default function RacingTypeTabMenu({
           ))}
         </select>
         <ChevronDown
-          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted"
           size={18}
           aria-hidden
         />
@@ -41,7 +41,7 @@ export default function RacingTypeTabMenu({
       <div
         role="tablist"
         aria-label="결과 유형"
-        className="hidden w-auto min-w-0 gap-1 rounded-2xl border border-gray-200 bg-gray-100 p-1 md:flex md:flex-nowrap"
+        className="hidden w-auto min-w-0 gap-6 border-b border-rule md:flex md:flex-nowrap"
       >
         {tabs.map((tab) => {
           const isActive = view === tab.id;
@@ -53,10 +53,10 @@ export default function RacingTypeTabMenu({
               role="tab"
               aria-selected={isActive}
               onClick={() => setView(tab.id)}
-              className={`min-h-[40px] rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-300 ${
+              className={`-mb-px min-h-[40px] border-b-2 px-1 pb-2 text-sm font-semibold transition-colors duration-200 ${
                 isActive
-                  ? "bg-primary text-white shadow-lg"
-                  : "text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                  ? "border-asphalt text-asphalt"
+                  : "border-transparent text-muted hover:text-asphalt"
               }`}
             >
               {tab.label}

@@ -112,7 +112,7 @@ export default function UpcomingRaceLink() {
   return (
     <Link
       href="/schedule"
-      className="group relative -mx-3 mb-3 block min-w-0 overflow-hidden border-b sm:-mx-4 sm:mb-4"
+      className="group relative -mx-3 mb-3 block min-w-0 overflow-hidden border-b border-rule sm:-mx-4 sm:mb-4"
     >
       <div className="px-4 py-2 sm:px-5">
         {isLoading ? (
@@ -125,11 +125,10 @@ export default function UpcomingRaceLink() {
           </div>
         ) : (
           <>
-            <div className="mb-2 flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-neutral-700 sm:text-xs">
+            <div className="mb-1 flex items-center gap-3 text-sm text-muted">
               <span>{roundLabel}</span>
               {dateRange && (
                 <>
-                  <span className="text-neutral-700">|</span>
                   <span>{dateRange}</span>
                 </>
               )}
@@ -142,15 +141,15 @@ export default function UpcomingRaceLink() {
                   width={20}
                   height={20}
                   alt={circuit?.country ?? ""}
-                  className="h-5 w-5 shrink-0 rounded-full object-cover ring-1 ring-neutral-200"
+                  className="h-5 w-5 shrink-0 rounded-sm object-cover"
                 />
               )}
               <div className="flex min-w-0 items-center gap-1">
-                <span className="truncate text-lg font-black uppercase leading-none tracking-tight text-neutral-700 sm:text-xl">
+                <span className="truncate font-display text-xl font-semibold leading-tight text-asphalt sm:text-2xl">
                   {circuitLabel}
                 </span>
                 <ChevronRight
-                  className="shrink-0 text-neutral-700 transition-transform duration-300 group-hover:translate-x-0.5"
+                  className="shrink-0 text-asphalt transition-transform duration-300 group-hover:translate-x-0.5"
                   size={16}
                   strokeWidth={2.5}
                 />

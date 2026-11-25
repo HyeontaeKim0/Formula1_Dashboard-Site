@@ -2,6 +2,7 @@ export interface PodiumDriver {
   position: number;
   driverName: string;
   driverCode: string;
+  driverNumber?: number | string;
   team: string;
   teamColor?: string;
   imageUrl?: string;
