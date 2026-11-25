@@ -312,7 +312,9 @@ export default function DataTable({
                 const typedResult = result as DriverResult & {
                   originalPosition?: number | string;
                 };
-
+                const driverImage = getDriverHeadshotUrl(
+                  result.driverCode || "",
+                );
                 return (
                   <tr
                     key={`${result.position}-${index}`}
@@ -324,38 +326,47 @@ export default function DataTable({
                       <PositionBadge result={typedResult} />
                     </td>
                     <td className="min-w-0 px-4 py-4">
-                      <div className="flex min-w-0 items-center space-x-3">
-                        {result.teamColor && (
-                          <div
-                            className="h-12 w-1 shrink-0 rounded-full transition-all duration-300"
-                            style={{
-                              backgroundColor: result.teamColor,
-                              boxShadow:
-                                hoveredRow === result.position
-                                  ? `0 0 15px ${result.teamColor}80`
-                                  : "none",
-                            }}
+                      <div className="flex items-center gap-3">
+                        <div className="shrink-0">
+                          <img
+                            src={driverImage}
+                            alt=""
+                            className="h-11 w-11 shrink-0 object-contain rounded-full"
                           />
-                        )}
-                        <div className="min-w-0">
-                          <div className="truncate text-sm font-semibold text-gray-900">
-                            {result.driverName}
-                          </div>
-                          <div className="flex min-w-0 items-center gap-2">
-                            <span className="truncate text-sm text-gray-600">
-                              {result.team}
-                            </span>
-                            {getTeamLogoUrl(
-                              Number(result.driverNumber || "0"),
-                            ) && (
-                              <img
-                                src={getTeamLogoUrl(
-                                  Number(result.driverNumber || "0"),
-                                )}
-                                alt=""
-                                className="h-[23px] w-[23px] object-contain"
-                              />
-                            )}
+                        </div>
+                        <div className="flex min-w-0 items-center space-x-3">
+                          {result.teamColor && (
+                            <div
+                              className="h-12 w-1 shrink-0 rounded-full transition-all duration-300"
+                              style={{
+                                backgroundColor: result.teamColor,
+                                boxShadow:
+                                  hoveredRow === result.position
+                                    ? `0 0 15px ${result.teamColor}80`
+                                    : "none",
+                              }}
+                            />
+                          )}
+                          <div className="min-w-0">
+                            <div className="truncate text-sm font-semibold text-gray-900">
+                              {result.driverName}
+                            </div>
+                            <div className="flex min-w-0 items-center gap-2">
+                              <span className="truncate text-sm text-gray-600">
+                                {result.team}
+                              </span>
+                              {getTeamLogoUrl(
+                                Number(result.driverNumber || "0"),
+                              ) && (
+                                <img
+                                  src={getTeamLogoUrl(
+                                    Number(result.driverNumber || "0"),
+                                  )}
+                                  alt=""
+                                  className="h-[23px] w-[23px] object-contain"
+                                />
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
