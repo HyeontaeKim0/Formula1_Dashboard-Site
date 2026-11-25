@@ -1,5 +1,5 @@
 import type { DriverResult } from "@/lib/types/types";
-import { getTeamLogoUrl } from "@/lib/utils/driverUtils";
+import { getDriverHeadshotUrl, getTeamLogoUrl } from "@/lib/utils/driverUtils";
 import { Clock, ChevronDown, ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import NotFound from "../../../common/notFound/NotFound";
@@ -62,6 +62,8 @@ function DriverInfo({
 }) {
   const logoUrl = getTeamLogoUrl(Number(result.driverNumber || "0"));
 
+  console.log(result);
+
   return (
     <div className="flex min-w-0 items-center gap-2">
       {result.teamColor && (
@@ -114,6 +116,7 @@ function MobileResultCard({
   const typedResult = result as DriverResult & {
     originalPosition?: number | string;
   };
+  const driverImage = getDriverHeadshotUrl(result.driverCode || "");
 
   return (
     <div className="rounded-xl border border-gray-200 bg-gray-50/50 p-4">
@@ -122,8 +125,26 @@ function MobileResultCard({
           <div className="mt-0.5 shrink-0">
             <PositionBadge result={typedResult} />
           </div>
+          {view === "race" && (
+            <div className="shrink-0">
+              <img
+                src={driverImage}
+                alt=""
+                className="h-8 w-8 shrink-0 object-contain rounded-full"
+              />
+            </div>
+          )}
           <DriverInfo result={result} compact />
         </div>
+        {(view === "qualifying" || view === "practice") && (
+          <div className="shrink-0">
+            <img
+              src={driverImage}
+              alt=""
+              className="h-8 w-8 shrink-0 object-contain rounded-full"
+            />
+          </div>
+        )}
         {(view === "race" || view === "sprint") && (
           <div className="shrink-0 flex items-center gap-1">
             <div className="text-lg font-bold text-primary">
@@ -133,21 +154,22 @@ function MobileResultCard({
           </div>
         )}
       </div>
-
       {(view === "qualifying" || view === "practice") && (
-        <div className="mt-3 grid grid-cols-3 gap-1.5">
-          <TimeStat
-            label={view === "practice" ? "FP1" : "Q1"}
-            value={result.time}
-          />
-          <TimeStat
-            label={view === "practice" ? "FP2" : "Q2"}
-            value={result.time2 || ""}
-          />
-          <TimeStat
-            label={view === "practice" ? "FP3" : "Q3"}
-            value={result.time3 || ""}
-          />
+        <div>
+          <div className="mt-3 grid grid-cols-3">
+            <TimeStat
+              label={view === "practice" ? "FP1" : "Q1"}
+              value={result.time}
+            />
+            <TimeStat
+              label={view === "practice" ? "FP2" : "Q2"}
+              value={result.time2 || ""}
+            />
+            <TimeStat
+              label={view === "practice" ? "FP3" : "Q3"}
+              value={result.time3 || ""}
+            />
+          </div>
         </div>
       )}
 

@@ -27,7 +27,7 @@ export default function NextNextRace({
     <div className="relative w-full h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg sm:rounded-3xl">
       {/* 백그라운드를 이미지로 채우기 위에 전체 투명도 50% 검은 배경 씌우기 */}
       <div
-        className="absolute top-0 p-5  left-0 w-full h-full bg-cover bg-center "
+        className="top-0 p-5  left-0 w-full h-full bg-cover bg-center "
         style={{
           backgroundImage: `url(${getNextNextRaceImageUrl(nextRace?.circuit.circuitId ?? "")})`,
           backgroundColor: "rgba(0, 0, 0, 0.6)",

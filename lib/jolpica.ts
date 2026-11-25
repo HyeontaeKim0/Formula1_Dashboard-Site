@@ -38,7 +38,9 @@ export interface JolpicaConstructor {
 }
 
 export async function fetchJolpica<T>(path: string): Promise<T> {
+  // Jolpica(Cloudflare)는 User-Agent가 없는 Node 기본 요청에 403을 준다. 브라우저·curl은 UA가 있어서 통과한다.
   const response = await fetch(`${JOLPICA_BASE_URL}/${path}`, {
+    headers: { "User-Agent": "f1-dashboard" },
     next: { revalidate: 3600 },
   });
   if (!response.ok) {

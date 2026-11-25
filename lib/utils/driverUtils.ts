@@ -48,6 +48,30 @@ import LiamLawson_podium from "@/assets/img/driverProfile/RacingBulls/lowson.web
 
 // 드라이버 프로필 샷
 import KimiAntonelli from "@/assets/img/driverProfile/Mercedes/Kimi_26.webp";
+import MaxVerstappen from "@/assets/img/driverProfile/RedBull/max2.webp";
+import YukiTsunoda from "@/assets/img/driverProfile/RedBull/yuki.webp";
+import GeorgeRussell from "@/assets/img/driverProfile/Mercedes/george2.webp";
+import LandoNorris from "@/assets/img/driverProfile/McLaren/lando.webp";
+import OscarPiastri from "@/assets/img/driverProfile/McLaren/piastri.webp";
+import CarlosSainz from "@/assets/img/driverProfile/Williams/sainz.webp";
+import AlexAlbon from "@/assets/img/driverProfile/Williams/albon.webp";
+import LewisHamilton from "@/assets/img/driverProfile/Ferrari/Hamilton_26.webp";
+import CharlesLeclerc from "@/assets/img/driverProfile/Ferrari/leclerc.webp";
+import FernandoAlonso from "@/assets/img/driverProfile/AstonMartin/fernando.webp";
+import LanceStroll from "@/assets/img/driverProfile/AstonMartin/stroll.webp";
+import EstebanOcon from "@/assets/img/driverProfile/Haas/ocon.webp";
+import OliverBearman from "@/assets/img/driverProfile/Haas/oliver2.webp";
+import GabrielBortoleto from "@/assets/img/driverProfile/KickSauber/gabriel2.webp";
+import NicoHulkenberg from "@/assets/img/driverProfile/KickSauber/niko2.webp";
+import PierreGasly from "@/assets/img/driverProfile/Alpine/gasly3.webp";
+import FrancoColapinto from "@/assets/img/driverProfile/Alpine/franco3.webp";
+import IsackHadjar from "@/assets/img/driverProfile/RedBull/Isak_26.webp";
+import LiamLawson from "@/assets/img/driverProfile/RacingBulls/lowson.webp";
+import Lindblad from "@/assets/img/driverProfile/RacingBulls/Lind.webp";
+import Perez from "@/assets/img/driverProfile/Cadillac/Perez2.webp";
+import Bottas from "@/assets/img/driverProfile/Cadillac/Bottas2.webp";
+import Kamara from "@/assets/img/driverProfile/Haas/kamara.webp";
+import Lind from "@/assets/img/driverProfile/RacingBulls/Lind.webp";
 
 // 모든 서킷 이미지 (OpenF1 위치 데이터로 만든 윤곽 SVG, 2026 시즌 23곡)
 import AlbertParkCircuit from "@/assets/img/circuit/albert_park.svg";
@@ -695,59 +719,86 @@ export const getConstructorTeamName = (team_name: string) => {
   }
 };
 
-// export const getDriverHeadshotUrl = (driver_code: string) => {
-//   switch (driver_code) {
-//     case "VER":
-//       return MaxVerstappen.src;
-//     case "TSU":
-//       return YukiTsunoda.src;
-//     case "ANT":
-//       return KimiAntonelli.src;
-//     case "RUS":
-//       return GeorgeRussell.src;
-//     case "NOR":
-//       return LandoNorris.src;
-//     case "PIA":
-//       return OscarPiastri.src;
-//     case "SAI":
-//       return CarlosSainz.src;
-//     case "ALB":
-//       return AlexAlbon.src;
-//     case "HAM":
-//       return LewisHamilton.src;
-//     case "LEC":
-//     case "leclerc":
-//       return CharlesLeclerc.src;
-//     case "ALO":
-//       return FernandoAlonso.src;
-//     case "STR":
-//       return LanceStroll.src;
-//     case "OCO":
-//       return EstebanOcon.src;
-//     case "BEA":
-//       return OliverBearman.src;
-//     case "BOR":
-//       return GabrielBortoleto.src;
-//     case "HUL":
-//       return NicoHulkenberg.src;
-//     case "GAS":
-//       return PierreGasly.src;
-//     case "COL":
-//       return FrancoColapinto.src;
-//     case "HAD":
-//       return IsackHadjar.src;
-//     case "LAW":
-//       return LiamLawson.src;
-//     case "LIN":
-//       return Lindblad.src;
-//     case "PER":
-//       return Perez.src;
-//     case "BOT":
-//       return Bottas.src;
-//     default:
-//       return "";
-//   }
-// };
+export const getDriverHeadshotUrl = (driver_code: string) => {
+  switch (driver_code) {
+    case "max_verstappen":
+    case "VER":
+      return MaxVerstappen.src;
+    case "TSU":
+      return YukiTsunoda.src;
+    case "antonelli":
+    case "ANT":
+      return KimiAntonelli.src;
+    case "russell":
+    case "RUS":
+      return GeorgeRussell.src;
+    case "norris":
+    case "NOR":
+      return LandoNorris.src;
+    case "piastri":
+    case "PIA":
+      return OscarPiastri.src;
+    case "sainz":
+    case "SAI":
+      return CarlosSainz.src;
+    case "albon":
+    case "ALB":
+      return AlexAlbon.src;
+    case "hamilton":
+    case "44":
+      return LewisHamilton.src;
+    case "LEC":
+    case "leclerc":
+      return CharlesLeclerc.src;
+    case "alonso":
+    case "14":
+      return FernandoAlonso.src;
+    case "stroll":
+    case "STR":
+      return LanceStroll.src;
+    case "ocon":
+    case "OCO":
+      return EstebanOcon.src;
+    case "bearman":
+    case "87":
+      return OliverBearman.src;
+    case "bortoleto":
+    case "BOR":
+      return GabrielBortoleto.src;
+    case "hulkenberg":
+    case "HUL":
+      return NicoHulkenberg.src;
+    case "gasly":
+    case "GAS":
+      return PierreGasly.src;
+    case "colapinto":
+    case "COL":
+      return FrancoColapinto.src;
+    case "hadjar":
+    case "HAD":
+      return IsackHadjar.src;
+    case "lawson":
+    case "LAW":
+      return LiamLawson.src;
+    case "lindblad":
+    case "LIN":
+      return Lindblad.src;
+    case "perez":
+    case "PER":
+      return Perez.src;
+    case "bottas":
+    case "BOT":
+      return Bottas.src;
+    case "rafael_camara":
+    case "CAM":
+      return Kamara.src;
+    case "arvid_lindblad":
+    case "LIN":
+      return Lind.src;
+    default:
+      return "";
+  }
+};
 
 export const getDriverImageUrl = (driver_number: number | null | undefined) => {
   if (driver_number == null) {

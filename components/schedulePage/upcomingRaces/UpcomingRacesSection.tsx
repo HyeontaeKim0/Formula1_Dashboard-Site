@@ -65,7 +65,7 @@ export default function UpcomingRacesSection() {
           />
         </div>
       </div>
-      <div className="mt-8">
+      <div className="mt-8 lg:col-span-1 animate-slide-up">
         {seasonSchedule && (
           <AllSeasonSchedules seasonSchedule={seasonSchedule} />
         )}
