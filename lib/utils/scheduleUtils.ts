@@ -1,7 +1,7 @@
 import type { NextRaceItem } from "@/lib/api/nextRacesApi/nextRacesApi";
 import { parseUtc } from "./dateUtils";
 
-import AbuDhabiPicture from "@/assets/img/gp/Abu_Dhabi.jpg";
+import AbuDhabiPicture from "@/assets/img/gp/Abu_Dhabi.webp";
 import LosailPicture from "@/assets/img/gp/Losail.webp";
 
 // 레이스 시작 후 이 시간까지는 아직 "다음 레이스"로 본다 (진행 중인 레이스가 바로 사라지지 않게)
