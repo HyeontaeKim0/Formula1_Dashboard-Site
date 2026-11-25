@@ -23,7 +23,7 @@ export default function AllSeasonSchedulesCard({
         {seasonSchedule.races.map((race: NextRaceItem) => (
           <div
             key={race.raceId}
-            className="flex items-center justify-between gap-4 border-b border-rule py-4"
+            className="flex items-center justify-between gap-4 border-b border-rule py-4 mx-4 sm:mx-10"
           >
             <div className="flex min-w-0 items-center gap-4">
               <span className="w-10 shrink-0 font-display text-3xl font-bold leading-none [font-stretch:125%] text-asphalt">
