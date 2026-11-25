@@ -43,7 +43,7 @@ export default function CircuitSection({
 
   return (
     <div
-      className=" relative overflow-hidden rounded-2xl border p-6  border-gray-200 bg-white shadow-lg sm:rounded-3xl "
+      className="relative overflow-hidden p-6 sm:p-8"
       style={{
         // 이미지 중심점 기준으로 채우기
         backgroundPosition: "center",
@@ -69,7 +69,7 @@ export default function CircuitSection({
           <div className="min-w-0">
             {isAvailable ? (
               <>
-                <p className="truncate text-base font-bold leading-tight text-white sm:text-lg">
+                <p className="truncate text-xl font-bold leading-tight text-white sm:text-3xl">
                   {getCircuitName(circuit.circuitId) || circuit.circuitName}
                 </p>
                 <p className="truncate text-xs font-medium text-white">

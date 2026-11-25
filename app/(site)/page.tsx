@@ -5,22 +5,22 @@ import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <div className="container mx-auto min-w-0 px-3 py-1 animate-fade-in sm:px-4 sm:py-2 md:py-2 lg:px-4 lg:py-2">
+    <div className="container mx-auto min-w-0 px-3 py-1 sm:px-4 sm:py-2 md:py-2 lg:px-4 lg:py-2">
       <UpcomingRaceLink />
 
-      <div className="animate-slide-up mt-[40px] sm:mb-8">
+      <div className="mt-[40px] sm:mb-8">
         <Suspense fallback={<div>Loading...</div>}>
           <PodiumNew />
         </Suspense>
       </div>
 
-      <div className="mt-[80px] min-w-0 animate-slide-in-left">
+      <div className="mt-[80px] min-w-0">
         <RaceResults />
       </div>
 
       <div
         id="news"
-        className="mt-[80px] min-w-0 scroll-mt-20 animate-fade-in sm:px-[1%]"
+        className="mt-[80px] min-w-0 scroll-mt-20 sm:px-[1%]"
       ></div>
     </div>
   );

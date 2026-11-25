@@ -47,8 +47,7 @@ export default function UpcomingRacesSection() {
       <HeaderSection upcomingRacesApi={upcomingRacesApi as NextRacesResponse} />
       <div className="grid min-w-0 grid-cols-1 gap-4 sm:mb-6 sm:mt-4 sm:gap-6 lg:grid-cols-3 lg:gap-6">
         <div
-          className="lg:col-span-2 animate-slide-up"
-          style={{ animationDelay: "0.1s" }}
+          className="lg:col-span-2"
         >
           <UpcomingRacesType
             upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
@@ -56,8 +55,7 @@ export default function UpcomingRacesSection() {
         </div>
         {/* 다음다음레이스 섹션 */}
         <div
-          className="lg:col-span-1 animate-slide-up"
-          style={{ animationDelay: "0.1s" }}
+          className="lg:col-span-1"
         >
           <NextNextRace
             seasonSchedule={seasonSchedule as SeasonScheduleResponse}
@@ -65,7 +63,7 @@ export default function UpcomingRacesSection() {
           />
         </div>
       </div>
-      <div className="mt-8 lg:col-span-1 animate-slide-up">
+      <div className="mt-10">
         {seasonSchedule && (
           <AllSeasonSchedules seasonSchedule={seasonSchedule} />
         )}

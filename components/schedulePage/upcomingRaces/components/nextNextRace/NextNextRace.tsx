@@ -24,10 +24,10 @@ export default function NextNextRace({
   );
 
   return (
-    <div className="relative w-full h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg sm:rounded-3xl">
+    <div className="relative h-full min-h-[200px] w-full overflow-hidden">
       {/* 백그라운드를 이미지로 채우기 위에 전체 투명도 50% 검은 배경 씌우기 */}
       <div
-        className="top-0 p-5  left-0 w-full h-full bg-cover bg-center "
+        className="left-0 top-0 h-full min-h-[200px] w-full bg-cover bg-center p-5 sm:p-6"
         style={{
           backgroundImage: `url(${getNextNextRaceImageUrl(nextRace?.circuit.circuitId ?? "")})`,
           backgroundColor: "rgba(0, 0, 0, 0.6)",
@@ -44,7 +44,7 @@ export default function NextNextRace({
             />
           </div>
           <div>
-            <div className="text-xl font-bold text-white">
+            <div className="text-xl font-bold text-white sm:text-2xl">
               {getCircuitName(nextRace?.circuit.circuitId ?? "")}
             </div>
             <div className="text-xs  text-white">{nextRace?.raceName}</div>
@@ -52,7 +52,7 @@ export default function NextNextRace({
         </div>
         {/* 위치는 오른쪽 아래로 */}
         <div className="absolute bottom-6 right-6">
-          <div className="text-right text-3xl font-extrabold text-white">
+          <div className="text-right font-display text-5xl font-extrabold leading-none text-white [font-stretch:125%] sm:text-6xl">
             {getDDayLabel(
               nextRace?.schedule?.race?.date,
               nextRace?.schedule?.race?.time,

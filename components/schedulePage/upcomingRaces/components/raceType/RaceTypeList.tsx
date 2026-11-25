@@ -90,15 +90,15 @@ export default function RaceTypeList({
     if (!hasDate) {
       return (
         <div key={raceType.id} className="col-span-2 mt-2 sm:mt-3">
-          <div className="rounded-xl border border-gray-100 bg-gray-50/50 px-3 py-2.5 sm:px-4 sm:py-3">
+          <div className="border border-white/25 px-3 py-2.5 sm:px-4 sm:py-3">
             <div className="flex items-center justify-between gap-2">
               <div className="flex min-w-0 items-center gap-2">
-                <div className="h-2 w-2 shrink-0 rounded-full bg-gray-300" />
-                <span className="truncate text-sm font-medium text-gray-500">
+                <div className="h-2 w-2 shrink-0 bg-white/40" />
+                <span className="truncate text-sm font-medium text-white/80">
                   {raceType.title}
                 </span>
               </div>
-              <span className="shrink-0 text-xs text-gray-400">일정 없음</span>
+              <span className="shrink-0 text-xs text-white/60">일정 없음</span>
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@ export default function RaceTypeList({
   };
 
   return (
-    <div className="relative overflow-hidden rounded-xl sm:rounded-xl sm:p-4 ">
+    <div className="relative overflow-hidden sm:p-4">
       <div className="grid grid-cols-[max-content_minmax(0,1fr)] items-baseline gap-x-5 gap-y-2 sm:gap-x-8 sm:gap-y-3">
         {raceTypes
           .filter((raceType) => {

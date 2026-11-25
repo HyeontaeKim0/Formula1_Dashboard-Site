@@ -1,6 +1,5 @@
 "use client";
 
-import { Trophy, Medal } from "lucide-react";
 import { useState } from "react";
 
 import HeaderSection from "./components/HeaderSection";
@@ -11,23 +10,13 @@ export default function ChampionshipStandings() {
   const [hoveredPosition, setHoveredPosition] = useState<number | null>(null);
 
   return (
-    <div className="relative min-w-0 w-full">
-      {/* 헤더 섹션 */}
-      <HeaderSection
-        view={view}
-        setView={setView}
-        MedalIcon={Medal}
-        TrophyIcon={Trophy}
-      />
-
-      {/* 메인 컨텐츠 */}
+    <div className="relative min-w-0 w-full max-w-4xl">
+      <HeaderSection view={view} setView={setView} />
       <ConstructorSection
         view={view}
         setView={setView}
         setHoveredPosition={setHoveredPosition}
         hoveredPosition={hoveredPosition}
-        MedalIcon={Medal}
-        TrophyIcon={Trophy}
       />
     </div>
   );

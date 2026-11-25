@@ -1,4 +1,4 @@
-import {
+import type {
   SeasonScheduleResponse,
   NextRaceItem,
 } from "@/lib/api/nextRacesApi/nextRacesApi";
@@ -14,45 +14,55 @@ export default function AllSeasonSchedulesCard({
 }: {
   seasonSchedule: SeasonScheduleResponse;
 }) {
-  console.log(seasonSchedule);
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {seasonSchedule.races.map((race: NextRaceItem) => (
-        <div className="border p-5 rounded-xl flex flex-col justify-between">
-          <div className="flex justify-between gap-4">
-            <div key={race.raceId}>
-              <div>
+    <section aria-label="시즌 전체 일정">
+      <h2 className="mb-4 text-xl font-bold text-asphalt sm:mb-5 sm:text-2xl">
+        시즌 전체 일정
+      </h2>
+      <div className="grid grid-cols-1 border-t border-rule md:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
+        {seasonSchedule.races.map((race: NextRaceItem) => (
+          <div
+            key={race.raceId}
+            className="flex items-center justify-between gap-4 border-b border-rule py-4"
+          >
+            <div className="flex min-w-0 items-center gap-4">
+              <span className="w-10 shrink-0 font-display text-3xl font-bold leading-none [font-stretch:125%] text-asphalt">
+                {race.raceId}
+              </span>
+              <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <img
                     src={getCountryFlagUrl(race.circuit.country)}
                     alt={race.circuit.country}
-                    width={25}
-                    height={25}
+                    width={20}
+                    height={20}
+                    className="h-5 w-5 shrink-0 object-contain"
                   />
-                  <div className="text-sm font-bold">{race.raceId}</div>Round
+                  <span className="truncate text-sm font-semibold text-asphalt">
+                    {getCircuitName(race.circuit.circuitId)}
+                  </span>
                 </div>
-                <div className="text-lg font-bold mt-2">
-                  {getCircuitName(race.circuit.circuitId)}
+                <div className="mt-0.5 truncate text-xs text-muted">
+                  {race.raceName}
                 </div>
-                <div className="text-sm font-bold">{race.raceName}</div>
+                <div className="mt-1 text-xs text-muted">
+                  {formatKst(
+                    race.schedule?.race?.date,
+                    race.schedule?.race?.time,
+                  )}
+                </div>
               </div>
             </div>
-            <div>
-              <img
-                src={getCircuitImageUrl(race.circuit.circuitId)}
-                alt={race.circuit.circuitName}
-                width={100}
-                height={100}
-              />
-            </div>
+            <img
+              src={getCircuitImageUrl(race.circuit.circuitId)}
+              alt={race.circuit.circuitName}
+              width={72}
+              height={72}
+              className="h-[72px] w-[72px] shrink-0 object-contain"
+            />
           </div>
-          <div className="flex flex-col mt-5">
-            <div>
-              {formatKst(race.schedule?.race?.date, race.schedule?.race?.time)}
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </section>
   );
 }

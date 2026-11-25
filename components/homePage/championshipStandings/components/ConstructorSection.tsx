@@ -16,8 +16,6 @@ interface ConstructorSectionProps {
   setView: (view: "drivers" | "constructors") => void;
   setHoveredPosition: (position: number | null) => void;
   hoveredPosition: number | null;
-  MedalIcon: React.ElementType;
-  TrophyIcon: React.ElementType;
 }
 
 interface StandingItem {
@@ -29,94 +27,54 @@ interface StandingItem {
   wins: number;
 }
 
-function PositionIcon({
-  position,
-  MedalIcon,
-  TrophyIcon,
-}: {
-  position: number;
-  MedalIcon: React.ElementType;
-  TrophyIcon: React.ElementType;
-}) {
-  return (
-    <div className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-12 sm:w-12">
-      {position === 1 && (
-        <TrophyIcon className="text-primary animate-pulse-slow" size={24} />
-      )}
-      {position === 2 && (
-        <MedalIcon className="text-gray-400" size={24} />
-      )}
-      {position === 3 && (
-        <MedalIcon className="text-orange-600" size={24} />
-      )}
-      {position > 3 && (
-        <span className="text-xl font-bold text-gray-400 sm:text-2xl">
-          {position}
-        </span>
-      )}
-    </div>
-  );
-}
-
-function StandingCard({
+function StandingRow({
   standing,
-  MedalIcon,
-  TrophyIcon,
   onHover,
 }: {
   standing: StandingItem;
-  MedalIcon: React.ElementType;
-  TrophyIcon: React.ElementType;
   onHover: (position: number | null) => void;
 }) {
   const displayTeam =
-    standing.team === "Sauber F1 Team"
-      ? "Audi Revolut F1 Team"
-      : standing.team;
+    standing.team === "Sauber F1 Team" ? "Audi Revolut F1 Team" : standing.team;
 
   return (
     <div
-      className="rounded-xl border border-gray-200 bg-gray-50/40 p-3 sm:rounded-2xl sm:p-4"
+      className="flex items-center gap-3 border-b border-rule py-3 mx-4 sm:mx-10 transition-colors duration-200 hover:bg-white sm:gap-5 sm:py-4"
       onMouseEnter={() => onHover(standing.position)}
       onMouseLeave={() => onHover(null)}
     >
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
-          <PositionIcon
-            position={standing.position}
-            MedalIcon={MedalIcon}
-            TrophyIcon={TrophyIcon}
-          />
-          <img
-            src={getConstructorTeamLogoUrl(standing.teamKey)}
-            alt=""
-            className="h-7 w-7 shrink-0 object-contain sm:h-8 sm:w-8"
-          />
-          <div className="min-w-0 flex-1">
-            <div className="truncate text-sm font-semibold text-gray-900 sm:text-base">
-              {standing.primaryName}
-            </div>
-            <div className="mt-0.5 flex min-w-0 items-center gap-1.5">
-              <div
-                className="h-2 w-2 shrink-0 rounded-full"
-                style={{
-                  backgroundColor: getConstructorTeamColor(standing.teamKey),
-                }}
-              />
-              <span className="truncate text-xs text-gray-500 sm:text-sm">
-                {displayTeam}
-              </span>
-            </div>
-          </div>
+      <span
+        className={`w-9 shrink-0 font-display text-2xl font-bold leading-none [font-stretch:125%] sm:w-14 sm:text-3xl ${
+          standing.position <= 3 ? "text-asphalt" : "text-muted"
+        }`}
+      >
+        {standing.position}
+      </span>
+      <div
+        className="h-10 w-1 shrink-0 sm:h-12"
+        style={{ backgroundColor: getConstructorTeamColor(standing.teamKey) }}
+      />
+      <img
+        src={getConstructorTeamLogoUrl(standing.teamKey)}
+        alt=""
+        className="h-7 w-7 shrink-0 object-contain sm:h-8 sm:w-8"
+      />
+      <div className="min-w-0 flex-1">
+        <div className="truncate text-sm font-semibold text-asphalt sm:text-base">
+          {standing.primaryName}
         </div>
-        <div className="shrink-0 text-right">
-          <div className="text-xl font-bold text-primary sm:text-2xl">
+        <div className="truncate text-xs text-muted sm:text-sm">
+          {displayTeam}
+        </div>
+      </div>
+      <div className="shrink-0 text-right">
+        <div className="flex items-baseline justify-end gap-1">
+          <span className="font-display text-2xl font-bold leading-none [font-stretch:125%] text-asphalt sm:text-3xl">
             {standing.points}
-          </div>
-          <div className="text-[10px] font-medium text-gray-500 sm:text-xs">
-            {standing.wins}승
-          </div>
+          </span>
+          <span className="text-xs font-semibold text-muted">P</span>
         </div>
+        <div className="mt-2 text-xs text-muted">{standing.wins}승</div>
       </div>
     </div>
   );
@@ -124,8 +82,6 @@ function StandingCard({
 
 export default function ConstructorSection({
   view,
-  MedalIcon,
-  TrophyIcon,
   setHoveredPosition,
 }: ConstructorSectionProps) {
   const [constructorStandings, setConstructorStandings] = useState<
@@ -183,19 +139,20 @@ export default function ConstructorSection({
     view === "constructors" ? constructorStandingData : driverStandingData;
 
   return (
-    <div className="relative min-w-0 overflow-hidden rounded-2xl border border-gray-200 bg-white p-3 shadow-lg sm:rounded-3xl sm:p-5">
+    <div className="relative min-w-0 border-t border-rule">
       {isLoading ? (
         <NotFound text="순위 데이터 로딩 중..." type="loading" />
       ) : currentData.length === 0 ? (
-        <NotFound text="순위 데이터를 불러오지 못했거나 아직 없어요. 잠시 후 다시 시도해주세요." type="notFound" />
+        <NotFound
+          text="순위 데이터를 불러오지 못했거나 아직 없어요. 잠시 후 다시 시도해주세요."
+          type="notFound"
+        />
       ) : (
-        <div className="space-y-2 sm:space-y-3">
+        <div>
           {currentData.map((standing) => (
-            <StandingCard
+            <StandingRow
               key={`${view}-${standing.position}`}
               standing={standing}
-              MedalIcon={MedalIcon}
-              TrophyIcon={TrophyIcon}
               onHover={setHoveredPosition}
             />
           ))}

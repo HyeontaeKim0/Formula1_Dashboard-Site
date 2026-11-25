@@ -87,9 +87,7 @@ function DriverInfo({
 function TimeStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="px-1 py-1">
-      <div className="text-[10px] font-bold uppercase text-muted">
-        {label}
-      </div>
+      <div className="text-[10px] font-bold uppercase text-muted">{label}</div>
       <div className="mt-0.5 font-mono text-xs font-medium text-asphalt">
         {value || "-"}
       </div>
@@ -110,7 +108,7 @@ function MobileResultCard({
   const driverImage = getDriverHeadshotUrl(result.driverCode || "");
 
   return (
-    <div className="border-t border-rule py-4">
+    <div className="border-t border-rule py-4 mx-4 sm:mx-10">
       <div className="flex items-start justify-between gap-2">
         <div className="flex min-w-0 flex-1 items-start gap-3">
           <div className="mt-0.5 shrink-0">
@@ -132,7 +130,7 @@ function MobileResultCard({
             <img
               src={driverImage}
               alt=""
-              className="h-8 w-8 shrink-0 object-contain rounded-none"
+              className="h-10 w-10 shrink-0 object-contain rounded-none"
             />
           </div>
         )}
@@ -146,8 +144,8 @@ function MobileResultCard({
         )}
       </div>
       {(view === "qualifying" || view === "practice") && (
-        <div>
-          <div className="mt-3 grid grid-cols-3">
+        <div className="flex justify-center">
+          <div className="mt-3 grid grid-cols-3 gap-14">
             <TimeStat
               label={view === "practice" ? "FP1" : "Q1"}
               value={result.time}
@@ -330,7 +328,7 @@ export default function DataTable({
                               className="h-12 w-1 shrink-0 rounded-none transition-colors duration-200"
                               style={{
                                 backgroundColor: result.teamColor,
-                                }}
+                              }}
                             />
                           )}
                           <div className="min-w-0">
