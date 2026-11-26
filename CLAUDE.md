@@ -60,7 +60,7 @@ AI 기능은 이 작업과 모바일 확인이 끝난 뒤 고도화 단계로 �
 
 핵심 아이디어: 3단계에서 만드는 `ChartSpec`을 4단계 LLM 구조화 출력 형식으로 그대로 사용해요.
 
-### 진행 상황과 결정 사항 (2026-11-24 기준)
+### 진행 상황과 결정 사항 (2026-11-25 기준)
 
 **끝난 것**
 - 미사용 정리: 중복 파일, `prisma`·`tsx` 의존성, 구버전 `Podium`, `/drivers` 페이지와 `lib/openf1.ts`, 미사용 이미지·타입
@@ -70,9 +70,21 @@ AI 기능은 이 작업과 모바일 확인이 끝난 뒤 고도화 단계로 �
 - 일정 시간을 한국 시간(KST)으로 표시(`lib/utils/dateUtils.ts`)
 - 서킷 이미지를 OpenF1 위치 데이터로 만든 SVG 23곡으로 교체(위키미디어 후보는 스타일 불일치로 미채택)
 - 일정 탭(2026-11-24): `getSeasonSchedule`(`current.json` 1회)로 시즌 전체 목록을 받고, 다음 레이스는 `lib/utils/scheduleUtils.ts`의 `findNextRace`(레이스 시작 + 3시간까지 "다음 레이스")로 골라 쓴다. `getNextRaces()` 별도 호출 제거(일정 페이지 외부 요청 1건). 실제 23라운드로 검증(`next.json`과 같은 22라운드). 일정 컴포넌트는 `components/schedulePage/`로 이동(`UpcomingRaceLink`만 홈에 남음). 로딩 스켈레톤(`ScheduleSkeleton`), 시즌 전체 카드 UI, 다음다음 레이스 그리드(`NextNextRace`), D-day(`getDDayLabel`, 한국 날짜 기준, 당일 "D-Day"/이전 "D-N"/이후 "D+N") 적용
+- Jolpica 403 해결(2026-11-25): 원인은 서버(Node) `fetch`에 User-Agent가 없어 Cloudflare가 막은 것. `fetchJolpica`에 `User-Agent` 헤더 추가. 브라우저·curl은 UA가 있어 통과했음
+- 디자인 개편(2026-11-25, 홈·일정·순위 적용, 커밋 `c349da3`·`dcc75f7`·`c0d5360`): 기존 디자인이 "AI가 만든 느낌"이라 바꿨다
+  - 밝은 "종이" 톤 배경, 포인트 색 없음, 색은 팀 색만 사용. 토큰은 `tailwind.config.ts`(paper/asphalt/rule/muted)
+  - 폰트: 본문 IBM Plex Sans KR(`preload:false`), 숫자·제목 Archivo(`wdth` 축). `app/layout.tsx`
+  - 포디움: `PodiumStage` — 1위 큰 배너 + 2·3위 배너, 팀 색 그라데이션, 큰 드라이버 번호, 우하단 누끼 이미지. 연석 장식은 제거. 정상 결과가 아닐 때(취소·챔피언·빈 값)는 기존 `DriverCardSlider`로 대체
+  - 순위·결과 표는 카드 대신 헤어라인 목록 구조(`StandingRow`, `DataTable`)
+  - 시도 후 되돌린 것: 어두운 중계 화면 톤(다크). 이유: 여전히 AI 느낌이었고 사용자가 밝은 톤을 선택
+  - 교훈: 디자인은 사용자가 레퍼런스를 주고 방향을 정할 때 결과가 좋았다. 내가 먼저 방향을 정해 적용하면 어긋났다
+- UAE 국기 수정: `AbuDhabiFlag.svg`가 실제로는 팔레스타인 국기였음 → 올바른 UAE 국기로 교체(사용자가 직접). 12/6 아부다비 전 과제 해결
+- `getDriverHeadshotUrl`과 드라이버 사진 14장 복구(`assets/img/driverProfile/`). 카마라(#51)는 사진 없음
 
 **진행 중**
-- 없음(일정 탭 1차 마무리). 시즌 전체 카드의 추가 디자인(라운드 번호·상태 칩·스프린트 표시·날짜 범위 `formatKstDateRange`)은 보류
+- 홈 개편 설계: planner가 "홈 → 결과 페이지 분리 + 새 홈 v1" 설계안을 냈고, 사용자 결정 대기 중. 추천안: 새 홈 A안(다음 레이스 띠 + 지난 레이스 상위 10 + 챔피언십 상위 5), 서버 전환 Y안(새 홈 섹션은 서버 컴포넌트, `/results`의 `RaceResults`는 그대로), `podiumSection`·`raceResults` → `components/resultsPage/`, `championshipStandings` → `standingsPage/`, 메뉴 `홈/일정/결과/순위`. 작업은 개편 전 측정 → 폴더 이동 → `/results` → 메뉴 → 새 홈 섹션 → 개편 후 측정 순서의 작은 커밋
+- 남은 큰 작업 3개: ① 홈 → 결과 페이지 분리 + 새 홈(f1-boxbox 홈 구성은 구조만 참고, 에셋 복사 안 함) ② 뉴스 페이지 ③ 게시판(백엔드 필요, 방향 미정). 순서는 ① → ② → ③
+- 시즌 전체 카드의 추가 디자인(라운드 번호·상태 칩·스프린트 표시·날짜 범위 `formatKstDateRange`)은 보류
 
 **결정 사항**
 - AI 기능은 기능 추가·모바일 확인 뒤 고도화 단계로 미룬다
@@ -87,9 +99,12 @@ AI 기능은 이 작업과 모바일 확인이 끝난 뒤 고도화 단계로 �
 - 현재 `assets/`의 드라이버·차량·포디움 이미지의 출처 미확인
 - 정적 페이지에서 재생성 실패 시 이전 페이지가 유지되는지는 배포 환경에서 확인 필요
 - `RaceResults`·`UpcomingRaceLink`는 여전히 브라우저에서 외부 API를 직접 호출
-- Jolpica가 간헐적으로 403을 돌려준 적이 있음(2026-11-24, 사용자가 해결했다고 함, 원인은 기록 없음)
-- `NextNextRace`는 다음 레이스가 아니라 그다음 라운드를 보여주는데 카드에는 "Next Race"라고 적혀 있음(D-day도 그 라운드 기준). 의도 확인 필요
-- UAE 국기는 12/6 아부다비 전에 필요함, README 폴더 구조에 `schedulePage` 없음
+- `NextNextRace`는 다음 레이스가 아니라 그다음 라운드를 보여준다(서킷 이름·D-day가 그 라운드 기준). 의도 확인 필요
+- README 폴더 구조에 `schedulePage` 없음
+- 푸터의 "데이터 출처" 문구가 실제 출처(Jolpica, OpenF1)와 다름. Jolpica·OpenF1 이용 조건은 미확인이라 출처 이름만 적을 예정
+- 시즌이 끝나면(12/6 이후) 다음 레이스가 없음 → 홈의 다음 레이스 자리에 "시즌 종료" 처리가 필요
+- 새 디자인은 실제 폰·390px 폭에서 확인 못 함(헤드리스 크롬 최소 폭 500px). 결과 탭(프렉티스·퀄리파이·스프린트), 취소·챔피언 시즌 포디움 대체 화면도 못 봄
+- 포디움 PNG, `Abu_Dhabi.jpg`(6.7MB)는 사용자가 webp로 변환할 예정
 
 **작업 환경 주의**
 - 개발 서버(`next dev`)와 `next build`가 같은 `.next`를 써서 서로를 망가뜨린다. 개발 서버가 떠 있으면 별도 `git worktree`에서 빌드·측정한다

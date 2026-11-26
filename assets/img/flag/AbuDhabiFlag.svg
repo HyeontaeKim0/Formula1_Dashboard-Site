@@ -1,1 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 6 3"><path fill="#009639" d="M0 0h6v3H0z"/><path fill="#FFF" d="M0 0h6v2H0z"/><path d="M0 0h6v1H0z"/><path fill="#ED2E38" d="m0 0 2 1.5L0 3Z"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 12 6">
+<rect width="12" height="6" fill="#00843d" id="green"/>
+<rect width="12" height="4" y="2" fill="#fff"/>
+<rect width="12" height="2" y="4"/>
+<rect width="3" height="6" fill="#c8102e" id="red"/></svg>
