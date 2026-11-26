@@ -62,7 +62,7 @@ export default async function PodiumNew() {
     !(meeting != null && meeting.winner === null) &&
     !isUaeChampionSeason(meeting);
   if (isNormal) {
-    return <PodiumStage podiumData={podiumData} />;
+    return <PodiumStage podiumData={podiumData} isLoading={false} />;
   }
   return (
     <div className="relative w-full">
