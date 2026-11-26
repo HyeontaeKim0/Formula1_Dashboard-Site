@@ -9,8 +9,8 @@ import {
   getTeamLogoUrl,
   getDriverImageUrl,
 } from "@/lib/utils/driverUtils";
-import DriverCardSlider from "@/components/homePage/podiumSection/components/DriverCardSlider";
-import PodiumStage from "@/components/homePage/podiumSection/components/PodiumStage";
+import DriverCardSlider from "@/components/resultsPage/podiumSection/components/DriverCardSlider";
+import PodiumStage from "@/components/resultsPage/podiumSection/components/PodiumStage";
 
 function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
   const podiumDrivers =

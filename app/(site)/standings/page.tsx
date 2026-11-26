@@ -1,4 +1,4 @@
-import ChampionshipStandings from "@/components/homePage/championshipStandings/ChampionshipStandings";
+import ChampionshipStandings from "@/components/standingsPage/championshipStandings/ChampionshipStandings";
 
 export default function StandingsPage() {
   return (

@@ -86,10 +86,13 @@ formula1_Dashboard/
 │   │   ├── newsSection/NewsSection.tsx
 │   │   ├── layoutFormat/LayoutFormat.tsx
 │   │   └── notFound/NotFound.tsx
-│   ├── homePage/                     # 홈·일정·순위 관련
+│   ├── homePage/                     # 홈
+│   │   └── upcomingRaces/
+│   ├── resultsPage/                  # 레이스 결과 (현재 홈에서 사용)
 │   │   ├── podiumSection/
-│   │   ├── upcomingRaces/
-│   │   ├── raceResults/
+│   │   └── raceResults/
+│   ├── schedulePage/                 # 일정
+│   ├── standingsPage/                # 순위
 │   │   └── championshipStandings/
 │   ├── driverChart/
 │   │   └── DriverRankChart.tsx

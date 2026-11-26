@@ -1,5 +1,5 @@
-import RaceResults from "@/components/homePage/raceResults/RaceResults";
-import PodiumNew from "@/components/homePage/podiumSection/PodiumNew";
+import RaceResults from "@/components/resultsPage/raceResults/RaceResults";
+import PodiumNew from "@/components/resultsPage/podiumSection/PodiumNew";
 import UpcomingRaceLink from "@/components/homePage/upcomingRaces/UpcomingRaceLink";
 import { Suspense } from "react";
 
