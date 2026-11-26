@@ -6,7 +6,7 @@
 
 - OpenF1 API 기반 F1 정보 대시보드 (개인 포트폴리오 프로젝트, 1인 개발)
 - Next.js 14 App Router, TypeScript, Tailwind CSS, Recharts
-- 주요 페이지: `/` 홈, `/schedule`, `/standings`, `/driverChart`, `/board`(UI 프로토타입)
+- 주요 페이지: `/` 홈, `/result`, `/schedule`, `/standings`, `/driverChart`, `/board`(UI 프로토타입)
 - 데이터 조회는 `lib/api/*`에 있고, 서버 컴포넌트에서 `fetch(..., { next: { revalidate: 3600 } })`로 캐싱
 - 드라이버·팀 한글명/색상/로고 매핑은 `lib/utils/driverUtils.ts`
 
@@ -60,7 +60,7 @@ AI 기능은 이 작업과 모바일 확인이 끝난 뒤 고도화 단계로 �
 
 핵심 아이디어: 3단계에서 만드는 `ChartSpec`을 4단계 LLM 구조화 출력 형식으로 그대로 사용해요.
 
-### 진행 상황과 결정 사항 (2026-11-25 기준)
+### 진행 상황과 결정 사항 (2026-11-26 기준)
 
 **끝난 것**
 - 미사용 정리: 중복 파일, `prisma`·`tsx` 의존성, 구버전 `Podium`, `/drivers` 페이지와 `lib/openf1.ts`, 미사용 이미지·타입
@@ -80,15 +80,22 @@ AI 기능은 이 작업과 모바일 확인이 끝난 뒤 고도화 단계로 �
   - 교훈: 디자인은 사용자가 레퍼런스를 주고 방향을 정할 때 결과가 좋았다. 내가 먼저 방향을 정해 적용하면 어긋났다
 - UAE 국기 수정: `AbuDhabiFlag.svg`가 실제로는 팔레스타인 국기였음 → 올바른 UAE 국기로 교체(사용자가 직접). 12/6 아부다비 전 과제 해결
 - `getDriverHeadshotUrl`과 드라이버 사진 14장 복구(`assets/img/driverProfile/`). 카마라(#51)는 사진 없음
+- 컴포넌트 폴더를 페이지 기준으로 이동(2026-11-26, `acb76ae`): `podiumSection`·`raceResults` → `components/resultsPage/`, `championshipStandings` → `components/standingsPage/`. `UpcomingRaceLink`는 `homePage/`에 남김
+- 결과 페이지 `/result` 생성과 메뉴 추가(2026-11-26, `5b6e6f2`): `RaceResults showPodium`이면 선택한 탭의 상위 3명을 `PodiumStage`로 표시(`currentResults` → `PodiumDriver` 변환, 이미지는 `getDriverImageUrl(번호)`). 넓은 화면은 2열 그리드(포디움 왼쪽), 좁은 화면은 포디움이 위. 홈은 `showPodium` 없이 표만 보이고, 포디움은 기존 `PodiumNew`를 그대로 씀. 타입 오류 수정은 `51ca60b`
+  - 이유: 클라이언트 컴포넌트에서 `async` 서버 컴포넌트 `PodiumNew`는 import할 수 없지만, 받은 데이터를 그리기만 하는 `PodiumStage`는 가능
+  - 포디움 너비가 탭마다 바뀌던 원인: 너비 지정 없는 flex 안에서 이름 길이에 맞춰 크기가 정해짐 → 2열 그리드로 고정
+- `DataTable`을 `raceResults/components/DataTable/` 폴더로 분리(`index`, `DesktopResultRow`, `MobileResultCard`, `PositionBadge`, `DriverInfo`, `types`). `EmptyOrLoading`은 `components/common/emptyOrLoading/`로 이동(문구와 `<tr>` 마크업은 아직 결과 표 전용)
 
 **진행 중**
-- 홈 개편 설계: planner가 "홈 → 결과 페이지 분리 + 새 홈 v1" 설계안을 냈고, 사용자 결정 대기 중. 추천안: 새 홈 A안(다음 레이스 띠 + 지난 레이스 상위 10 + 챔피언십 상위 5), 서버 전환 Y안(새 홈 섹션은 서버 컴포넌트, `/results`의 `RaceResults`는 그대로), `podiumSection`·`raceResults` → `components/resultsPage/`, `championshipStandings` → `standingsPage/`, 메뉴 `홈/일정/결과/순위`. 작업은 개편 전 측정 → 폴더 이동 → `/results` → 메뉴 → 새 홈 섹션 → 개편 후 측정 순서의 작은 커밋
-- 남은 큰 작업 3개: ① 홈 → 결과 페이지 분리 + 새 홈(f1-boxbox 홈 구성은 구조만 참고, 에셋 복사 안 함) ② 뉴스 페이지 ③ 게시판(백엔드 필요, 방향 미정). 순서는 ① → ② → ③
+- 홈 개편: 결과 페이지 분리까지 완료. 새 홈은 각 페이지의 핵심 컴포넌트를 간략히 모아 보여주는 역할로 보고, 원본 페이지를 먼저 만든 뒤 마지막에 조립한다. 그때까지 기존 홈 유지(포트폴리오 열람 가능성 때문에 비우지 않음). 홈 자리: 다음 레이스(일정)·최근 결과(`/result`)·챔피언십(순위)·최신 뉴스(뉴스)
+- 다음 작업 후보: 홈에 뉴스 제목 목록(제목·출처·시간·원문 링크) MVP. 2026-11-26에 formula1.com·motorsport.com RSS가 HTTP 200 응답(파싱은 미확인). 기존 `NewsSection`은 디자인·조회 방식 때문에 재사용 비추천. 서버에서 `getNews()` 호출, `revalidate` 설정, `Promise.allSettled`, 실패해도 홈은 표시. 착수 여부는 미정
+- 남은 큰 작업 3개: ① 결과 페이지 분리(완료) + 새 홈(f1-boxbox 홈 구성은 구조만 참고, 에셋 복사 안 함) ② 뉴스 페이지 ③ 게시판(백엔드 필요, 방향 미정). 순서는 ① → ② → ③
 - 시즌 전체 카드의 추가 디자인(라운드 번호·상태 칩·스프린트 표시·날짜 범위 `formatKstDateRange`)은 보류
 
 **결정 사항**
 - AI 기능은 기능 추가·모바일 확인 뒤 고도화 단계로 미룬다
 - 홈 성능 개선은 1차에서 멈췄다(`RaceResults`, `UpcomingRaceLink`의 서버 전환은 보류)
+- `RaceResults` 서버 전환은 탭별 포디움에 필수가 아니라 따로 한다. 전환할 때 함께 고칠 것: 연습 주행의 모듈 변수 캐시 `weekendPromise`(→ React `cache()`), OpenF1 `fetch`의 `revalidate` 지정, "세션 없음"과 "조회 실패" 구분. 전환 전후 측정 필요
 - 오콘은 시즌 이탈, 카마라(#51)가 자리를 이어받는다. 번호 `31` 매핑은 의도적으로 `51`로 교체됨. 히라카와(#50)는 임시 출전이라 매핑하지 않는다
 - 이미지는 라이선스가 명확한 출처(위키미디어 CC 계열) 또는 직접 생성만 쓴다
 - 프로젝트 이름(탭 제목 `app/layout.tsx`, 네비 로고 alt, `package.json` name)은 임시다. 나중에 정하고 한 번에 바꾼다
@@ -104,6 +111,13 @@ AI 기능은 이 작업과 모바일 확인이 끝난 뒤 고도화 단계로 �
 - 푸터의 "데이터 출처" 문구가 실제 출처(Jolpica, OpenF1)와 다름. Jolpica·OpenF1 이용 조건은 미확인이라 출처 이름만 적을 예정
 - 시즌이 끝나면(12/6 이후) 다음 레이스가 없음 → 홈의 다음 레이스 자리에 "시즌 종료" 처리가 필요
 - 새 디자인은 실제 폰·390px 폭에서 확인 못 함(헤드리스 크롬 최소 폭 500px). 결과 탭(프렉티스·퀄리파이·스프린트), 취소·챔피언 시즌 포디움 대체 화면도 못 봄
+- `/result`는 레이스 탭만 캡처로 확인(1600px, 500px). 다른 탭 전환과 분리 후 "더 보기"·홈 화면은 직접 확인 못 함. 500px에서 P3 이름이 단어 중간에서 줄바꿈됨
+- `PodiumStage` 로딩 상태에서 `EmptyOrLoading`을 `mobile` 없이 써서 표 밖에 `<tr>`이 렌더링됨(코드 확인, 수정 필요)
+- `RacingTypeTabMenu`에서 React `key` 경고 발생(2026-11-26 개발 서버 로그, 이후 수정 여부 미확인)
+- 연습 주행 포디움은 합친 표의 순서(FP1 우선)를 따른다. `getDriverImageUrl`에 없는 번호는 포디움 이미지가 비고, 포디움 이름·팀명은 한글
+- 뉴스 RSS 이용 조건 미확인
+- ESLint 설정이 없어 `npm run lint`는 설정 질문만 뜨고 실행되지 않음
+- 2026-11-26 작업 후 `tsc --noEmit`은 통과. `next build`와 배포 상태는 확인 안 함
 - 포디움 PNG, `Abu_Dhabi.jpg`(6.7MB)는 사용자가 webp로 변환할 예정
 
 **작업 환경 주의**
