@@ -9,17 +9,24 @@ import {
   getLastPractice2Result,
   getLastPractice3Result,
 } from "@/lib/api/lastResults/lastPracticeApi/lastPracticeApi";
-import type { DriverResult } from "@/lib/types/types";
+import type { DriverResult, PodiumDriver } from "@/lib/types/types";
+
 import {
+  getDriverImageUrl,
   getDriverName,
   getTeamColor,
   getTeamName,
 } from "@/lib/utils/driverUtils";
 import RacingTypeTabMenu from "./components/RacingTypeTabMenu";
-import HeaderSection from "./components/HeaderSection";
-import DataTable from "./components/DataTable";
 
-export default function RaceResults() {
+import DataTable from "./components/DataTable";
+import PodiumStage from "../podiumSection/components/PodiumStage";
+
+export default function RaceResults({
+  showPodium = false,
+}: {
+  showPodium?: boolean;
+}) {
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [lastRaceResult, setLastRaceResult] = useState<any | null>(null);
@@ -84,6 +91,7 @@ export default function RaceResults() {
     return 9999;
   };
 
+  // 레이스 결과 배열 생성
   const raceResults: DriverResult[] =
     lastRaceResult?.races?.results
       ?.map((result: any, index: number) => ({
@@ -100,6 +108,7 @@ export default function RaceResults() {
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
+  // 퀄리파이 결과 배열 생성
   const qualifyingResults: DriverResult[] =
     qualifyingResult?.races?.qualyResults
       ?.map((result: any, index: number) => ({
@@ -118,6 +127,7 @@ export default function RaceResults() {
       }))
       .sort((a: any, b: any) => a.position - b.position) || [];
 
+  // 스프린트 결과 배열 생성
   const sprintResults: DriverResult[] =
     sprintResult?.races?.sprintRaceResults
       ?.map((result: any, index: number) => ({
@@ -208,6 +218,7 @@ export default function RaceResults() {
 
   const practiceResults = [...practiceByNumber.values()];
 
+  // 레이스 종류별 결과 배열 생성
   const currentResults =
     view === "race"
       ? raceResults
@@ -217,27 +228,50 @@ export default function RaceResults() {
           ? sprintResults
           : qualifyingResults;
 
+  // 포디움용 데이터: 현재 탭의 상위 3명에 imageUrl을 추가
+  const podiumData: PodiumDriver[] = currentResults
+    .slice(0, 3)
+    .map((result, index) => ({
+      position: index + 1,
+      driverName: result.driverName,
+      driverCode: result.driverCode || "",
+      driverNumber: result.driverNumber,
+      team: result.team,
+      teamColor: result.teamColor,
+      imageUrl: getDriverImageUrl(Number(result.driverNumber)),
+    }));
+
   return (
     <div className="relative min-w-0 w-full scroll-mt-20" id="race-results">
-      <div className="mt-10 mb-3 flex min-w-0 flex-col gap-3 sm:mb-6 sm:gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="min-w-0 shrink-0">
-          <HeaderSection
+      <div className="">
+        <div className="min-w-0 w-full lg:w-auto lg:max-w-full lg:shrink-0">
+          <RacingTypeTabMenu
+            view={view}
+            setView={setView}
             lastRaceResult={lastRaceResult}
             isLoading={isLoading}
           />
         </div>
-        <div className="min-w-0 w-full lg:w-auto lg:max-w-full lg:shrink-0">
-          <RacingTypeTabMenu view={view} setView={setView} />
-        </div>
       </div>
-      <div className="relative min-w-0 overflow-hidden py-2 sm:py-4">
-        <DataTable
-          raceResults={currentResults}
-          setHoveredRow={setHoveredRow}
-          hoveredRow={hoveredRow}
-          view={view}
-          isLoading={isLoading}
-        />
+
+      {/* showPodium이면 넓은 화면에서 표와 포디움을 절반씩 배치 (글자 길이에 너비가 흔들리지 않게) */}
+      <div
+        className={`grid grid-cols-1 gap-10 py-2 sm:py-4  ${showPodium ? "lg:grid-cols-2" : ""}`}
+      >
+        {showPodium && (
+          <div className="relative min-w-0 overflow-hidden py-2 sm:py-4">
+            <PodiumStage podiumData={podiumData} isLoading={isLoading} />
+          </div>
+        )}
+        <div className="relative min-w-0 overflow-hidden py-2 sm:py-4">
+          <DataTable
+            raceResults={currentResults}
+            setHoveredRow={setHoveredRow}
+            hoveredRow={hoveredRow}
+            view={view}
+            isLoading={isLoading}
+          />
+        </div>
       </div>
     </div>
   );

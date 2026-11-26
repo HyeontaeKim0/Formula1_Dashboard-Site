@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { label: "홈", href: "/" },
+  { label: "결과", href: "/result" },
   { label: "일정", href: "/schedule" },
   { label: "순위", href: "/standings" },
   // { label: "게시판", href: "/board" },
@@ -23,6 +24,9 @@ function isNavItemActive(
 ) {
   if (item.href === "/standings") {
     return pathname === "/standings";
+  }
+  if (item.href === "/result") {
+    return pathname === "/result";
   }
   if (item.href === "/schedule") {
     return pathname === "/schedule";

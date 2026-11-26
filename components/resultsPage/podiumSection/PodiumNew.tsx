@@ -7,7 +7,7 @@ import {
   getCar,
   getTeamColor,
   getTeamLogoUrl,
-  getDriverImageUrl,
+  getDriverHeadshotUrl,
 } from "@/lib/utils/driverUtils";
 import DriverCardSlider from "@/components/resultsPage/podiumSection/components/DriverCardSlider";
 import PodiumStage from "@/components/resultsPage/podiumSection/components/PodiumStage";
@@ -35,7 +35,7 @@ function buildPodiumData(lastRaceResult: any): PodiumDriver[] {
       driverNumber,
       team: driver.team?.teamName || "",
       teamColor: getTeamColor(driverNumber),
-      imageUrl: getDriverImageUrl(driverNumber),
+      imageUrl: getDriverHeadshotUrl(driverNumber),
       teamLogoUrl: getTeamLogoUrl(driverNumber),
       carImageUrl: getCar(driverNumber),
     };

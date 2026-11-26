@@ -17,11 +17,6 @@ export default function Home() {
       <div className="mt-[80px] min-w-0">
         <RaceResults />
       </div>
-
-      <div
-        id="news"
-        className="mt-[80px] min-w-0 scroll-mt-20 sm:px-[1%]"
-      ></div>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import type { PodiumDriver } from "@/lib/types/types";
 
+import EmptyOrLoading from "@/components/common/emptyOrLoading/EmptyOrLoading";
+
 function getName(driver: PodiumDriver) {
   return driver.driverName?.trim() || driver.driverCode || "Driver";
 }
@@ -13,9 +15,11 @@ function darken(color: string, percent: number) {
 function PodiumBanner({
   driver,
   featured = false,
+  isLoading,
 }: {
   driver: PodiumDriver;
   featured?: boolean;
+  isLoading: boolean;
 }) {
   const color = driver.teamColor || "#202328";
 
@@ -36,8 +40,8 @@ function PodiumBanner({
           aria-hidden
           className={`pointer-events-none absolute right-[6%] top-1/2 -translate-y-1/2 select-none font-display font-extrabold italic leading-none [font-stretch:125%] ${
             featured
-              ? "text-[10rem] sm:text-[18rem]"
-              : "text-[5.5rem] sm:text-[11rem]"
+              ? "text-[10rem] sm:text-[13rem]"
+              : "text-[5.5rem] sm:text-[8rem]"
           }`}
           style={{ color: darken(color, 40) }}
         >
@@ -80,7 +84,7 @@ function PodiumBanner({
         className={`relative z-10 flex h-full flex-col justify-end ${
           featured
             ? "min-h-[260px] p-5 sm:min-h-[380px] sm:p-10"
-            : "min-h-[200px] p-3 sm:min-h-[260px] sm:p-7"
+            : "min-h-[200px] p-3 sm:min-h-[200px] sm:p-7"
         }`}
       >
         <p
@@ -92,7 +96,7 @@ function PodiumBanner({
         </p>
         <p
           className={`mt-2 break-words font-display font-extrabold uppercase leading-[0.95] tracking-tight [font-stretch:125%] ${
-            featured ? "text-3xl sm:text-5xl" : "text-base sm:text-3xl"
+            featured ? "text-3xl sm:text-2xl" : "text-base sm:text-xl"
           }`}
         >
           {getName(driver)}
@@ -114,8 +118,10 @@ function PodiumBanner({
 
 export default function PodiumStage({
   podiumData,
+  isLoading,
 }: {
   podiumData: PodiumDriver[];
+  isLoading: boolean;
 }) {
   const winner = podiumData.find((d) => d.position === 1);
   const others = [2, 3]
@@ -124,13 +130,30 @@ export default function PodiumStage({
 
   return (
     <section aria-label="최근 레이스 시상대">
-      {winner && <PodiumBanner driver={winner} featured />}
-      {others.length > 0 && (
-        <div className="mt-2 grid grid-cols-2 gap-2">
-          {others.map((driver) => (
-            <PodiumBanner key={driver.position} driver={driver} />
-          ))}
-        </div>
+      {isLoading ? (
+        <EmptyOrLoading isLoading={isLoading} colSpan={1} />
+      ) : (
+        <>
+          {winner && (
+            <PodiumBanner
+              driver={winner}
+              featured={!isLoading}
+              isLoading={isLoading}
+            />
+          )}
+          {others.length > 0 && (
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              {others.map((driver) => (
+                <PodiumBanner
+                  key={driver.position}
+                  driver={driver}
+                  featured={!isLoading}
+                  isLoading={isLoading}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </section>
   );

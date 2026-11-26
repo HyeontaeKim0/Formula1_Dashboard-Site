@@ -28,7 +28,7 @@ import CadillacLogo from "@/assets/img/teamLogo/Cadillac.png";
 import MaxVerstappen_podium from "@/assets/img/podium/Max_Podium.png";
 import YukiTsunoda_podium from "@/assets/img/driverProfile/RedBull/yuki.webp";
 import KimiAntonelli_podium from "@/assets/img/driverProfile/Mercedes/Kimi_26.webp";
-import GeorgeRussell_podium from "@/assets/img/podium/Russell_Podium.png";
+import GeorgeRussell_podium from "@/assets/img/driverProfile/Mercedes/george2.webp";
 import LandoNorris_podium from "@/assets/img/podium/Norris_Podium.png";
 import OscarPiastri_podium from "@/assets/img/podium/Oscar_Podium.png";
 import CarlosSainz_podium from "@/assets/img/podium/Saintz_Podium.png";
@@ -723,6 +723,7 @@ export const getDriverHeadshotUrl = (driver_code: string) => {
   switch (driver_code) {
     case "max_verstappen":
     case "VER":
+    case "막스 베르스타펜":
       return MaxVerstappen.src;
     case "TSU":
       return YukiTsunoda.src;
@@ -809,44 +810,44 @@ export const getDriverImageUrl = (driver_number: number | null | undefined) => {
     case 33:
       return MaxVerstappen.src;
     case 22:
-      return YukiTsunoda_podium.src;
+      return YukiTsunoda.src;
     case 12:
-      return KimiAntonelli_podium.src;
+      return KimiAntonelli.src;
     case 63:
-      return GeorgeRussell_podium.src;
+      return GeorgeRussell.src;
     case 1:
     case 4:
       return LandoNorris.src;
     case 81:
       return OscarPiastri.src;
     case 55:
-      return CarlosSainz_podium.src;
+      return CarlosSainz.src;
     case 23:
-      return AlexAlbon_podium.src;
+      return AlexAlbon.src;
     case 44:
-      return LewisHamilton_podium.src;
+      return LewisHamilton.src;
     case 16:
-      return CharlesLeclerc_podium.src;
+      return CharlesLeclerc.src;
     case 14:
-      return FernandoAlonso_podium.src;
+      return FernandoAlonso.src;
     case 18:
-      return LanceStroll_podium.src;
+      return LanceStroll.src;
     case 31:
-      return EstebanOcon_podium.src;
+      return EstebanOcon.src;
     case 87:
-      return OliverBearman_podium.src;
+      return OliverBearman.src;
     case 5:
-      return GabrielBortoleto_podium.src;
+      return GabrielBortoleto.src;
     case 27:
-      return NicoHulkenberg_podium.src;
+      return NicoHulkenberg.src;
     case 10:
-      return PierreGasly_podium.src;
+      return PierreGasly.src;
     case 43:
-      return FrancoColapinto_podium.src;
+      return FrancoColapinto.src;
     case 6:
-      return IsackHadjar_podium.src;
+      return IsackHadjar.src;
     case 30:
-      return LiamLawson_podium.src;
+      return LiamLawson.src;
 
     default:
       return "";
