@@ -74,7 +74,7 @@ function StandingRow({
           </span>
           <span className="text-xs font-semibold text-muted">P</span>
         </div>
-        <div className="mt-2 text-xs text-muted">{standing.wins}승</div>
+        <div className="mt-5 text-xs text-muted">{standing.wins}승</div>
       </div>
     </div>
   );

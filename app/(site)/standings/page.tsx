@@ -2,7 +2,7 @@ import ChampionshipStandings from "@/components/homePage/championshipStandings/C
 
 export default function StandingsPage() {
   return (
-    <div className="container mx-auto min-w-0 px-3 py-4 sm:px-4 sm:py-6 md:py-8 lg:px-4 lg:py-12">
+    <div className="flex flex-col items-center justify-center mx-auto min-w-0 px-3 py-4 sm:px-4 sm:py-6 md:py-8 lg:px-4 lg:py-12">
       <ChampionshipStandings />
     </div>
   );
