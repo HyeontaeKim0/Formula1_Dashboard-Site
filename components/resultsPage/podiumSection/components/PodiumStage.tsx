@@ -131,7 +131,7 @@ export default function PodiumStage({
   return (
     <section aria-label="최근 레이스 시상대">
       {isLoading ? (
-        <EmptyOrLoading isLoading={isLoading} colSpan={1} />
+        <EmptyOrLoading isLoading={isLoading} mobile={true} />
       ) : (
         <>
           {winner && (

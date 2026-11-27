@@ -54,22 +54,20 @@ export default function RacingTypeTabMenu({
             const isActive = view === tab.id;
 
             return (
-              <div>
-                <button
-                  key={tab.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setView(tab.id)}
-                  className={`-mb-px min-h-[40px] border-b-2 px-1 pb-2 text-sm font-semibold transition-colors duration-200 ${
-                    isActive
-                      ? "border-asphalt text-asphalt"
-                      : "border-transparent text-muted hover:text-asphalt"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              </div>
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setView(tab.id)}
+                className={`-mb-px min-h-[40px] border-b-2 px-1 pb-2 text-sm font-semibold transition-colors duration-200 ${
+                  isActive
+                    ? "border-asphalt text-asphalt"
+                    : "border-transparent text-muted hover:text-asphalt"
+                }`}
+              >
+                {tab.label}
+              </button>
             );
           })}
         </div>
