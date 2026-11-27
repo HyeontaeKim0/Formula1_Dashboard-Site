@@ -44,25 +44,35 @@ export default function UpcomingRacesSection() {
 
   return (
     <div>
-      <HeaderSection upcomingRacesApi={upcomingRacesApi as NextRacesResponse} />
-      <div className="grid min-w-0 grid-cols-1 gap-4 sm:mb-6 sm:mt-4 sm:gap-6 lg:grid-cols-3 lg:gap-6">
-        <div
-          className="lg:col-span-2"
-        >
-          <UpcomingRacesType
+      {upcomingRacesApi ? (
+        <>
+          <HeaderSection
             upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
           />
+          <div className="grid min-w-0 grid-cols-1 gap-4 sm:mb-6 sm:mt-4 sm:gap-6 lg:grid-cols-3 lg:gap-6">
+            <div className="lg:col-span-2">
+              <UpcomingRacesType
+                upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
+              />
+            </div>
+            {/* 다음다음레이스 섹션 */}
+            <div className="lg:col-span-1">
+              <NextNextRace
+                seasonSchedule={seasonSchedule as SeasonScheduleResponse}
+                upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        <div>
+          {seasonSchedule
+            ? "시즌이 종료되었습니다."
+            : "일정을 불러오지 못했습니다."}
         </div>
-        {/* 다음다음레이스 섹션 */}
-        <div
-          className="lg:col-span-1"
-        >
-          <NextNextRace
-            seasonSchedule={seasonSchedule as SeasonScheduleResponse}
-            upcomingRacesApi={upcomingRacesApi as NextRacesResponse}
-          />
-        </div>
-      </div>
+      )}
+
+      {/* 시즌 전체 레이스 섹션 */}
       <div className="mt-10">
         {seasonSchedule && (
           <AllSeasonSchedules seasonSchedule={seasonSchedule} />
