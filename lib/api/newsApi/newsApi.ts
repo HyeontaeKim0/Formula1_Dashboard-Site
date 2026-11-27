@@ -9,7 +9,6 @@ export interface NewsArticle {
   media: { thumbnail: string }; // 썸네일
 }
 
-// 썸네일
 export async function getNews(): Promise<NewsArticle[]> {
   const response = await fetch(FEED_URL, { next: { revalidate: 600 } });
   if (!response.ok) {
@@ -22,7 +21,7 @@ export async function getNews(): Promise<NewsArticle[]> {
     },
   });
   const feed = await parser.parseString(text);
-
+  console.log(feed.items);
   return feed.items.map((item) => ({
     title: item.title || "",
     content: item.content || "",
