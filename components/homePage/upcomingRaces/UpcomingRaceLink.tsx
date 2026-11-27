@@ -146,7 +146,7 @@ export default function UpcomingRaceLink() {
               )}
               <div className="flex min-w-0 items-center gap-1">
                 <span className="truncate font-display text-xl font-semibold leading-tight text-asphalt sm:text-2xl">
-                  {circuitLabel}
+                  {race ? circuitLabel : "전체 일정 보기"}
                 </span>
                 <ChevronRight
                   className="shrink-0 text-asphalt transition-transform duration-300 group-hover:translate-x-0.5"
