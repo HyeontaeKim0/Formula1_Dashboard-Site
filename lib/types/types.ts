@@ -31,17 +31,6 @@ export interface RaceEvent {
   type: string;
 }
 
-export interface NewsItem {
-  title: string;
-  author: string;
-  timeAgo: string;
-  category?: string;
-  trending?: boolean;
-  url: string;
-  image: string;
-  description: string;
-}
-
 export interface DriverResult {
   position: number;
   driverName: string;

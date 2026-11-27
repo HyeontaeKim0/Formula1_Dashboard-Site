@@ -16,7 +16,7 @@
 - **Styling**: Tailwind CSS
 - **Chart**: Recharts
 - **Icons**: Lucide React, React Icons
-- **Data**: OpenF1 API, RSS (rss-parser)
+- **Data**: OpenF1 API
 
 ## 시작하기
 
@@ -58,7 +58,7 @@ npm start
 
 ### 개발 중 / Coming Soon
 
-- 📰 **최신 뉴스** — RSS 파서(`newsParser`)만 있음, 화면은 준비 중
+- 📰 **최신 뉴스** — 새로 만들 예정
 - 🗣️ **커뮤니티** — `/board` UI 프로토타입 (목업 데이터)
 - 🌓 **다크 모드** — Navbar 토글 UI만 존재, 전역 테마 전환 미완성
 
@@ -103,8 +103,7 @@ formula1_Dashboard/
 │       ├── currentCustrutor/
 │       ├── lastestMeeting/
 │       ├── sessionResultApi/
-│       ├── driverResultChartData/
-│       └── newsParser/
+│       └── driverResultChartData/
 ├── assets/img/                       # 정적 이미지 (car, circuit, driverProfile, flag, logo, teamLogo)
 ├── package.json
 ├── tailwind.config.ts
@@ -121,7 +120,6 @@ formula1_Dashboard/
 ## 데이터 소스
 
 - **레이스·드라이버·순위 데이터**: [OpenF1 API](https://api.openf1.org/)
-- **뉴스 데이터**: Formula1.com, Motorsport.com RSS 피드
 
 ## 개발 타임라인
 
@@ -143,7 +141,6 @@ formula1_Dashboard/
 
 ### Phase 11–14: 추가 기능
 
-- 뉴스 RSS 파싱 (`newsParser`)
 - 드라이버 성적 차트 페이지 (`/driverChart`, Recharts)
 - 일정·순위 독립 페이지 분리 (`/schedule`, `/standings`)
 - 커뮤니티 게시판 UI 프로토타입 (`/board`)

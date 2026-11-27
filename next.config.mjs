@@ -4,7 +4,6 @@ const nextConfig = {
     domains: [
       "media.formula1.com",
       "purecatamphetamine.github.io",
-      "cdn-9.motorsport.com",
     ],
   },
 };
