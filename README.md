@@ -43,7 +43,6 @@ npm start
 | `/standings` | 챔피언십 순위 — 드라이버 / 컨스트럭터 |
 | `/driverChart` | 드라이버별 시즌 성적 차트 (Recharts) |
 | `/board` | 커뮤니티 게시판 (UI 프로토타입) |
-| `/news` | 홈 `#news` 섹션으로 리다이렉트 |
 
 ## 주요 기능
 
@@ -59,7 +58,7 @@ npm start
 
 ### 개발 중 / Coming Soon
 
-- 📰 **최신 뉴스** — RSS 파싱 및 API(`/api/news`) 구현 완료, 홈 화면 노출은 비활성화 상태
+- 📰 **최신 뉴스** — RSS 파서(`newsParser`)만 있음, 화면은 준비 중
 - 🗣️ **커뮤니티** — `/board` UI 프로토타입 (목업 데이터)
 - 🌓 **다크 모드** — Navbar 토글 UI만 존재, 전역 테마 전환 미완성
 
@@ -70,20 +69,16 @@ formula1_Dashboard/
 ├── app/
 │   ├── layout.tsx                    # 루트 레이아웃 (Navbar, Footer)
 │   ├── globals.css                   # 전역 스타일
-│   ├── (site)/                       # 페이지 라우트
-│   │   ├── page.tsx                  # 홈
-│   │   ├── schedule/page.tsx         # 일정
-│   │   ├── standings/page.tsx        # 순위
-│   │   ├── driverChart/              # 드라이버 차트
-│   │   ├── board/page.tsx            # 커뮤니티
-│   │   └── news/page.tsx             # 뉴스 리다이렉트
-│   └── api/
-│       └── news/route.ts             # RSS 뉴스 API
+│   └── (site)/                       # 페이지 라우트
+│       ├── page.tsx                  # 홈
+│       ├── schedule/page.tsx         # 일정
+│       ├── standings/page.tsx        # 순위
+│       ├── driverChart/              # 드라이버 차트
+│       └── board/page.tsx            # 커뮤니티
 ├── components/
 │   ├── common/                       # 공통 컴포넌트
 │   │   ├── navbar/Navbar.tsx
 │   │   ├── footer/Footer.tsx
-│   │   ├── newsSection/NewsSection.tsx
 │   │   ├── layoutFormat/LayoutFormat.tsx
 │   │   └── notFound/NotFound.tsx
 │   ├── homePage/                     # 홈
@@ -148,7 +143,7 @@ formula1_Dashboard/
 
 ### Phase 11–14: 추가 기능
 
-- 뉴스 RSS 파싱 및 `/api/news` Route Handler (`NewsSection`, `newsParser`)
+- 뉴스 RSS 파싱 (`newsParser`)
 - 드라이버 성적 차트 페이지 (`/driverChart`, Recharts)
 - 일정·순위 독립 페이지 분리 (`/schedule`, `/standings`)
 - 커뮤니티 게시판 UI 프로토타입 (`/board`)
